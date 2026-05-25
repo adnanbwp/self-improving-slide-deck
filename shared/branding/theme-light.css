@@ -1,0 +1,31 @@
+/* ==========================================================
+   theme-light.css — Warm Light (C)
+   Cream base (#faf7f2), amber accent (#b45309).
+   Default theme for AI & Kids deck.
+   ========================================================== */
+@import './base.css';
+
+:root {
+  --bg:           #faf7f2;
+  --text-primary: #1c1917;
+  --text-muted:   #78716c;
+  --accent:       #b45309;
+  --divider:      rgba(180, 83, 9, 0.25);
+}
+
+.reveal-viewport { background: var(--bg); }
+
+.reveal                     { color: var(--text-primary); }
+.reveal h1, .reveal h2      { color: var(--text-primary); }
+.reveal h3                  { color: var(--text-primary); }
+.reveal p, .reveal li       { color: var(--text-primary); }
+
+.section-label              { color: var(--accent); }
+.deck-label                 { color: var(--text-muted); }
+.page-num                   { color: var(--text-muted); }
+.slide-rule                 { background: var(--accent); }
+
+.slide-header               { border-bottom: 1px solid var(--divider); }
+
+.reveal a                   { color: var(--accent); text-decoration: underline; }
+.reveal a:hover             { opacity: 0.8; }

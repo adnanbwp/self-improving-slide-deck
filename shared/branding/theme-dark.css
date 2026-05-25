@@ -1,0 +1,31 @@
+/* ==========================================================
+   theme-dark.css — Editorial Dark (A1)
+   Warm charcoal base (#1a1614), amber accent (#c97d2a).
+   Default theme for most decks.
+   ========================================================== */
+@import './base.css';
+
+:root {
+  --bg:           #1a1614;
+  --text-primary: #f5ede3;
+  --text-muted:   #6b5a47;
+  --accent:       #c97d2a;
+  --divider:      rgba(201, 125, 42, 0.35);
+}
+
+.reveal-viewport { background: var(--bg); }
+
+.reveal                     { color: var(--text-primary); }
+.reveal h1, .reveal h2      { color: var(--text-primary); }
+.reveal h3                  { color: var(--text-primary); }
+.reveal p, .reveal li       { color: var(--text-primary); }
+
+.section-label              { color: var(--accent); }
+.deck-label                 { color: var(--text-muted); }
+.page-num                   { color: var(--text-muted); }
+.slide-rule                 { background: var(--accent); }
+
+.slide-header               { border-bottom: 1px solid var(--divider); }
+
+.reveal a                   { color: var(--accent); text-decoration: underline; }
+.reveal a:hover             { opacity: 0.8; }
