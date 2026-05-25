@@ -6,6 +6,37 @@ Each entry is written by the specialist who owns the decision and is included in
 
 ---
 
+### 2026-05-26 — Design and presentation feedback (Adnan)
+
+Status: Open
+
+**Score from Adnan:** Research and brief 8/10. Presentation, design, and delivery 4/10.
+
+**Core critique:** The v1.0.0 deck reads as a document, not a presentation. Slides are text-heavy and verbose. The layout is monotonous. The 5-actions slide clips content at 50% zoom. Data-as-large-font (canonical) is the right direction but insufficient. The deck does not create the visual engagement needed for a live presentation — it looks like something to send someone to read, not something to present.
+
+**Specific issues flagged:**
+
+1. Copy verbosity — slides carry too much text. Humanizer removes AI language patterns but does not solve document-style writing. Copy needs to be rewritten for visual delivery: shorter, punchier, with data as the centrepiece.
+2. Layout and placement — overall placement not well executed. 5-actions slide clips before slide 4 at 50% zoom.
+3. No images — deck has no visual support for its claims. A dedicated image capability (Fal.ai + Image Prompt Specialist) is needed before the next production cycle.
+4. Humanizer enforcement — humanizer was not verified as actually run on v1.0.0. Must be a hard gate with Larry verification on all future cycles.
+
+**Infrastructure gaps identified:**
+
+- Coda needs screenshot/playwright capability to see slides as they are built. Currently producing blindly.
+- Pax needs vault search access for aa2brain (`/mnt/c/Users/adnan/Google Drive/aa2brain`). Current text-based search missed key material.
+
+**Decisions made:**
+
+- Redesign of v1.0.0 is deferred until Fal.ai integration, Image Prompt Specialist hire, Coda screenshot tooling, and Pax vault access are all in place.
+- Next production cycle will use impeccable/frontend-slides for design, screenshots for Coda feedback loop, and images generated via Fal.ai.
+- Deck philosophy going forward: slides are a visual aid for a live presenter, not a document. Research brief is the reading artefact. Deck is the performance artefact. Max ~30 words body text per slide. One visual focal point per slide required.
+- Articles based on the research brief can be published as reading addenda — the deck itself is not for reading.
+
+<!-- Add new entries above this line, newest first -->
+
+---
+
 ### 2026-05-25 — Re-audit after supplement (Rex)
 
 Status: Closed
