@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DECK_TITLE — AUTHOR_NAME</title>
+
+  <!--
+    PATH NOTE: This template is deployed at decks/<slug>/versions/v<N>/canonical.html
+    All paths below are relative to that deployed location.
+    shared/ lives three levels up: ../../../shared/
+  -->
+  <link rel="stylesheet" href="../../../shared/lib/reset.css">
+  <link rel="stylesheet" href="../../../shared/lib/reveal.css">
+
+  <!-- Theme: swap theme-light.css for theme-dark.css per deck -->
+  <link rel="stylesheet" href="../../../shared/branding/theme-light.css">
+
+  <!-- Per-deck overrides (empty file on first production; Coda adds deck-specific values) -->
+  <link rel="stylesheet" href="../../theme/DECK_SLUG.css">
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ═══════════════════════════════════════════════
+         TITLE SLIDE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">DECK_LABEL</span>
+        <span class="deck-label">AUTHOR_NAME</span>
+      </div>
+
+      <span class="section-label">FRAMING_PHRASE</span>
+      <h1>DECK_TITLE</h1>
+      <hr class="slide-rule">
+
+      <div class="slide-footer">
+        <span class="page-num">1</span>
+        <span class="deck-label">DECK_LABEL</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         CONTENT SLIDE — single column
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">SECTION_NAME</span>
+        <span class="deck-label">AUTHOR_NAME</span>
+      </div>
+
+      <span class="section-label">SECTION_NAME</span>
+      <h2>SLIDE_TITLE</h2>
+      <p>SLIDE_BODY</p>
+
+      <div class="slide-footer">
+        <span class="page-num">N</span>
+        <span class="deck-label">DECK_LABEL</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         CONTENT SLIDE — editorial grid (content + margin)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">SECTION_NAME</span>
+        <span class="deck-label">AUTHOR_NAME</span>
+      </div>
+
+      <div class="slide-grid">
+        <div>
+          <span class="section-label">SECTION_NAME</span>
+          <h2>SLIDE_TITLE</h2>
+          <p>SLIDE_BODY</p>
+        </div>
+        <div>
+          <!-- Margin column: pull quote, stat, or source citation -->
+          <p style="font-size: var(--text-sm); color: var(--text-muted); font-style: italic;">MARGIN_NOTE</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">N</span>
+        <span class="deck-label">DECK_LABEL</span>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         REFERENCE SLIDE — for live deep-dive
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Reference</span>
+        <span class="deck-label">AUTHOR_NAME</span>
+      </div>
+
+      <span class="section-label">Reference</span>
+      <h3>SOURCE_TITLE</h3>
+      <p>SOURCE_SUMMARY</p>
+      <p style="font-size: var(--text-sm); color: var(--text-muted);">SOURCE_CITATION</p>
+
+      <div class="slide-footer">
+        <span class="page-num">R</span>
+        <span class="deck-label">DECK_LABEL</span>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="../../../shared/lib/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: false,
+    center: false,
+    slideNumber: false,
+    transition: 'none',
+    transitionSpeed: 'fast',
+  });
+</script>
+</body>
+</html>
