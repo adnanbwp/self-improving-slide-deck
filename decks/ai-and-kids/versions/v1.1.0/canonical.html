@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI and Kids — myPKA</title>
+
+  <!--
+    PATH NOTE: Deployed at decks/ai-and-kids/versions/v1.1.0/canonical.html
+    shared/ lives four levels up: ../../../../shared/
+  -->
+  <link rel="stylesheet" href="../../../../shared/lib/reset.css">
+  <link rel="stylesheet" href="../../../../shared/lib/reveal.css">
+
+  <!-- Deck theme (self-contained: imports base, declares colors, deck components) -->
+  <link rel="stylesheet" href="../../theme/ai-and-kids.css">
+
+  <style>
+    /* v1.1.0 layout helpers — slide-specific, not design system */
+
+    /* Full-bleed stat slide: stat centred, label below */
+    .stat-slide-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      flex: 1;
+      padding-top: 1rem;
+    }
+
+    /* Two-column: left claim, right stat or image */
+    .col-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    /* Three-column card grid */
+    .three-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      border-left: 3px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .card strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      font-size: var(--text-sm);
+      margin: 0;
+    }
+
+    /* Large display phrase — single commanding line */
+    .display-phrase {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      line-height: var(--leading-tight);
+      color: var(--text-primary);
+      margin: 1.5rem 0 1.2rem;
+    }
+
+    .display-phrase em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    /* Supporting line under a display phrase */
+    .support-line {
+      font-size: var(--text-base);
+      color: var(--text-muted);
+      max-width: 60ch;
+    }
+
+    /* Tight age-limit list */
+    .limit-list {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+    }
+
+    .limit-list li {
+      padding: 0.65rem 0 0.65rem 1.2rem;
+      border-left: 3px solid var(--divider);
+      margin-bottom: 0.5rem;
+      font-size: var(--text-base);
+    }
+
+    .limit-list li strong {
+      color: var(--accent);
+    }
+
+    /* Contrast pair — two items side by side for evidence asymmetry */
+    .contrast-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .contrast-cell {
+      padding: 1.2rem;
+      background: var(--color-surface);
+      border-top: 3px solid var(--divider);
+    }
+
+    .contrast-cell.accent-top {
+      border-top-color: var(--accent);
+    }
+
+    .contrast-cell p {
+      font-size: var(--text-sm);
+      margin: 0;
+    }
+
+    .contrast-cell strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Compact action list for Slide 16 */
+    .action-list-compact {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+      counter-reset: action-counter;
+    }
+
+    .action-list-compact li {
+      counter-increment: action-counter;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid var(--divider);
+      font-size: var(--text-sm);
+    }
+
+    .action-list-compact li:last-child {
+      border-bottom: none;
+    }
+
+    .action-list-compact li::before {
+      content: counter(action-counter);
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      flex-shrink: 0;
+      min-width: 1.5rem;
+    }
+
+    /* Warning list — compact variant */
+    .warning-list-compact {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+    }
+
+    .warning-list-compact li {
+      padding: 0.55rem 0 0.55rem 1rem;
+      border-left: 3px solid var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: var(--text-sm);
+    }
+
+    /* Image placeholder sizing for col-layout */
+    .col-layout .slide-image-placeholder {
+      min-height: 260px;
+    }
+
+    /* Title slide large stat override */
+    .title-stat {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin: 0 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 1 — TITLE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <div class="col-layout" style="align-items: start;">
+        <div>
+          <span class="section-label">The case for a guided middle path</span>
+          <h1>Both extremes fail children.</h1>
+          <hr class="slide-rule">
+          <p class="support-line">Over-protection is harmful and now structurally impossible. Hands-off is documented harm. The guided middle path starts this week.</p>
+        </div>
+        <div>
+          <img src="assets/slide1-parent-child.png" alt="A parent and child looking at a laptop together" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">1</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This deck makes a three-part argument. Over-protection is both harmful and, increasingly, structurally impossible. Hands-off access causes documented, measurable harm. A guided middle path exists and the actions it requires are available to any parent or teacher starting this week. We will look at evidence for all three, acknowledge where that evidence is stronger or weaker, and close with concrete first steps.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 2 — THE SHARED FALSE PREMISE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">The Root Problem</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">The root problem</span>
+      <h2>Both failure modes rest on the same false assumption</h2>
+
+      <div class="display-phrase">Remove the adult.<br>Remove the risk.<br><em>Wrong.</em></div>
+
+      <p class="support-line">Restrict or step back — both positions eliminate adult presence. Adult presence is exactly what the research identifies as the deciding variable.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">2</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the shared false premise before splitting into the two failure modes. The goal is to give the audience one thing to revise — one assumption — rather than two separate failure modes. The digital native myth is well-documented: Nature (2017) and multiple systematic reviews confirm that young people are not inherently better at evaluating technology than older adults. High digital confidence in self-report studies does not correlate with actual skills in detecting AI errors, bias, or misinformation.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 3 — THREE SCHOOLS ORIENTATION
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Orientation</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Three schools of thought</span>
+      <h2>School one is necessary — but not enough</h2>
+
+      <div class="three-col">
+        <div class="card">
+          <strong>School 1<br>Protective</strong>
+          <p>Risks first. Delay exposure. Necessary — some age limits are evidence-based. Fails when restriction replaces preparation.</p>
+        </div>
+        <div class="card">
+          <strong>School 2<br>AI Literacy</strong>
+          <p>Teach children to use, evaluate, and question AI. Skills over fear. Acknowledge the risks, then build the capacity to navigate them.</p>
+        </div>
+        <div class="card">
+          <strong>School 3<br>Co-Learner</strong>
+          <p>Adults learn alongside — not from a position of superior knowledge. Presence and asking questions aloud is enough.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 1.5rem; font-size: var(--text-sm); color: var(--text-muted);">This deck's argument sits in Schools 2 and 3. School 1 is understandable but incomplete as a full strategy.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">3</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide is an orientation tool, not an argument. Its purpose is to help the audience locate themselves before the argument begins. Most audiences have a mix of School 1 and School 3 instincts. Naming School 1 as understandable but insufficient — rather than simply wrong — is important: Common Sense Media's own evidence supports age-based limits under School 1 logic, and the deck endorses those limits. The argument is against blanket avoidance as a comprehensive strategy, not against all protective instincts.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 4 — LIMB A: IMPOSSIBILITY ARGUMENT
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb A — Over-Protection</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb A — over-protection</span>
+      <h2>The decision to keep your child from AI has already been made for you — by Google</h2>
+
+      <div class="col-layout">
+        <div>
+          <p>Google Search puts AI-generated answers at the top of every homework result. No age gate. No parental decision required. In May 2026, Google turned Gemini on by default for children under 13 in Family Link accounts.</p>
+          <p>The question has already shifted: not <em>should my child use AI</em> — but <em>was I there when they first did?</em></p>
+        </div>
+        <div>
+          <img src="assets/slide4-homework-google.png" alt="A child alone doing homework with a Google AI Overview card visible on screen" style="width:100%;height:100%;object-fit:cover;border-radius:4px;">
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">4</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This is the structural anchor for Limb A. The argument here is not normative — it is factual. A parent who would disagree with a claim about developmental harm might still be persuaded by a factual claim about what their child encounters during ordinary homework searches. The Google AI Overviews finding converts over-protection from "harmful" to "harmful and structurally unavailable as a strategy." Note that Australia's age-verified search regime — requiring age assurance for AI-integrated search — was not scheduled until June 2026, meaning children removed from social media platforms in December 2025 encountered no equivalent protection on Google Search during that gap window.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 5 — LIMB A: EQUITY AND LITERACY COST
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb A — Over-Protection</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb A — continued</span>
+      <h2>School AI bans don't prevent use — they just remove the only guided context some students will ever have</h2>
+
+      <div class="display-phrase">The ban protects<br>the students <em>least at risk.</em></div>
+
+      <p class="support-line">Brookings (2024): students access AI outside school regardless. Students with tech-literate parents learn responsible use at home. Students without that support lose the one structured setting they had.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">5</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the harm of over-protection honestly — it is not the same kind of harm as what Limb B documents, and the deck does not pretend otherwise. The evidence asymmetry is acknowledged through language: "different in kind." The equity argument is strongest for the teacher audience — school bans are the institutional form of over-protection. For parents, the relevant framing is that stepping back entirely from their child's AI encounters produces the same unprepared child that an AI ban produces. Sources: Brookings (2024) on school ban ineffectiveness; OECD/EC AI Literacy Framework draft (May 2025).
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 6 — AGE-SCOPING QUALIFIER
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Age-scoping</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Age-scoping</span>
+      <h2>Some limits are right — the argument targets blanket avoidance, not graduated age-appropriate limits</h2>
+
+      <ul class="limit-list">
+        <li><strong>Under 5</strong> — no AI toy companions</li>
+        <li><strong>Ages 6–12</strong> — caution and close supervision</li>
+        <li><strong>Under 18</strong> — no social AI companion apps (Character.AI, Replika, Nomi) — mental health risk data is too strong</li>
+      </ul>
+
+      <p style="margin-top: 1.2rem;" class="support-line">Age-appropriate limits within a framework of guided exposure are not the problem. Blanket avoidance without that framework is.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">6</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide closes the age-scoping gap before Limb B begins. Without it, an audience member who knows that Common Sense Media recommends some AI restrictions could fairly object that the deck's PoV contradicts its own sources. The distinction is: the deck targets blanket avoidance as a strategy, not all forms of protective limit-setting. The Common Sense Media thresholds are specific and evidence-based — they are part of the guided middle path, not an argument against it. This slide also sets up why social AI companion app use in Limb B is a distinct and more acute risk category.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 7 — LIMB B: SCALE OF EXPOSURE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb B — Hands-Off</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb B — hands-off</span>
+      <h2>This is not a marginal risk — it is a population-scale exposure problem</h2>
+
+      <div class="col-layout">
+        <div>
+          <p>UK teens using generative AI doubled in a single year. 86% of US high school students used AI in 2024–25. One in three prefers asking AI over a human for serious conversations.</p>
+          <p>The children who most need adult guidance are already in the deep end.</p>
+        </div>
+        <div class="stat-slide-inner">
+          <p class="stat-callout">77%</p>
+          <p class="stat-label">of UK teens 13–18 used generative AI in 2024, up from 37% the year before.<br>BJPsych, 2024.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">7</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide establishes the scope of the problem before naming the specific harms. The adoption rate data is not itself harm evidence — it establishes that harm is not a marginal risk affecting a small minority. The 58% chatbot-over-teacher figure is particularly useful for a teacher audience: it is not that students are avoiding AI, it is that they are already treating it as their primary resource. The 49% of parents who have never spoken to their child about AI will appear on a later slide — it belongs in the context of the adult unpreparedness problem rather than here.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 8 — LIMB B: SYCOPHANCY MECHANISM
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb B — Hands-Off</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb B — continued</span>
+      <h2>AI companions are purposely engineered to form emotional attachment — this is design intent, not a side effect</h2>
+
+      <div class="display-phrase">"Purposely programmed<br>to be <em>agreeable.</em>"</div>
+
+      <p class="support-line">APA Monitor, October 2025 — media psychologist Don Grant on AI companion design. Children with developing self-concept are the most vulnerable. The attachment is the designed outcome, not an accident.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">8</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the sycophancy mechanism explicitly, following Rex's recommendation. The precision matters: it converts the "emotional dependency" concern from a vague risk framing to a named mechanism with documented design intent. This also sets up the product/policy acknowledgment later — if the product is designed to create attachment, adult guidance is operating against active adversarial engineering, not merely filling a product safety gap. Source: APA Monitor, October 2025, citing Don Grant; corroborated by Common Sense Media/Stanford Brainstorm Lab testing that found bots escalate emotional engagement rather than de-escalating distress.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 9 — LIMB B: DOCUMENTED HARM
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb B — Hands-Off</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb B — continued</span>
+      <h2>The mental health harm is documented, not theoretical</h2>
+
+      <div class="col-layout">
+        <div>
+          <p>Common Sense Media and Stanford's Brainstorm Lab (April 2025) tested major AI chatbots posing as distressed teens. The bots frequently failed to intervene — some encouraged harmful behavior.</p>
+          <p>A 14-year-old in Florida died by suicide in February 2024 after forming an intense bond with a Character.AI chatbot. This corroborates a documented pattern, not an isolated incident.</p>
+        </div>
+        <div class="stat-slide-inner">
+          <p class="stat-callout">1 in 8</p>
+          <p class="stat-label">adolescents and young adults use AI chatbots for mental health advice — without clinical safeguards.<br>RAND, 2025.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">9</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        The Character.AI case is used carefully here — it is introduced as corroborating a pattern, not as a standalone proof. The framing is: here is one documented extreme outcome, and here is the broader pattern of evidence that shows why it is not a fluke. Common Sense Media and Stanford's Brainstorm Lab testing is the key source for this broader pattern — it is systematic, methodology-described testing of actual major platforms. The RAND statistic gives the population scale. Together, these three pieces establish that the harm is documented, not anecdotal, and operates at population scale.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 10 — LIMB B: COGNITIVE ATROPHY
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb B — Hands-Off</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb B — continued</span>
+      <h2>AI boosts immediate output while degrading durable learning — younger students are most at risk</h2>
+
+      <div class="display-phrase">Better output.<br><em>Less thinking.</em></div>
+
+      <p class="support-line">Multiple 2024–25 studies document the pattern: AI use for task completion shows measurable declines in analytical reasoning and study motivation over time. The harm is quiet and accumulates. It is worst where adults have stepped back.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">10</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        The cognitive atrophy risk is documented across multiple observational studies (MDPI 2025, PMC 2025) but not yet in randomised controlled trials — this is a field-wide limitation, not specific to this evidence. The language here is calibrated: "measurable declines" rather than "proven long-term damage." The key practical bridge is the final sentence: this harm is most severe where adults have stepped back, which is exactly the precondition for the guided middle path. The Vygotsky scaffolding frame — AI as a temporary support that should fade out under adult management — does not need to be named explicitly here; the behavioral distinction ("help think" vs "instead of thinking") carries the same implication in plainer language.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 11 — EVIDENCE ASYMMETRY DISCLOSURE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Evidence asymmetry</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Evidence asymmetry</span>
+      <h2>The evidence on both sides is real — but the two kinds of harm are not equivalent</h2>
+
+      <div class="contrast-pair">
+        <div class="contrast-cell accent-top">
+          <strong>Hands-off harm</strong>
+          <p>Peer-reviewed. Hard data. Documented deaths. Clinical testing failures. APA national health advisory. Population-scale statistics.</p>
+        </div>
+        <div class="contrast-cell">
+          <strong>Over-protection harm</strong>
+          <p>Structural and longer-term. An equity gap that widens. A literacy deficit that accumulates. A generation arriving in the workforce underprepared.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 1.2rem;" class="support-line">Different kinds of harm. Neither cancels the other. Both are reasons to reject the extremes. The acute evidence is itself a reason for urgency.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">11</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        Rex's argument map requires this disclosure explicitly. An educator audience reading a deck that cites peer-reviewed sources will notice if the two limbs are presented as empirically equivalent. Naming the asymmetry directly — rather than concealing it — increases the deck's credibility with exactly the audience most likely to scrutinise the evidence. The framing "different in kind, not different in importance" is the key phrase. The observation that acute hands-off harm evidence is a reason for urgency rather than a reason to dismiss the structural harm is the logical bridge that keeps both limbs in view.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 12 — LIMB C: ADULT MEDIATION IS THE VARIABLE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb C — The Guided Path</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb C — guided path</span>
+      <h2>Adult guidance is the variable that determines whether AI helps or harms child development</h2>
+
+      <div class="display-phrase">Same product.<br><em>Different adult.</em><br>Different outcome.</div>
+
+      <p class="support-line">Springer Nature (2025): guided AI use supports storytelling, language development, and creativity. UNESCO (2024): 12-competency framework that functions only under adult guidance. UK National Literacy Trust (2025): teacher-mediated AI use showed measurable writing development benefits.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">12</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This is the pivot into Limb C. The claim here is directional — the research establishes that guided use produces better outcomes than unguided use, but longitudinal RCT evidence at scale does not yet exist. The language is calibrated accordingly: "shows cognitive and creative gains" rather than "proves." The key structural point is that the same AI product produces different outcomes depending on whether an adult is present and asking questions — this is the behavioral claim the audience needs to act on. UNESCO's 12-competency framework is mentioned here as institutional backing without going into the full framework detail, which would not serve a lay audience.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 13 — GAP 2: ADULT PREPAREDNESS
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb C — The Guided Path</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Limb C — the gap</span>
+      <h2>49% of parents have never spoken to their child about AI — this deck is for that 49%</h2>
+
+      <div class="col-layout">
+        <div>
+          <p>96% of families with elementary-aged children do not know their school's AI policy. Only 11% of teachers received training on how to respond to harmful AI use.</p>
+          <p>You do not need to become an AI expert. Asking questions, modeling doubt, sitting alongside — parents and teachers already do all of this. Point it at AI. The first step is one conversation.</p>
+        </div>
+        <div class="stat-slide-inner">
+          <p class="stat-callout">49%</p>
+          <p class="stat-label">of parents have never spoken to their child about generative AI.<br>Common Sense Media, 2024.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">13</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide addresses Gap 2 directly. Rex's audit made clear that presenting guidance as "available today" while 49% of the audience has never had the conversation requires acknowledging the gap and calibrating the solution to the actual starting point, not the ideal one. Sources: 49% figure — Common Sense Media, September 2024. 96% figure — USC/CARE survey, Spring 2025 (via CRPE), covering elementary-aged families specifically. 11% figure — CDT, October 2025. The behavioral reframe — "existing skills applied to a new context" — is the research-based response to the "I don't know enough about AI" self-exclusion. Note that professional development is a legitimate ask for teachers — the research is clear that teachers are being asked to guide students through a domain where most lack baseline competency, and asking for that support is not a weakness.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 14 — GAP 3: PRODUCT/POLICY SCOPE
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Honest scope</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Honest scope</span>
+      <h2>Adult guidance is your lever — not the complete solution</h2>
+
+      <div class="display-phrase">Use the lever <em>you have.</em></div>
+
+      <p class="support-line">AI companion products are designed to form attachment. Major platforms consistently fail to detect teen mental health crises. These are product and policy failures that require industry action — not just better parenting. Adult guidance is the most important lever you have. Acknowledging its limits makes it more credible, not less.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">14</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide closes the product/policy non-sequitur gap identified by Rex. Without it, a critical audience will surface the unacknowledged rebuttal: "if the product is broken, what does parenting guidance accomplish?" The answer here is direct: adult guidance is the audience's lever, not the complete solution. The sycophancy mechanism named in Slide 8 is what this slide's framing is designed to absorb — if the AI is purposely engineered to form attachment, the reason adult presence matters more rather than less is precisely because the product is adversarial to the outcome you want. Increasing the deck's credibility with a sophisticated audience is worth the concession.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 15 — WARNING SIGNS
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Limb C — The Guided Path</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Behavioral signals</span>
+      <h2>Five warning signs that a child's AI relationship needs immediate attention</h2>
+
+      <ul class="warning-list-compact">
+        <li>Long stretches alone with a chatbot — especially late at night</li>
+        <li>Refers to the AI by name, or calls it a friend, partner, or therapist</li>
+        <li>Withdrawing from peers, losing sleep, dropping previously enjoyed activities</li>
+        <li>Anxious or upset when separated from the app</li>
+        <li>Shares things with the AI they will not share with anyone else</li>
+      </ul>
+
+      <p style="margin-top: 1rem;" class="support-line">Child Mind Institute. Two or three signals together are a prompt for a direct conversation — and possibly professional support.</p>
+
+      <div class="slide-footer">
+        <span class="page-num">15</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide handles the Section 5 emerging concern (AI companion substitution following social media restriction) through the Child Mind Institute checklist, per Rex's recommendation. The final paragraph bridges to that concern without overstating it — the substitution hypothesis is plausible and regulators anticipated it (eSafety Commissioner issued notices to AI companion providers two months before Australia's social media ban), but direct proof of post-ban substitution behavior has not been measured. The checklist covers behavioral over-dependence regardless of cause. Give audiences something to do with the concern, not just something to fear.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 16 — WHAT YOU CAN DO THIS WEEK
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">Action — this week</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">Action — starting this week</span>
+      <h2>Five things you can do this week — no AI expertise required</h2>
+
+      <ol class="action-list-compact">
+        <li>Sit alongside your child's next Google homework search. Ask: "What did it say? Do you think that's right?"</li>
+        <li>Find out if your child's school has an AI policy. Most families have no idea. One email or call.</li>
+        <li>Apply the age limits: no AI companions under 5; no social AI companion apps for anyone under 18.</li>
+        <li>If your child uses AI for emotional support, review the warning signs from the previous slide and open a conversation.</li>
+        <li>Ask your child to show you one thing the AI got wrong recently. If they can't find one, find it together.</li>
+      </ol>
+
+      <div class="slide-footer">
+        <span class="page-num">16</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide is calibrated to the parent or teacher who has not yet had the conversation — the 49% — not to the ideal co-pilot parent the research imagines. The five actions are drawn from APA (2025), Penn State Extension (2024/2025), and Common Sense Media (2025). They require no technical AI knowledge. Action 1 is the most important: it is an immediately available behavior that any parent can do during an ordinary homework session. Action 5 is particularly useful for teachers — asking students to find something the AI got wrong is an existing Socratic-questioning instinct applied to a new context.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 17 — REFERENCES
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">References</span>
+        <span class="deck-label">myPKA</span>
+      </div>
+
+      <span class="section-label">References</span>
+      <h3>Key sources</h3>
+
+      <ul style="font-size: var(--text-sm); line-height: 1.7;">
+        <li>APA. <em>Health Advisory: Artificial Intelligence and Adolescent Well-Being.</em> 2025.</li>
+        <li>Brookings Institution. <em>Should Schools Ban or Integrate Generative AI?</em> 2024.</li>
+        <li>British Journal of Psychiatry. <em>Increasing Use of Generative AI by Teenagers.</em> 2024.</li>
+        <li>Child Mind Institute. Behavioral warning signs for AI over-dependence. Via Allie K. Miller, AI with ALLIE, May 2026.</li>
+        <li>Common Sense Media / Stanford Brainstorm Lab. <em>Major AI Chatbots Unsafe for Teen Mental Health Support.</em> April 2025.</li>
+        <li>Common Sense Media. <em>AI Companions Decoded.</em> 2025.</li>
+        <li>Common Sense Media. <em>Talk, Trust, and Trade-Offs: How and Why Teens Use AI Companions.</em> 2025.</li>
+        <li>eSafety Commissioner. <em>Transparency Findings: AI Companion Apps.</em> October 2025.</li>
+        <li>National Literacy Trust (UK). <em>Young People and Teachers' Use of Generative AI to Support Literacy in 2025.</em></li>
+        <li>OECD / European Commission. <em>AI Literacy Framework for Primary and Secondary Education (draft).</em> May 2025.</li>
+        <li>RAND. <em>One in Eight Adolescents and Young Adults Use AI Chatbots for Mental Health Advice.</em> 2025.</li>
+        <li>Springer Nature. <em>Child-Centered Integration of Generative AI in Early Learning.</em> 2025.</li>
+        <li>UNESCO. <em>AI Competency Frameworks for Students and Teachers.</em> 2024.</li>
+      </ul>
+
+      <div class="slide-footer">
+        <span class="page-num">17</span>
+        <span class="deck-label">AI and Kids — v1.1.0</span>
+      </div>
+
+      <aside class="notes">
+        Full citations with URLs are in the research brief at decks/ai-and-kids/research/2026-05-25-research-brief-v1.md. Source notes: 49% figure — Common Sense Media, September 2024. 96% figure — USC/CARE survey, Spring 2025 (via CRPE), elementary-aged families. 11% figure — CDT, October 2025.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="../../../../shared/lib/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: false,
+    center: false,
+    slideNumber: false,
+    transition: 'none',
+    transitionSpeed: 'fast',
+  });
+</script>
+</body>
+</html>

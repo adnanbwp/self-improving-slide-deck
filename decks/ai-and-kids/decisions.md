@@ -6,6 +6,28 @@ Each entry is written by the specialist who owns the decision and is included in
 
 ---
 
+### 2026-05-26 — Slide 1 title clarity (Adnan)
+
+Status: Open
+
+**Feedback:** Slide 1 v1.1.0 does not communicate the PoV clearly enough for a live audience. "Both extremes fail children" signals that two things are wrong but does not tell the audience what they are here to discuss or why it matters to them personally. The spiky PoV must be in their face and clear from the first slide — the audience should immediately know the claim being made and feel its relevance to them.
+
+**Decision:** Address in the next improvement pass. Slide 1 needs a redesign that leads with the PoV claim itself — not a summary of the argument structure, but the provocative position the audience is about to confront. Consider foregrounding the tension ("You've already lost the battle to keep AI away — now what?") or the stakes ("The way most parents are handling AI right now is harming their children"). The image and layout structure from v1.1.0 can be retained; the headline and support copy need rewriting.
+
+---
+
+### 2026-05-26 — CSS theme architecture (Adnan)
+
+Status: Closed
+
+**Feedback:** The shared theme CSS files (`theme-light.css`, `theme-dark.css`) create coupling between decks and the shared layer. When impeccable runs a design pass on a deck, it should be able to customize the full presentation layer without touching shared files. The current architecture means all decks inherit the same colors and any per-deck customization lives in a thin override file.
+
+**Decision:** Each deck's theme CSS file is now self-contained — it imports `shared/branding/base.css` (type scale, layout primitives, font imports only) and declares its own color tokens. `theme-light.css` and `theme-dark.css` in `shared/branding/` remain as reference templates for new decks but are no longer linked directly from HTML. New decks copy the token block from the template into their own theme file and customize from there. Impeccable edits the deck's own theme file; the shared layer is never touched during a deck design pass.
+
+Implemented in `decks/ai-and-kids/theme/ai-and-kids.css` as of v1.1.0.
+
+---
+
 ### 2026-05-26 — Design and presentation feedback (Adnan)
 
 Status: Open

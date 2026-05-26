@@ -1,16 +1,18 @@
 /* ==========================================================
-   theme-light.css — Warm Light (C)
-   Cream base (#faf7f2), amber accent (#b45309).
-   Default theme for AI & Kids deck.
+   theme-light.css — Clean Light
+   Near-white ground (oklch 98%), jade accent (oklch 40% 158°).
+   For bright rooms or printed handouts.
    ========================================================== */
 @import './base.css';
 
 :root {
-  --bg:           #faf7f2;
-  --text-primary: #1c1917;
-  --text-muted:   #78716c;
-  --accent:       #b45309;
-  --divider:      rgba(180, 83, 9, 0.25);
+  --bg:              oklch(98% 0.004 78);
+  --color-surface:   oklch(94% 0.006 78);
+  --text-primary:    oklch(15% 0.010 258);
+  --text-muted:      oklch(48% 0.008 258);
+  --accent:          oklch(40% 0.14 158);
+  --accent-dim:      oklch(90% 0.06 158);
+  --divider:         oklch(82% 0.005 78);
 }
 
 .reveal-viewport { background: var(--bg); }

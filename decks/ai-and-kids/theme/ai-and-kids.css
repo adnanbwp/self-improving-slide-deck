@@ -1,11 +1,50 @@
 /* ==========================================================
-   ai-and-kids.css — per-deck overrides
-   Applied on top of theme-light.css.
-   Keep minimal: only what the base theme does not cover.
+   ai-and-kids.css — full deck theme (self-contained)
+
+   Architecture: this file is the single CSS entry point for
+   every ai-and-kids HTML file. It imports shared/branding/base.css
+   (type scale, layout primitives, fonts) then declares this deck's
+   color tokens. theme-light.css / theme-dark.css in shared/ are
+   reference templates only — do not link them from HTML.
+
+   To run impeccable on this deck: edit this file only.
    ========================================================== */
 
-/* Stat callout — a single large number used as a pull quote */
-.stat-callout {
+@import '../../../shared/branding/base.css';
+
+/* --- Color tokens (light theme — presentation default for this deck) --- */
+
+:root {
+  --bg:              oklch(98% 0.004 78);
+  --color-surface:   oklch(94% 0.006 78);
+  --text-primary:    oklch(15% 0.010 258);
+  --text-muted:      oklch(48% 0.008 258);
+  --accent:          oklch(40% 0.14 158);
+  --accent-dim:      oklch(90% 0.06 158);
+  --divider:         oklch(82% 0.005 78);
+}
+
+.reveal-viewport { background: var(--bg); }
+
+.reveal                 { color: var(--text-primary); }
+.reveal h1,
+.reveal h2              { color: var(--text-primary); }
+.reveal h3              { color: var(--text-primary); }
+.reveal p, .reveal li   { color: var(--text-primary); }
+
+.section-label          { color: var(--accent); }
+.deck-label             { color: var(--text-muted); }
+.page-num               { color: var(--text-muted); }
+.slide-rule             { background: var(--accent); }
+.slide-header           { border-bottom: 1px solid var(--divider); }
+
+.reveal a               { color: var(--accent); text-decoration: underline; }
+.reveal a:hover         { opacity: 0.8; }
+
+/* --- Stat callout — a single large number used as a pull quote ---
+   .reveal prefix beats .reveal p specificity (0,1,1) in base.css */
+
+.reveal .stat-callout {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
   font-weight: 400;
@@ -14,14 +53,15 @@
   margin: 0 0 0.5rem;
 }
 
-.stat-label {
+.reveal .stat-label {
   font-size: var(--text-sm);
   color: var(--text-muted);
   letter-spacing: var(--tracking-wide);
   margin: 0;
 }
 
-/* Warning sign list — tighter spacing, left border accent */
+/* --- Warning sign list — tighter spacing, left border accent --- */
+
 .warning-list {
   list-style: none;
   margin: 0;
@@ -35,21 +75,22 @@
   font-size: var(--text-base);
 }
 
-/* Framing box — a contained call-out block */
-.framing-box {
-  border: 1px solid var(--divider);
-  border-left: 4px solid var(--accent);
-  padding: 1.2rem 1.4rem;
-  margin: 1rem 0;
-  background: rgba(180, 83, 9, 0.04);
+/* --- Image placeholder — Iris converts to real image brief --- */
+
+.slide-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface);
+  border: 2px dashed var(--divider);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  min-height: 120px;
 }
 
-.framing-box p {
-  margin: 0;
-  font-size: var(--text-base);
-}
+/* --- Action item list --- */
 
-/* Action item list */
 .action-list {
   list-style: none;
   margin: 0;
