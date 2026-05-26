@@ -7,11 +7,11 @@ Annotated entries: 8. Minimum for WS-006: 3. To add a new entry: create `<slug>/
 | Slug | Display name | Aesthetic register | Best-fit slide types |
 |---|---|---|---|
 | cobalt-grid | Cobalt Grid | Structured / Data-authority | Evidence, Stat, Chart / Graph, Comparison, Table of Contents, Process / Steps |
-| signal | Signal | Editorial / Magazine-authority | Statement, Quote, About Me, About / Vision, Split, Section Divider |
+| signal | Signal | Editorial / Magazine-authority | Statement, Quote, About Me, About / Vision, Split (text + image), Section Divider |
 | broadside | Broadside | Typographic Poster / High-provocation | Statement, Question / Hook, Title, Stat, Section Divider |
 | monochrome | Monochrome | Archival / Research-grade editorial | Evidence, Quote, About / Vision, Timeline, Process / Steps, Table of Contents, Statement, Title |
 | cartesian | Cartesian | Classical analytical / Architectural editorial | Chart / Graph, Timeline, Comparison, Process / Steps, Table of Contents, Evidence |
-| vellum | Vellum | Gallery / Literary dark-chromatic | Quote, About / Vision, About Me, Team / People, Split |
+| vellum | Vellum | Gallery / Literary dark-chromatic | Quote, About / Vision, About Me, Team / People, Split (text + image) |
 | bold-poster | Bold Poster | Brutalist editorial / High-impact print poster | Stat, Statement, Title |
 | studio | Studio | Design-agency / Brutalist typographic | Services / Offerings, Comparison, List, About Me, Gallery / Work Samples |
 
