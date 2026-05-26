@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Signal — Statement Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide: full viewport ─────────────────────────────────────── */
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    padding: 56px 96px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    overflow: hidden;
+  }
+
+  /* ── Signal 80px grid texture — dark slide fingerprint ─────────── */
+  /* Near-invisible, only sensed as structure */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(oklch(62% 0.14 158 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(62% 0.14 158 / 0.03) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ── Statement layout: chromeless — no top/bottom chrome bars ──── */
+  /* Signal statement slides suppress chrome to let the headline
+     breathe edge-to-edge. Only kicker + short rule + headline. */
+
+  .statement-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    grid-row: 1 / -1;  /* spans all three grid rows — fills the slide */
+  }
+
+  /* ── Kicker: mono uppercase in accent ──────────────────────────── */
+  .kicker {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── Short gold rule — Signal's kicker separator ───────────────── */
+  .rule {
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Main statement headline ────────────────────────────────────── */
+  /* Signal: Source Serif 4 h1 carries the statement.
+     Here adapted to Barlow Condensed for design-system compliance.
+     <em> tags render in italic + accent color — the "Signal moment". */
+  .headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+    max-width: 68%;
+  }
+
+  /* Signal moment: italic emphasis in accent — the editorial voice */
+  .headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="statement-body">
+    <!-- Kicker: sets editorial register -->
+    <div class="kicker">The argument</div>
+
+    <!-- Short accent rule — Signal's separator mark -->
+    <div class="rule"></div>
+
+    <!-- Statement: one bold claim, no supporting content.
+         <em> on the key phrase triggers the italic-accent Signal moment. -->
+    <h1 class="headline">
+      Both extremes are wrong.<br>
+      The middle is where <em>kids get hurt.</em>
+    </h1>
+  </div>
+
+</div>
+</body>
+</html>

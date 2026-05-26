@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cobalt Grid — Evidence Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage ──────────────────────────────────────────────── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* Graph-paper grid — Cobalt Grid signature; recoloured to accent at 5% */
+  .stage::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(to right,  oklch(62% 0.14 158 / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(62% 0.14 158 / 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ── Hairlines — top + bottom frame rules ────────────────────── */
+  .hairlines::before,
+  .hairlines::after {
+    content: '';
+    position: absolute;
+    left: 48px;
+    right: 48px;
+    height: 1px;
+    background: var(--divider);
+    z-index: 4;
+    pointer-events: none;
+  }
+  .hairlines::before { top: 28px; }
+  .hairlines::after  { bottom: 20px; }
+
+  /* ── Content frame — sits inside hairlines ───────────────────── */
+  .frame {
+    position: absolute;
+    inset: 76px 48px 100px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 24px;
+    z-index: 5;
+  }
+
+  /* ── Topbar — Cobalt Grid section-header pattern ─────────────── */
+  .topbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1.5px solid var(--divider);
+    padding-bottom: 14px;
+    gap: 24px;
+  }
+  .topbar .headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: clamp(38px, 4.5vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -0.005em;
+    color: var(--text-primary);
+  }
+  .topbar .lab-tag {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── Body — two-column: stat left, chart/meta right ─────────── */
+  .body {
+    display: grid;
+    grid-template-columns: 0.75fr 1.6fr;
+    gap: 48px;
+  }
+
+  /* ── Left column: dominant stat ─────────────────────────────── */
+  .col-a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(96px, 13vw, 180px);
+    line-height: 0.88;
+    letter-spacing: -0.015em;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-primary);
+    max-width: 26ch;
+  }
+
+  .stat-desc {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    max-width: 30ch;
+    margin-top: 4px;
+  }
+
+  /* ── Right column: pixel-stack chart ────────────────────────── */
+  /* Cobalt Grid pixel-stack bar chart: cells as columns, column-reverse
+     so .on cells fill from the baseline up */
+  .chart {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .bars {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    align-items: end;
+    height: 280px;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3px;
+    height: 100%;
+  }
+  .stack .cell {
+    flex: 1 1 0;
+    min-height: 6px;
+    background: oklch(62% 0.14 158 / 0.10);
+  }
+  .stack .cell.on {
+    background: var(--accent);
+  }
+
+  .ticks {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    border-top: 1.5px solid var(--divider);
+    padding-top: 8px;
+  }
+  .ticklab {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  /* Source citation below chart */
+  .source-line {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    border-top: 1px solid var(--divider);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  /* ── Page number ─────────────────────────────────────────────── */
+  .pagenum {
+    position: absolute;
+    right: 48px;
+    bottom: 36px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    z-index: 9;
+  }
+
+  /* ── Pixel-glitch column (right edge decoration) ─────────────── */
+  .pixel-glitch {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 0;   /* suppressed on evidence slide — stat takes priority */
+    bottom: 110px;
+    pointer-events: none;
+    z-index: 3;
+  }
+</style>
+</head>
+<body>
+<div class="stage hairlines">
+
+  <div class="frame">
+    <!-- Topbar: section header + lab tag -->
+    <div class="topbar">
+      <div class="headline">Teacher preparedness, by the numbers.</div>
+      <div class="lab-tag">AI in Education · OECD Survey 2024</div>
+    </div>
+
+    <!-- Body: dominant stat left, pixel-stack chart right -->
+    <div class="body">
+
+      <!-- Left: dominant stat -->
+      <div class="col-a">
+        <div class="stat-num">73%</div>
+        <div class="stat-label">of teachers have received no AI training</div>
+        <div class="stat-desc">Across 38 countries, fewer than one in three schools has a formal policy on AI tool use in the classroom.</div>
+      </div>
+
+      <!-- Right: pixel-stack chart — regional breakdown (illustrative) -->
+      <div class="chart">
+        <div class="bars">
+          <!-- OECD avg: 73% — 8 of 11 cells on -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- US: 68% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- UK: 71% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- AUS: 65% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- JPN: 81% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- KOR: 79% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div>
+          </div>
+          <!-- DEU: 77% -->
+          <div class="stack">
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div><div class="cell on"></div>
+            <div class="cell on"></div><div class="cell on"></div>
+            <div class="cell"></div><div class="cell"></div><div class="cell"></div>
+          </div>
+        </div>
+        <div class="ticks">
+          <div class="ticklab">OECD</div>
+          <div class="ticklab">US</div>
+          <div class="ticklab">UK</div>
+          <div class="ticklab">AUS</div>
+          <div class="ticklab">JPN</div>
+          <div class="ticklab">KOR</div>
+          <div class="ticklab">DEU</div>
+        </div>
+        <div class="source-line">
+          Source: OECD Teaching and Learning International Survey, 2024 · % of teachers reporting no formal AI training received
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pagenum">Evidence · 01</div>
+
+</div>
+</body>
+</html>

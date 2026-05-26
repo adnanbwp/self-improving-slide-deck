@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Broadside — Question / Hook Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;800;900&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide: full viewport ─────────────────────────────────────── */
+  /* Broadside Question/Hook: no chrome, type fills the field.
+     The source covers/chapter slides use orange as full background;
+     adapted here to dark + accent-colored question text. */
+  .slide {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    padding: 56px 70px;   /* 5.5vw × 5.5vh — tighter, type should crowd the frame */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+  }
+
+  /* ── Catalogue number top-left — Broadside broadside-num ─────── */
+  /* On dark slides this is cream-hint (--text-muted at low opacity) */
+  .broadside-num {
+    position: absolute;
+    top: 56px;
+    left: 70px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+
+  /* ── Question body — Broadside display scale ────────────────────
+     Source: font-weight 900, line-height 0.88, letter-spacing -0.04em
+     The question renders in accent (jade) as the declaration signal.
+     Lowercase Barlow at weight 900 — the Broadside signature.      */
+  .question {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 104px;      /* ~8.1vw at 1280px — question fits on two lines */
+    line-height: 0.90;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    max-width: 90%;
+    /* Anchor to bottom — Broadside cover body is flex-end */
+  }
+
+  /* ── Bottom meta ─────────────────────────────────────────────── */
+  .bottom-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 32px;
+    padding-top: 12px;
+    border-top: 1px solid var(--divider);
+  }
+  .meta-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <!-- Catalogue number — Broadside top-left mark -->
+  <div class="broadside-num">AI &amp; Kids · 2025</div>
+
+  <!-- Question: weight-900 lowercase Barlow at display scale.
+       Broadside spec: one statement, no supporting content, breathing room. -->
+  <h1 class="question">
+    what if the most<br>
+    dangerous thing<br>
+    is not using ai?
+  </h1>
+
+  <!-- Bottom meta bar — mirrors Broadside cover-meta -->
+  <div class="bottom-meta">
+    <span class="meta-label">Question · Hook</span>
+    <span class="meta-label">adnanbwp · 2025</span>
+  </div>
+
+</div>
+</body>
+</html>
