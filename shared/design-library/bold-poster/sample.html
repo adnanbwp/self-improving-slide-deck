@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=1280" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Barlow+Condensed:wght@400;700&display=swap" rel="stylesheet">
 <style>
   /* ── Design system tokens ─────────────────────────────────────── */
   :root {
@@ -54,13 +54,13 @@
     z-index: 10;
   }
 
-  /* ── Counter chrome (Space Grotesk role → Barlow 600) ─────────── */
+  /* ── Counter chrome ─────────── */
   .counter {
     position: absolute;
     bottom: 18px;
     right: 24px;
-    font-family: 'Barlow', sans-serif;
-    font-weight: 600;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -77,11 +77,10 @@
     position: relative;
   }
 
-  /* ── Shrikhand-style display numeral: Barlow 900 at extreme scale */
+  /* ── Shrikhand display numeral: rotated -6°, large scale */
   /* Source: Shrikhand rotated -6°, fire-engine red, 200–320px */
   .stat-numeral {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
+    font-family: 'Shrikhand', cursive;
     font-size: 280px;
     line-height: 0.85;
     letter-spacing: -0.03em;
@@ -91,9 +90,9 @@
     margin-bottom: -16px;
   }
 
-  /* ── Label: Space Grotesk uppercase role → Barlow 700 ─────────── */
+  /* ── Label: Barlow Condensed 700 ─────────── */
   .stat-label {
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 18px;
     letter-spacing: 0.14em;
@@ -109,8 +108,8 @@
     position: absolute;
     top: 36px;
     left: 56px;
-    font-family: 'Barlow', sans-serif;
-    font-weight: 600;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 400;
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
