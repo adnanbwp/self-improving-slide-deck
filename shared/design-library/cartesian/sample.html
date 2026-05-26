@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Cartesian — Chart/Graph Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage ──────────────────────────────────────────────── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* ── Cartesian geo-circle background decoration ──────────────── */
+  /* Large circle floated upper-right at ghost opacity on dark theme */
+  .geo-circle {
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    border: 1px solid var(--divider);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .geo-circle::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    border: 1px dashed var(--divider);
+    opacity: 0.6;
+  }
+
+  /* ── Frame ────────────────────────────────────────────────────── */
+  .frame {
+    position: absolute;
+    inset: 52px 56px 52px 56px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0;
+    z-index: 5;
+  }
+
+  /* ── Topbar ────────────────────────────────────────────────────── */
+  .topbar {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 36px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .slide-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 38px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  .slide-kicker {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── Chart layout ─────────────────────────────────────────────── */
+  .chart-area {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  /* Y-axis labels */
+  .y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 40px;
+  }
+
+  .y-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* Chart body: bars + grid lines */
+  .chart-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .chart-grid {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    border-left: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+  }
+
+  /* Horizontal gridlines at 0%, 25%, 50%, 75%, 100% */
+  .gridline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--divider);
+    opacity: 0.5;
+  }
+  .gridline[data-pct="100"] { bottom: 100%; }
+  .gridline[data-pct="75"]  { bottom: 75%; }
+  .gridline[data-pct="50"]  { bottom: 50%; }
+  .gridline[data-pct="25"]  { bottom: 25%; }
+
+  /* Bars container: horizontal layout within chart grid */
+  .bars {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 0 24px;
+    align-items: end;
+  }
+
+  .bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    justify-content: flex-end;
+  }
+
+  .bar-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .bar {
+    width: 100%;
+    background: var(--accent-dim);
+    border-top: 2px solid var(--accent);
+    transition: none;
+  }
+
+  /* ── X-axis labels ─────────────────────────────────────────────── */
+  .x-axis {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    padding: 12px 24px 0;
+    border-top: none;
+  }
+
+  .x-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    text-align: center;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Footer ────────────────────────────────────────────────────── */
+  .foot {
+    padding-top: 14px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .foot-source {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  .foot-num {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Cartesian geo-circle background decoration -->
+  <div class="geo-circle"></div>
+
+  <div class="frame">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="slide-title">Teachers who feel unprepared for AI</div>
+      <div class="slide-kicker">% by country · OECD Survey 2024</div>
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-area">
+
+      <!-- Y-axis labels: 100% at top, 0% at bottom -->
+      <div class="y-axis">
+        <div class="y-label">100%</div>
+        <div class="y-label">75%</div>
+        <div class="y-label">50%</div>
+        <div class="y-label">25%</div>
+        <div class="y-label">0%</div>
+      </div>
+
+      <!-- Chart body -->
+      <div class="chart-body">
+        <div class="chart-grid">
+          <div class="gridline" data-pct="75" style="bottom: 75%"></div>
+          <div class="gridline" data-pct="50" style="bottom: 50%"></div>
+          <div class="gridline" data-pct="25" style="bottom: 25%"></div>
+
+          <div class="bars">
+            <!-- UK: 71% -->
+            <div class="bar-group">
+              <div class="bar-val">71%</div>
+              <div class="bar" style="height: 71%"></div>
+            </div>
+            <!-- US: 68% -->
+            <div class="bar-group">
+              <div class="bar-val">68%</div>
+              <div class="bar" style="height: 68%"></div>
+            </div>
+            <!-- AUS: 64% -->
+            <div class="bar-group">
+              <div class="bar-val">64%</div>
+              <div class="bar" style="height: 64%"></div>
+            </div>
+            <!-- CAN: 59% -->
+            <div class="bar-group">
+              <div class="bar-val">59%</div>
+              <div class="bar" style="height: 59%"></div>
+            </div>
+            <!-- NZ: 52% -->
+            <div class="bar-group">
+              <div class="bar-val">52%</div>
+              <div class="bar" style="height: 52%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- X-axis labels -->
+        <div class="x-axis">
+          <div class="x-label">UK</div>
+          <div class="x-label">US</div>
+          <div class="x-label">Australia</div>
+          <div class="x-label">Canada</div>
+          <div class="x-label">New Zealand</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="foot">
+      <span class="foot-source">Source: OECD Teaching and Learning International Survey, 2024 · % of teachers reporting feeling unprepared to use AI in instruction</span>
+      <span class="foot-num">02</span>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

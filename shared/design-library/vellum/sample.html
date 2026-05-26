@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Vellum — Quote Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:ital,wght@0,300;0,400;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage: Vellum uses full-field chromatic canvas ─────── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* ── Vellum signature: oversized decorative open-quote glyph ─── */
+  /* In source: dusty teal (#3a7878) at large scale, behind the text */
+  .quote-glyph {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 360px;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.12;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+    letter-spacing: -0.05em;
+  }
+
+  /* ── Kicker line — Vellum top chrome ─────────────────────────── */
+  .kicker {
+    position: absolute;
+    top: 48px;
+    left: 72px;
+    right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--divider);
+    padding-bottom: 16px;
+    z-index: 5;
+  }
+
+  .kicker-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .kicker-tag {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ── Quote content: centred float on the chromatic field ─────── */
+  .quote-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 820px;
+    text-align: center;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+  }
+
+  /* Quote text: Cormorant-style italic via Barlow Condensed italic */
+  .quote-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 42px;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: var(--text-primary);
+  }
+
+  /* Rule below quote text */
+  .quote-rule {
+    width: 48px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  /* Attribution: Courier Prime style via Barlow Mono-feel */
+  .attribution {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .attr-name {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    letter-spacing: 0.10em;
+    color: var(--text-primary);
+    text-transform: uppercase;
+  }
+
+  .attr-role {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  /* ── Bottom annotation: Vellum signature pin-annotation ─────── */
+  .pin-annotation {
+    position: absolute;
+    bottom: 44px;
+    left: 72px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    z-index: 5;
+  }
+
+  .slide-num {
+    position: absolute;
+    bottom: 44px;
+    right: 72px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Vellum oversized decorative quote glyph -->
+  <div class="quote-glyph">"</div>
+
+  <!-- Top chrome -->
+  <div class="kicker">
+    <span class="kicker-label">AI &amp; Education</span>
+    <span class="kicker-tag">Perspectives</span>
+  </div>
+
+  <!-- Centred quote content -->
+  <div class="quote-content">
+    <div class="quote-text">
+      "The question is not whether children use AI.<br>
+      The question is whether they use it well."
+    </div>
+    <div class="quote-rule"></div>
+    <div class="attribution">
+      <div class="attr-name">Dr. Yoon-Seo Lim</div>
+      <div class="attr-role">OECD Education Directorate</div>
+    </div>
+  </div>
+
+  <!-- Bottom annotation -->
+  <div class="pin-annotation">Quote · OECD Forum on Education 2024</div>
+  <div class="slide-num">03</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Studio — Services/Offerings Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700;900&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage: Studio dark mode ────────────────────────────── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 48px 64px 44px;
+  }
+
+  /* ── Chrome — Studio top bar ────────────────────────────────────── */
+  .slide-chrome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 32px;
+  }
+
+  .chrome-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .chrome-tag {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+
+  /* ── Section title + services grid ────────────────────────────── */
+  .body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 28px;
+  }
+
+  /* Studio headline: Barlow 900 uppercase — the type is the layout */
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 52px;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  /* ── 2×2 services grid ──────────────────────────────────────────── */
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--divider);
+    border: 1px solid var(--divider);
+  }
+
+  .svc-card {
+    background: var(--bg);
+    padding: 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Studio service card: symbol glyph in accent at large size */
+  .svc-glyph {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* Service name: Barlow 900 uppercase */
+  .svc-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 26px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  /* Service description: Barlow 400 body */
+  .svc-desc {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 42ch;
+  }
+
+  /* ── Footer: Studio IBM Plex Mono three-column bar ─────────────── */
+  .slide-foot {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding-top: 14px;
+    border-top: 1px solid var(--divider);
+    margin-top: 8px;
+  }
+
+  .foot-col {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    color: var(--text-muted);
+  }
+
+  .foot-col:nth-child(2) {
+    text-align: center;
+  }
+
+  .foot-col:last-child {
+    text-align: right;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Chrome -->
+  <div class="slide-chrome">
+    <span class="chrome-label">AI &amp; Education</span>
+    <span class="chrome-tag">What students need to learn</span>
+  </div>
+
+  <!-- Body -->
+  <div class="body">
+    <div class="section-title">Four competencies</div>
+
+    <!-- 2×2 services grid -->
+    <div class="services-grid">
+
+      <!-- Card 1: Critical Thinking -->
+      <div class="svc-card">
+        <div class="svc-glyph">⊕</div>
+        <div class="svc-name">Critical Thinking</div>
+        <div class="svc-desc">Evaluate AI output, not just accept it</div>
+      </div>
+
+      <!-- Card 2: Creative Agency -->
+      <div class="svc-card">
+        <div class="svc-glyph">✦</div>
+        <div class="svc-name">Creative Agency</div>
+        <div class="svc-desc">Use AI as a collaborator, not a crutch</div>
+      </div>
+
+      <!-- Card 3: Data Literacy -->
+      <div class="svc-card">
+        <div class="svc-glyph">◈</div>
+        <div class="svc-name">Data Literacy</div>
+        <div class="svc-desc">Read the numbers behind the model</div>
+      </div>
+
+      <!-- Card 4: Ethical Reasoning -->
+      <div class="svc-card">
+        <div class="svc-glyph">⬡</div>
+        <div class="svc-name">Ethical Reasoning</div>
+        <div class="svc-desc">Understand whose values the model reflects</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer: Studio three-column metadata bar -->
+  <div class="slide-foot">
+    <div class="foot-col">AI &amp; Kids · Presentation 2024</div>
+    <div class="foot-col">Services / Offerings</div>
+    <div class="foot-col">04</div>
+  </div>
+
+</div>
+</body>
+</html>

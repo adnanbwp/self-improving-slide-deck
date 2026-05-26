@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Monochrome — Evidence Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage ──────────────────────────────────────────────── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  /* ── Left sidebar: Monochrome signature hairline + rotated label ── */
+  .sidebar {
+    position: absolute;
+    left: 40px;
+    top: 48px;
+    bottom: 48px;
+    width: 1px;
+    background: var(--divider);
+    z-index: 4;
+  }
+
+  .sidebar-label {
+    position: absolute;
+    bottom: 60px;
+    left: 40px;
+    transform: rotate(-90deg);
+    transform-origin: left bottom;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    z-index: 5;
+  }
+
+  /* ── Frame — sits right of the sidebar ──────────────────────── */
+  .frame {
+    position: absolute;
+    top: 48px;
+    left: 72px;
+    right: 48px;
+    bottom: 48px;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 0;
+    z-index: 3;
+  }
+
+  /* ── Topbar ────────────────────────────────────────────────────── */
+  .topbar {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--divider);
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .slide-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .section-tag {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ── Body: two-column — stat left, prose right ───────────────── */
+  .body {
+    display: grid;
+    grid-template-columns: 0.65fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* ── Left: dominant stat — Monochrome ultra-light weight ────── */
+  .col-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 172px;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .stat-num em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .stat-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .stat-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    max-width: 24ch;
+  }
+
+  .stat-source {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+  }
+
+  /* ── Right: context prose — Lora-style italic feel via weight ── */
+  .col-context {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-left: 1px solid var(--divider);
+    padding-left: 40px;
+  }
+
+  .context-head {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--text-primary);
+    font-style: italic;
+  }
+
+  .context-body {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--text-muted);
+    max-width: 44ch;
+  }
+
+  /* ── Footer ────────────────────────────────────────────────────── */
+  .foot {
+    padding-top: 16px;
+    border-top: 1px solid var(--divider);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .foot-source {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .foot-num {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Sidebar: Monochrome signature left-gutter rule -->
+  <div class="sidebar"></div>
+  <div class="sidebar-label">Evidence · OECD TALIS 2024</div>
+
+  <div class="frame">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <span class="slide-label">AI &amp; Education</span>
+      <span class="section-tag">Research Synthesis</span>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+
+      <!-- Left: dominant stat -->
+      <div class="col-stat">
+        <div class="stat-num"><em>73</em>%</div>
+        <div class="stat-rule"></div>
+        <div class="stat-label">of teachers have received no AI training</div>
+        <div class="stat-source">OECD TALIS, 2024</div>
+      </div>
+
+      <!-- Right: context -->
+      <div class="col-context">
+        <div class="context-head">Fewer than 1 in 3 schools has a formal AI policy.</div>
+        <div class="context-body">Across 38 participating countries, the OECD Teaching and Learning International Survey found that the overwhelming majority of classroom teachers have received no structured preparation for navigating AI tools. The gap is widest in secondary education, where AI use by students is already routine.</div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="foot">
+      <span class="foot-source">Source: OECD TALIS 2024 — Teaching and Learning International Survey</span>
+      <span class="foot-num">01</span>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

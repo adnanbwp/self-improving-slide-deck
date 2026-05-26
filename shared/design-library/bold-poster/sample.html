@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Bold Poster — Stat Sample</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design system tokens ─────────────────────────────────────── */
+  :root {
+    --bg:           oklch(12% 0.008 258);
+    --surface:      oklch(17% 0.008 258);
+    --text-primary: oklch(93% 0.007 68);
+    --text-muted:   oklch(55% 0.009 258);
+    --accent:       oklch(62% 0.14 158);
+    --accent-dim:   oklch(38% 0.10 158);
+    --divider:      oklch(25% 0.008 258);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Slide stage: Bold Poster white canvas → dark theme bg ───── */
+  .stage {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    background: var(--bg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 48px 80px 60px;
+  }
+
+  /* ── Bold Poster signature: bottom progress bar chrome ────────── */
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--accent);
+    z-index: 10;
+  }
+
+  /* ── Counter chrome (Space Grotesk role → Barlow 600) ─────────── */
+  .counter {
+    position: absolute;
+    bottom: 18px;
+    right: 24px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    z-index: 5;
+  }
+
+  /* ── Main stat content area ────────────────────────────────────── */
+  .stat-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  /* ── Shrikhand-style display numeral: Barlow 900 at extreme scale */
+  /* Source: Shrikhand rotated -6°, fire-engine red, 200–320px */
+  .stat-numeral {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 280px;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: var(--accent);
+    transform: rotate(-6deg);
+    display: inline-block;
+    margin-bottom: -16px;
+  }
+
+  /* ── Label: Space Grotesk uppercase role → Barlow 700 ─────────── */
+  .stat-label {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    text-align: center;
+    margin-top: 32px;
+    max-width: 44ch;
+  }
+
+  /* ── Context: Libre Baskerville role → Barlow 400 ─────────────── */
+  .stat-context {
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-muted);
+    text-align: center;
+    margin-top: 16px;
+    max-width: 48ch;
+  }
+
+  /* ── Section label — top-left chrome ──────────────────────────── */
+  .section-label {
+    position: absolute;
+    top: 36px;
+    left: 56px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    z-index: 5;
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <!-- Bold Poster bottom chrome -->
+  <div class="progress-bar"></div>
+  <div class="counter">01 / 01</div>
+
+  <!-- Top-left section label -->
+  <div class="section-label">AI &amp; Education · Key Finding</div>
+
+  <!-- Stat content: Shrikhand-scale numeral, label, context -->
+  <div class="stat-content">
+    <div class="stat-numeral">73%</div>
+    <div class="stat-label">of teachers have received no AI training</div>
+    <div class="stat-context">Across 38 countries surveyed by the OECD, fewer than one in three schools has any formal policy governing AI use in the classroom.</div>
+  </div>
+
+</div>
+</body>
+</html>
