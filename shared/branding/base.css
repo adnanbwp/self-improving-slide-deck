@@ -3,10 +3,12 @@
    Imported by theme-dark.css and theme-light.css.
    ========================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;700&family=Barlow+Condensed:wght@400;600;700&display=swap');
+
 :root {
   /* Font families */
-  --font-display: Georgia, 'Times New Roman', serif;
-  --font-body: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
 
   /* Type scale */
   --text-xs:   0.65rem;
@@ -16,14 +18,15 @@
   --text-xl:   2.2rem;
   --text-2xl:  3rem;
   --text-3xl:  4rem;
+  --text-4xl:  6rem;
 
   /* Tracking */
   --tracking-wide:   0.06em;
   --tracking-widest: 0.18em;
 
   /* Leading */
-  --leading-tight:  1.15;
-  --leading-normal: 1.5;
+  --leading-tight:  1.1;
+  --leading-normal: 1.55;
 }
 
 /* --- Reveal base overrides -------------------------------- */
@@ -37,23 +40,21 @@
 .reveal h1 {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
   line-height: var(--leading-tight);
   margin: 0 0 1.5rem;
   text-transform: none;
-  letter-spacing: normal;
+  letter-spacing: -0.01em;
 }
 
 .reveal h2 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
-  font-weight: 400;
-  font-style: italic;
+  font-weight: 600;
   line-height: var(--leading-tight);
   margin: 0 0 1.2rem;
   text-transform: none;
-  letter-spacing: normal;
+  letter-spacing: -0.01em;
 }
 
 .reveal h3 {
@@ -152,7 +153,7 @@
 /* Horizontal rule between header and content */
 .slide-rule {
   width: 2rem;
-  height: 1px;
+  height: 2px;
   margin: 1.5rem 0;
   border: none;
 }
