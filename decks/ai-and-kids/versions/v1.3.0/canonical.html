@@ -475,9 +475,31 @@
       height: 100%;
       object-fit: cover;
       border-radius: 50%;
+      clip-path: circle(50%);
     }
     .team-av.presenter {
       box-shadow: 0 0 0 3px var(--accent), 0 0 0 6px var(--bg);
+    }
+    .team-av.agent {
+      overflow: visible;
+    }
+    .team-av.agent::after {
+      content: '✦';
+      position: absolute;
+      bottom: -3px;
+      right: -3px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: #1C2644;
+      line-height: 20px;
+      text-align: center;
+      z-index: 2;
     }
     .team-name {
       font-family: var(--font-display);
@@ -1167,7 +1189,7 @@
               <div class="team-role">Presenter</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#4A6FA5">
+              <div class="team-av agent" style="background:#4A6FA5">
                 <img src="../../../../shared/assets/avatars/larry.png" alt="Larry" onerror="this.style.display='none'">
                 LA
               </div>
@@ -1175,7 +1197,7 @@
               <div class="team-role">Orchestrator</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#7B9E87">
+              <div class="team-av agent" style="background:#7B9E87">
                 <img src="../../../../shared/assets/avatars/pax.png" alt="Pax" onerror="this.style.display='none'">
                 PA
               </div>
@@ -1183,7 +1205,7 @@
               <div class="team-role">Researcher</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#B5735A">
+              <div class="team-av agent" style="background:#B5735A">
                 <img src="../../../../shared/assets/avatars/penn.png" alt="Penn" onerror="this.style.display='none'">
                 PE
               </div>
@@ -1195,7 +1217,7 @@
           <!-- Row 2: 4 — no offset (even total = symmetric rows) -->
           <div class="row">
             <div class="team-cell">
-              <div class="team-av" style="background:#7A5C8C">
+              <div class="team-av agent" style="background:#7A5C8C">
                 <img src="../../../../shared/assets/avatars/rex.png" alt="Rex" onerror="this.style.display='none'">
                 RE
               </div>
@@ -1203,7 +1225,7 @@
               <div class="team-role">Logic Auditor</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#5C8C7A">
+              <div class="team-av agent" style="background:#5C8C7A">
                 <img src="../../../../shared/assets/avatars/vera.png" alt="Vera" onerror="this.style.display='none'">
                 VE
               </div>
@@ -1211,7 +1233,7 @@
               <div class="team-role">Critic</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#8C7A5C">
+              <div class="team-av agent" style="background:#8C7A5C">
                 <img src="../../../../shared/assets/avatars/iris.png" alt="Iris" onerror="this.style.display='none'">
                 IR
               </div>
@@ -1219,7 +1241,7 @@
               <div class="team-role">Visuals</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#5C6B8C">
+              <div class="team-av agent" style="background:#5C6B8C">
                 <img src="../../../../shared/assets/avatars/coda.png" alt="Coda" onerror="this.style.display='none'">
                 CO
               </div>
@@ -1231,7 +1253,7 @@
           <!-- Row 3: 4 — aligned with row 1 -->
           <div class="row">
             <div class="team-cell">
-              <div class="team-av" style="background:#8C5C6B">
+              <div class="team-av agent" style="background:#8C5C6B">
                 <img src="../../../../shared/assets/avatars/nolan.png" alt="Nolan" onerror="this.style.display='none'">
                 NO
               </div>
@@ -1239,7 +1261,7 @@
               <div class="team-role">HR</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#6B8C5C">
+              <div class="team-av agent" style="background:#6B8C5C">
                 <img src="../../../../shared/assets/avatars/mack.png" alt="Mack" onerror="this.style.display='none'">
                 MA
               </div>
@@ -1247,7 +1269,7 @@
               <div class="team-role">Automation</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#C8A870">
+              <div class="team-av agent" style="background:#C8A870">
                 <img src="../../../../shared/assets/avatars/silas.png" alt="Silas" onerror="this.style.display='none'">
                 SI
               </div>
@@ -1255,7 +1277,7 @@
               <div class="team-role">Database</div>
             </div>
             <div class="team-cell">
-              <div class="team-av" style="background:#9B7BAE">
+              <div class="team-av agent" style="background:#9B7BAE">
                 <img src="../../../../shared/assets/avatars/aria.png" alt="Aria" onerror="this.style.display='none'">
                 AR
               </div>
