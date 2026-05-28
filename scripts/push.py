@@ -232,6 +232,19 @@ def main():
         # 3. Sync latest version folder only
         rsync(str(version_dir) + '/', f'{VPS}:{REMOTE_DIR}/decks/{slug}/versions/{version}/', delete=True)
 
+        # 3b. Sync assets from all versions — HTML may reference sibling version assets
+        #     via relative paths like ../v1.1.0/assets/
+        for v_dir in sorted((deck_dir / 'versions').iterdir()):
+            if v_dir == version_dir or not v_dir.is_dir():
+                continue
+            assets_dir = v_dir / 'assets'
+            if assets_dir.exists() and any(assets_dir.iterdir()):
+                subprocess.run(
+                    ['ssh', VPS, f'mkdir -p {REMOTE_DIR}/decks/{slug}/versions/{v_dir.name}/assets'],
+                    check=True,
+                )
+                rsync(str(assets_dir) + '/', f'{VPS}:{REMOTE_DIR}/decks/{slug}/versions/{v_dir.name}/assets/')
+
         # 4. Upload thumbnail if found
         thumb = find_thumbnail(deck_dir, version)
         has_thumb = False
