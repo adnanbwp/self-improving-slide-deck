@@ -539,3 +539,159 @@ The following sources from Threads 1–3 should be added to the Section 3 source
 7. The three-schools framing from the aa2brain concept note (Protective/Restrictive vs. AI Literacy/Empowerment vs. Parent-as-Co-Learner) is a cleaner rhetorical architecture than the current implicit framing. Should Rex assess whether restructuring the argument around these three schools improves the argument map score?
 
 8. The Australia substitution concern (Thread 3/Section 5) is an emerging story. Should the deck include it as a forward-looking slide (this is where we are heading and why guidance matters now), or leave it out until evidence is stronger? This is a judgment call for Adnan/Coda, not a research question.
+
+---
+
+## Supplement — 2026-05-28 (Thread 4 + Thread 1 source corrections)
+
+**Supplement methodology:** Two tasks addressed in this pass, conducted 2026-05-28.
+
+**Task A (Thread 4):** Targeted web search to retrieve and document Stefania Druga's 4As AI literacy framework for families. The primary MIT Press URL (https://wip.mitpress.mit.edu/pub/the-4as/release/1) returned HTTP 403 — access blocked. The MIT Press direct chapter link also returned 403. ResearchGate PDF returned 403. The framework content was successfully retrieved via: (1) Jason Yip's author-draft PDF hosted on bigyipper.com (content too large to retrieve directly but yielded structured definition data via search), (2) Semantic Scholar abstract and linked excerpts, (3) Stefania Druga's Medium article (retrieved directly), (4) a systematic review of AI literacy frameworks published in ScienceDirect (2024) which cites and summarises the 4As. Four independent sources triangulated.
+
+**Task B (Thread 1 corrections):** Source attribution corrections applied to Thread 1 statistics based on fresh verification of primary sources conducted 2026-05-28. See section below.
+
+---
+
+### Thread 4 — Stefania Druga's 4As Framework for AI Literacy
+
+**Context:** The aa2brain concept note (Thread 1) referenced the 4As framework under the "AI Literacy/Empowerment" school of thought alongside "Protective/Restrictive" and "Parent-as-Co-Learner" schools. The framework was flagged as a gap requiring follow-up.
+
+**Citation:** Druga, S., Yip, J., Preston, M., and Dillon, D. (2021). "The 4As: Ask, Adapt, Author, Analyze — AI Literacy Framework for Families." In *Algorithmic Rights and Protections for Children*. MIT Press / PubPub (open access). https://wip.mitpress.mit.edu/pub/the-4as/release/1 [Access status: HTTP 403 as of 2026-05-28. Full text accessible via MIT Press direct at https://direct.mit.edu/books/oa-edited-volume/5603/chapter-standard/4256638/The-4-As-Ask-Adapt-Author-Analyze-AI-Literacy — also 403. Author-draft PDF available at https://bigyipper.com/wp-content/uploads/2021/04/JODS_Author_Draft_The_4As__Ask__Adapt__Author__Analyze___AI_Literacy_Framework_for_Families.pdf]
+
+**Source quality:** Peer-adjacent. Published in an MIT Press edited volume (*Algorithmic Rights and Protections for Children*). Co-authored by researchers from the University of Washington Code and Cognition Lab (Jason Yip) and MIT Media Lab (Stefania Druga). Not a standalone peer-reviewed journal article, but published under MIT Press's open-access monograph programme with academic editorial oversight. Cross-cited in peer-reviewed AI literacy literature (ScienceDirect systematic review, 2024). Treat as high-quality practitioner-academic hybrid — more rigorous than a think-tank brief, less rigorous than a double-blind peer-reviewed study.
+
+---
+
+#### The Four As — Names and Definitions
+
+The framework is grounded in Bronfenbrenner's ecological systems theory: AI literacy does not occur in a vacuum but is shaped by social, cultural, institutional, and techno-infrastructural contexts. The four dimensions describe what families can do at progressively deeper levels of engagement with AI:
+
+**1. Ask**
+Families are encouraged to question AI systems — to ask smart speakers and AI tools questions, to interrogate what AI knows and does not know, to voice curiosity about how AI works. The emphasis is on treating AI as something to be questioned rather than simply obeyed. Practical manifestation: asking voice assistants how they work, questioning why YouTube recommended a specific video, asking "how does it know that?" Together, not alone — parents and children asking together.
+
+*Practical implication for parents:* The Ask dimension aligns with the "co-pilot" parenting frame the deck already uses. Parents do not need technical expertise to Ask — they need to model curiosity. A parent who says "I wonder how it figured that out" is doing Ask. This is the lowest-barrier entry point in the framework and the most accessible for AI-naive parents.
+
+*Practical implication for teachers:* Ask is already in the teacher's toolkit — it is the Socratic method applied to AI. Teachers who require students to interrogate AI outputs ("is this right? how would we check?") are practicing the Ask dimension. No AI training required.
+
+**2. Adapt**
+The ability to use and adapt AI tools to accomplish tasks — applying AI concepts and capabilities to real objectives. Adapt is the dimension of practical competence: using AI tools fluently, adjusting them to different contexts, knowing when AI is the right tool and when it is not. The risk zone of Adapt is over-reliance: using AI for every task without developing the underlying skill.
+
+*Practical implication for parents:* This is the dimension where age-appropriate limits matter most. Younger children (under 9) are at risk of skipping the underlying skill-building if Adapt is introduced too early. The Adapt dimension is when parents need to ask "are you learning from this, or is the AI doing the learning for you?"
+
+*Practical implication for teachers:* Adapt is where AI integration in assignments makes sense — as a tool that extends capability rather than replaces practice. The teacher's role is to design tasks where Adapt adds value without substituting for the student's own reasoning.
+
+**3. Author**
+Creating and building with AI — going from consumer to creator. Author encompasses: building simple AI models, using generative tools to create content (stories, images, music), training classifiers, and co-creating with AI systems. Authoring gives children agency over AI rather than positioning them as recipients of its outputs. Cognimates (Druga's own platform) and Machine Learning for Kids are examples of tools that enable the Author dimension.
+
+*Practical implication for parents:* Author is the dimension most likely to require some resource investment (platforms, devices, parental time). Age guidance from Druga's Medium article: ages 9–12 are well-positioned for Author activities using Cognimates, Machine Learning for Kids, and Google AI Experiments; ages 5–8 can begin Author activities with paper-based AI exercises and Code.org AI courses. This is when parent-as-co-learner is most active — parents who engage in authoring activities alongside their children report the highest levels of AI literacy development in both generations.
+
+*Practical implication for teachers:* Author is where AI literacy becomes a project-based learning opportunity. Students who build a simple image classifier or train a text-based model develop intuitions about training data, bias, and model limitations that cannot be conveyed by instruction alone.
+
+**4. Analyze**
+Developing the critical evaluation skills to understand how AI systems work, how bias enters AI outputs, what AI cannot do, and what the societal implications of AI are. Analyze is the dimension of critical literacy — treating AI not as a black box but as a human-designed system with embedded assumptions and failure modes. Practical manifestation: examining bias in image recognition, questioning why an AI made a specific recommendation, understanding that training data reflects historical patterns.
+
+*Practical implication for parents:* Analyze is the dimension most neglected in typical family AI interactions. It requires the most cognitive investment but has the highest transfer value — a child who Analyzes AI can apply that skepticism to any AI system they encounter. The five mental-health warning signs from the Child Mind Institute (Thread 1) are partly a failure of the Analyze dimension: children who cannot analyze why an AI companion is agreeable are more susceptible to the sycophancy trap.
+
+*Practical implication for teachers:* Analyze maps directly onto media literacy and critical thinking curricula already in place. Teaching students to question AI outputs ("what assumptions went into this? what was it trained on? who built this and why?") extends existing pedagogical skills to a new domain.
+
+---
+
+#### How the 4As Map to the Three Schools (from Thread 1)
+
+The framework sits squarely in School 2 (AI Literacy/Empowerment) and School 3 (Parent-as-Co-Learner):
+
+- **School 1 (Protective/Restrictive)** — The 4As framework does not dismiss protection but treats it as insufficient on its own. The framework implicitly acknowledges that children need to encounter AI (to Ask, Adapt, Author, Analyze) — total restriction prevents all four dimensions from developing.
+- **School 2 (AI Literacy/Empowerment)** — The 4As is this school's most concrete operational framework. It provides a progression model (Ask → Adapt → Author → Analyze) that moves families from passive questioning to active creation to critical evaluation.
+- **School 3 (Parent-as-Co-Learner)** — The 4As is explicitly family-facing, not child-only. The ecological systems framing insists that AI literacy is co-developed: children's AI literacy is shaped by household context, school context, and broader community context. Parents who engage alongside children are the variable that makes the framework work.
+
+---
+
+#### Age-Specific Guidance from Druga
+
+From the Medium article (retrieved directly, 2026-05-28):
+- Ages 5–8: Code.org AI courses, paper-based AI worksheets. Entry-level Ask and early Author.
+- Ages 9–12: Cognimates, Machine Learning for Kids, Google AI Experiments. Full Ask, Adapt, and Author; emerging Analyze.
+- Ages 13+: Generative AI tools with adult supervision; Elements of AI course. Full 4As, with Analyze as the primary emphasis.
+
+Note: This age-band guidance is from Druga's practitioner-facing Medium article, not from the formal MIT Press publication. Treat as informed practitioner guidance, not empirical prescription. Cross-verify against Common Sense Media age thresholds (no AI companions under 5; caution 6–12) before presenting as hard rules — they are compatible but not identical in framing.
+
+**Confidence on 4As content: Medium-High.** The four names (Ask, Adapt, Author, Analyze) and their general orientation are confirmed across four independent sources. The specific definitions above are synthesised from the author-draft PDF excerpt data, the Medium article (retrieved directly), and secondary literature that cites the framework. The primary MIT Press text could not be retrieved directly (HTTP 403). For slide use, the four names and their general orientations are safe to cite. The specific phrasing of definitions should be treated as a synthesis, not a direct quotation from the primary source.
+
+---
+
+#### Source Quality Addition (Thread 4)
+
+Add to Section 3 — **Use with attribution and caveat:**
+- Druga, S. et al., "The 4As: Ask, Adapt, Author, Analyze — AI Literacy Framework for Families," MIT Press (2021) — peer-adjacent academic publication, open-access MIT Press edited volume. Primary URL is currently returning HTTP 403; content accessible through secondary citations and author-hosted draft. Cite as a named framework, not as a primary empirical study. The framework is descriptive and normative, not a controlled evaluation of outcomes. Cross-cited in the ScienceDirect AI literacy systematic review (2024), which increases confidence in its standing in the literature.
+
+---
+
+### Thread 1 — Source Attribution Corrections (2026-05-28)
+
+**Background:** The Thread 1 supplement (2026-05-25) reported several statistics via Allie K. Miller's newsletter with source attributions taken from the newsletter's in-text citations. Fresh verification of the primary sources conducted 2026-05-28 revealed attribution errors in the newsletter. Where the primary source can be confirmed independently, the primary source attribution takes precedence. The vault copy of the Miller article and the online version should be treated as potentially divergent — where discrepancy exists, use the attribution confirmed by direct primary source verification.
+
+**Corrections:**
+
+**1. "49% of parents have never spoken to their child about generative AI"**
+
+- Thread 1 attribution: Common Sense Media, 2026
+- Corrected attribution: **UNICRI (United Nations Interregional Crime and Justice Research Institute)**
+- Source: UNICRI global survey of 160 parents across 19 countries, five continents. Published in conjunction with the AI for Good Global Summit 2025. The UNICRI page (https://unicri.org/news-AI_Literacy-for-Children-Guide-Video-AI-forGood-Global-Summit-2025) confirms this statistic directly, alongside the related finding that 44% of parents feel unprepared to guide their children on safe AI use.
+- Confidence: **High** — confirmed directly against UNICRI primary source.
+- Note: The UNICRI survey (n=160, 19 countries) is smaller in scale than Common Sense Media's US surveys and is international in scope rather than US-specific. This affects how the stat should be framed: it represents a global, cross-cultural finding, not a US-national figure.
+
+**2. "12% explicitly use AI for emotional support"**
+
+- Thread 1 attribution: Common Sense Media, 2026
+- Corrected attribution: **Pew Research Center, February 2026**
+- Source: "How Teens Use and View AI," Pew Research Center, published 2026-02-24. https://www.pewresearch.org/internet/2026/02/24/how-teens-use-and-view-ai/ — The Hill and CBS News coverage confirmed: "A small portion of respondents, 12 percent, said that they rely on AI for emotional support or advice." Survey of 1,458 teenagers and parents, conducted September–October 2025.
+- Confidence: **High** — confirmed across multiple independent coverage of the primary Pew report.
+
+**3. "58% would rather ask a chatbot than a teacher when confused"**
+
+- Thread 1 attribution: Common Sense Media, 2026
+- Corrected attribution: **Internet Matters, 2025** ("Me, Myself & AI: Chatbot Research," https://www.internetmatters.org/hub/research/me-myself-and-ai-chatbot-research/)
+- Critical precision note: The Internet Matters finding as stated is: "58% of children who have used AI chatbots said they think using an AI chatbot is better than searching themselves." This is a preference for chatbot over self-directed search, not a preference for chatbot over asking a teacher. The Thread 1 phrasing ("would rather ask a chatbot than a teacher when confused") is a stronger claim than the source supports. **Correct use of this statistic:** "58% of children who have used AI chatbots prefer it to doing their own search." Do not use the thread 1 phrasing on a slide without verifying against the original Internet Matters report for the exact teacher-comparison language. If the teacher-comparison claim cannot be verified against the primary report, retire it.
+- Confidence on the corrected phrasing: **High**. Confidence on the original Thread 1 phrasing: **Low** — not directly supported by the Internet Matters source as confirmed.
+
+---
+
+**New statistics (not in prior brief) confirmed in this pass:**
+
+**4. 92.7% of youth who used AI for mental health support found it helpful**
+
+- Source: JAMA Network Open, published 2024-11-07. Cited in PMC (https://pmc.ncbi.nlm.nih.gov/articles/PMC12595529/), AJMC, Psychiatric Times, and PsyPost. Study population: US adolescents and young adults aged 12–21. Finding: among the 13.1% who consulted generative AI for mental health advice, 92.7% found it somewhat or very helpful; 65.5% sought advice monthly or more.
+- Interpretive note (load-bearing for the deck): This is a double-edged statistic. The very high helpfulness rating is precisely what makes AI-mediated emotional support a hard intervention target — children who find it helpful are unlikely to self-identify as at risk. This is the same structural problem as sycophancy-as-engineered-attachment (Thread 1): the harm mechanism is hidden inside an experience the user reports as positive. For the deck, this stat supports the argument that adult guidance cannot rely on children flagging distress — the warning signs (Child Mind Institute checklist, Thread 1) are behavioral, not self-reported. Confidence: **High** — multiple independent coverage of the same peer-reviewed JAMA paper.
+
+**5. Ability to identify deepfakes: 46% (2025) → 25% (2026)**
+
+- Source: Microsoft Global Online Safety Survey, released ahead of Safer Internet Day 2026 (February 2026). Survey of nearly 15,000 teens (aged 13–17) and adults across 15 countries, conducted summer 2025. Finding: the share of respondents who believe they can correctly identify deepfake material dropped from 46% to 25% in one year. Coverage confirmed by: Microsoft News EMEA (https://news.microsoft.com/source/emea/2026/02/microsoft-safer-internet-day-2026/), Biometric Update, Cyber Magazine, AI Magazine.
+- Relevance to the deck: This stat directly supports the deck's implied concern about children's critical evaluation skills, and is specifically relevant to the Analyze dimension of the 4As framework. A population that was already overconfident about deepfake detection (46% believed they could identify them, which itself likely exceeded actual accuracy) became significantly less confident as deepfakes improved — and the residual 25% who are confident may still be overconfident. This is a concrete argument for why AI literacy (especially the Analyze dimension) needs active adult cultivation, not passive exposure.
+- Confidence: **High** — confirmed across multiple independent sources citing the Microsoft primary survey.
+
+**6. Miller's 9 skills: frame correction**
+
+The Thread 1 brief introduced Miller's article without characterising its overall frame. This matters for how the deck uses it. The article is not about protecting children from AI — it is about raising AI-capable children. The nine skills Miller identifies are:
+1. STEM degrees remain valuable (counter to "AI makes STEM irrelevant")
+2. Multimodal communication (understanding text, image, audio, video AI outputs)
+3. Resisting sycophancy — humility and emotional fortitude to reject AI flattery
+4. Functioning without AI (maintaining baseline capability independent of AI assistance)
+5. Data privacy (understanding what children share and with whom)
+6. Curiosity and vibe coding (the disposition to explore and build with AI)
+7. Spotting edge cases (identifying when AI fails or produces unreliable outputs)
+8. Scams and deepfakes (recognizing AI-generated manipulation)
+9. Understanding the humans behind AI systems (AI is not neutral — it reflects the choices of its builders)
+
+This skills list sits in School 2 (AI Literacy/Empowerment) and directly maps onto the 4As: skills 1, 3, 4, 7, 8, 9 are Analyze-dimension skills; skill 2 and 6 are Author/Adapt-dimension skills; skill 5 is an Ask-dimension concern. The Miller article and the 4As framework are therefore consistent and mutually reinforcing — the 4As provides the theoretical architecture; Miller's skills list provides the practical vocabulary.
+
+**Implication for Rex:** The Miller frame ("raising AI-capable children") is the most rhetorically powerful counterweight to School 1 (Protective/Restrictive). The deck already uses elements of this frame. Making the Miller frame explicit — naming the empowerment posture — sharpens the PoV and reduces the risk that a parent-facing audience reads the deck as primarily a risk-warning document.
+
+---
+
+### New open questions (2026-05-28)
+
+9. The 4As framework provides a progression model (Ask → Adapt → Author → Analyze) that the deck could use as a structural spine for the "guided path" limb (Limb C). Would Rex assess whether adopting the 4As as the actionable framework for Limb C improves argument architecture, and whether it creates any new vulnerabilities (e.g., "this is too academic for a parent audience")?
+
+10. The UNICRI 49% finding is from a 160-person global survey across 19 countries — a much smaller and more international sample than the US-national Common Sense Media surveys. If the deck is primarily targeting Australian or US parents/teachers, is the UNICRI figure still the best available for this claim, or should it be replaced/supplemented with a more local or larger-sample source?
+
+11. The Internet Matters 58% stat as originally phrased in Thread 1 ("would rather ask a chatbot than a teacher when confused") may not be directly supported by the Internet Matters primary report. Before using this stat on a slide, verify the exact wording in the primary Internet Matters report against the teacher-comparison claim. If the teacher-specific claim cannot be sourced, retire it and replace with the verified phrasing: "58% of children who have used AI chatbots prefer it to doing their own search" (Internet Matters, 2025).

@@ -4,15 +4,48 @@ Persistent memory for this deck across all improvement cycles. **Vera reads this
 
 Each entry is written by the specialist who owns the decision and is included in the PR for the cycle in which the decision was made. The PR is the review layer — Adnan reviews and approves both the content change and the decision log entry together.
 
+### 2026-05-28 — Content polish pass v1.3.0 (Coda)
+
+Status: **Closed**
+
+**Changes applied in v1.3.0 canonical.html:**
+
+1. **Slide 5 — meta-commentary removed**: Support-line "This deck's argument sits in Schools 2 and 3..." was internal framing visible on the slide face. Replaced with audience-facing statement. School 1 list item rewritten from choppy fragments to complete sentences (parent feedback: "choppy sentences, can't understand what you are saying").
+2. **Slide 8 — jargon removed from headline**: "the argument targets blanket avoidance, not graduated age-appropriate limits" replaced with "the problem is using them as the complete strategy" (parent feedback: "difficult terms").
+3. **Slide 9 — jargon removed from headline**: "population-scale exposure problem" replaced with plain language (parent feedback: "jargon, needs to be simplified").
+4. **Slide 12 — research-brief language removed**: Parenthetical "(observational evidence — causal direction consistent, RCT confirmation not yet available)" removed from slide face (parent feedback: "jargon, complex sentence structure").
+5. **Slide 18 — CTA strengthened**: All five items replaced with more specific, memorable actions grounded in Allie K. Miller (May 2026) and the research brief. Billboard rule (item 4) and error-finding prompt (item 5) are new. School questions (item 2) are now specific and enumerated.
+
+---
+
+### 2026-05-28 — Research pass: 4As framework + Thread 1 source corrections (Pax)
+
+Status: **Closed**
+
+Appended Supplement 2026-05-28 to `research/2026-05-25-research-brief-v1.md`. Thread 4 documents Stefania Druga's 4As framework (Ask, Adapt, Author, Analyze) — names, definitions, age-specific guidance, and alignment with the three-schools framing from Thread 1. Primary MIT Press URL remains HTTP 403; content triangulated from four independent sources; confidence Medium-High. Thread 1 source corrections: 49% stat re-attributed to UNICRI (not Common Sense Media; n=160, global); 12% emotional support re-attributed to Pew Research February 2026 (confirmed High); 58% chatbot-preference stat corrected — Internet Matters finding is preference over self-directed search, not over asking teachers; thread 1 phrasing should not be used on a slide without primary report verification. New stats added: 92.7% of youth found AI mental health advice helpful (JAMA, double-edged — supports adult-guided warning sign approach); deepfake identification confidence 46%→25% in one year (Microsoft Safer Internet Day 2026). Miller's 9 skills characterised as an empowerment frame, consistent with School 2 and the 4As. Three new open questions added for Rex (questions 9–11).
+
+---
+
+### 2026-05-26 — Stats verification: 49%/96%/11% (Pax)
+
+Status: **Closed**
+
+All three statistics confirmed real. Two had wrong source attributions in the research brief (both labelled "Common Sense Media 2026"):
+- **49%** → Common Sense Media, September 2024 (correct)
+- **96%** → USC/CARE survey, Spring 2025 via CRPE; scope is elementary-aged families specifically (83–96% spanning all ages) — not Common Sense Media
+- **11%** → CDT, October 2025 (was already correct)
+
+Stats are safe to present. Attribution drift originated from Allie K. Miller's newsletter misattributing the 96% figure. Source attributions in the deck have been corrected to match primary sources. This item is resolved and should not be treated as an open blocker in future scoring passes.
+
 ---
 
 ### 2026-05-26 — Slide 1 title clarity (Adnan)
 
-Status: Open
+Status: **Closed** (v1.2.0)
 
 **Feedback:** Slide 1 v1.1.0 does not communicate the PoV clearly enough for a live audience. "Both extremes fail children" signals that two things are wrong but does not tell the audience what they are here to discuss or why it matters to them personally. The spiky PoV must be in their face and clear from the first slide — the audience should immediately know the claim being made and feel its relevance to them.
 
-**Decision:** Address in the next improvement pass. Slide 1 needs a redesign that leads with the PoV claim itself — not a summary of the argument structure, but the provocative position the audience is about to confront. Consider foregrounding the tension ("You've already lost the battle to keep AI away — now what?") or the stakes ("The way most parents are handling AI right now is harming their children"). The image and layout structure from v1.1.0 can be retained; the headline and support copy need rewriting.
+**Resolution (v1.2.0):** v1.2.0 inserts a proper Title slide at position 1 ("Your Child Is Already Using It." — names the factual premise; PoV line reads "Over-protecting harms them. Leaving them to it causes documented harm. The guided path starts this week."). The former Slide 1 is now Slide 2 with a rewritten headline: "Most parents are handling AI wrong — and it is hurting their children either way." Both extremes are named explicitly in the support copy. About Me slide added at position 3.
 
 ---
 
@@ -25,6 +58,32 @@ Status: Closed
 **Decision:** Each deck's theme CSS file is now self-contained — it imports `shared/branding/base.css` (type scale, layout primitives, font imports only) and declares its own color tokens. `theme-light.css` and `theme-dark.css` in `shared/branding/` remain as reference templates for new decks but are no longer linked directly from HTML. New decks copy the token block from the template into their own theme file and customize from there. Impeccable edits the deck's own theme file; the shared layer is never touched during a deck design pass.
 
 Implemented in `decks/ai-and-kids/theme/ai-and-kids.css` as of v1.1.0.
+
+---
+
+### 2026-05-27 — Template selection: Signal (Adnan via WS-006)
+
+Status: **Closed**
+
+**Decision:** Signal selected as the deck's design template via WS-006 Step 4. Iris proposed three candidates (Signal, Monochrome, Cobalt Grid). Signal selected on Iris's recommendation: broadest native coverage across the deck's Statement-heavy type mix (10 of 19 slides at Very strong fit, 9 at Strong, 0 Moderate), editorial-authority register suited to the parent/teacher audience, and the italic-emerald "Signal moment" as a discipline emphasis device. Recorded in `pov.md` as `design_template: signal`.
+
+---
+
+### 2026-05-27 — Design polish pass v1.2.0 (Larry / Coda)
+
+Status: **Closed**
+
+**Changes applied in v1.2.0 canonical.html:**
+
+1. **Title slide added (Slide 1)** — Type 00, broadside-inspired. Title: "Your Child Is Already Using It." PoV line names both extremes. Presenter: Adnan Ali.
+2. **About Me slide added (Slide 3)** — Type 20, signal/vellum register. Placeholder content; fill in before presenting. Wired to `shared/presenter.yaml`.
+3. **Opening PoV rewritten (Slide 2)** — Headline: "Most parents are handling AI wrong — and it is hurting their children either way." Both extremes explicitly named.
+4. **Header cleaned up** — Left label = "AI and Kids" on all slides (was section name). Right "myPKA" label removed from all slides.
+5. **"Limb A/B/C" terminology removed** — All section-labels now use plain language: Over-protection, Hands-off, Guided path.
+6. **Slide 6 (Google claim)** — "As of May 2026" qualifier added; staleness flag added to speaker notes.
+7. **Slide 12 (cognitive atrophy)** — Observational evidence qualifier added to support line.
+8. **Slide 16 (honest scope)** — Regulatory timeline sentence added: "The regulatory timeline is measured in years. Your child's AI encounter is happening this week."
+9. **Total slide count** — 19 (was 17).
 
 ---
 

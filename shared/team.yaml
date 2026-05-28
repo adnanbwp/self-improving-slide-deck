@@ -1,0 +1,109 @@
+members:
+  - slug: adnan
+    name: Adnan
+    initials: AD
+    role: Presenter
+    color: "#1C2644"
+    accent: "#C49A30"
+    accent_name: Warm Ochre
+    presenter: true
+    avatar: shared/assets/avatars/adnan.png
+
+  - slug: larry
+    name: Larry
+    initials: LA
+    role: Orchestrator
+    color: "#4A6FA5"
+    accent: "#C8A870"
+    accent_name: Muted Gold
+    avatar: shared/assets/avatars/larry.png
+
+  - slug: pax
+    name: Pax
+    initials: PA
+    role: Researcher
+    color: "#7B9E87"
+    accent: "#6B8EC4"
+    accent_name: Dusty Blue
+    avatar: shared/assets/avatars/pax.png
+
+  - slug: penn
+    name: Penn
+    initials: PE
+    role: Writer
+    color: "#B5735A"
+    accent: "#8A7AAA"
+    accent_name: Dusty Lavender
+    avatar: shared/assets/avatars/penn.png
+
+  - slug: rex
+    name: Rex
+    initials: RE
+    role: Logic Auditor
+    color: "#7A5C8C"
+    accent: "#C24B3A"
+    accent_name: Crimson
+    avatar: shared/assets/avatars/rex.png
+
+  - slug: vera
+    name: Vera
+    initials: VE
+    role: Critic
+    color: "#5C8C7A"
+    accent: "#8CB87A"
+    accent_name: Acid Green
+    avatar: shared/assets/avatars/vera.png
+
+  - slug: iris
+    name: Iris
+    initials: IR
+    role: Visuals
+    color: "#8C7A5C"
+    accent: "#D4882A"
+    accent_name: Warm Amber
+    avatar: shared/assets/avatars/iris.png
+
+  - slug: coda
+    name: Coda
+    initials: CO
+    role: Deck Author
+    color: "#5C6B8C"
+    accent: "#5A4E8A"
+    accent_name: Deep Indigo
+    avatar: shared/assets/avatars/coda.png
+
+  - slug: nolan
+    name: Nolan
+    initials: NO
+    role: HR
+    color: "#8C5C6B"
+    accent: "#B86248"
+    accent_name: Warm Brick
+    avatar: shared/assets/avatars/nolan.png
+
+  - slug: mack
+    name: Mack
+    initials: MA
+    role: Automation
+    color: "#6B8C5C"
+    accent: "#D47030"
+    accent_name: Electric Orange
+    avatar: shared/assets/avatars/mack.png
+
+  - slug: silas
+    name: Silas
+    initials: SI
+    role: Database
+    color: "#C8A870"
+    accent: "#4A7888"
+    accent_name: Cool Steel
+    avatar: shared/assets/avatars/silas.png
+
+  - slug: aria
+    name: Aria
+    initials: AR
+    role: Audience Persona
+    color: "#9B7BAE"
+    accent: "#C4607A"
+    accent_name: Warm Rose
+    avatar: shared/assets/avatars/aria.png

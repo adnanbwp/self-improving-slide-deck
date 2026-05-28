@@ -1,0 +1,76 @@
+# Design Proposal — AI and Kids v1
+Date: 2026-05-27
+Prepared by: Iris (WS-006 Step 3)
+Slide plan source: `decks/ai-and-kids/reports/2026-05-27-slide-plan-v1.md`
+
+---
+
+## Section 1 — Three Template Candidates
+
+### Candidate A: Signal
+
+Signal is the strongest deck-level fit for this presentation. Its native patterns cover Statement (chromeless headline with kicker), Split (text + image) (the dual-surface left/right column model), About Me (editorial portrait card), Quote (floating display text with attribution chrome), and Section Divider — collectively covering 12 of the 19 slides with no structural work. The editorial-authority register maps directly to the deck's PoV: the argument is evidence-led and asks skeptical parents and teachers to take a claim seriously. Signal's sober, restrained visual language — fine rules, typographic restraint, kicker labels that signal institutional rigor — creates the same trust posture as a long-form briefing document or a quality-magazine feature. The italic-accent "Signal moment" (a key phrase rendered italic in the emerald accent color) provides a disciplined emphasis device that Coda can apply to the deck's pivotal claim phrases without resorting to bold or callout boxes. Signal's only risk for this deck is the dominance of its dark-surface identity: the ai-and-kids theme is light (off-white warm background), so Coda must apply the light-surface inversion. The cream/navy dual-surface model maps cleanly to the deck's `--bg` off-white and `--text-primary` deep navy, with the emerald accent replacing the original antique gold. The editorial grid texture adapts at near-zero opacity and will be imperceptible in projection.
+
+**Types handled natively:** Statement, Quote, About Me, Split (text + image), Section Divider, Title (strong fit via chromeless layout adaptation)
+**Risks:** Light-theme inversion required; font stack swap from Source Serif 4/DM Sans/IBM Plex Mono to Barlow Condensed/Barlow is already documented in the README and preserves weight hierarchy; no unknown risks remain.
+
+---
+
+### Candidate B: Monochrome
+
+Monochrome is the second-strongest candidate. Its native patterns cover Evidence (dominant stat + prose column), Quote (floating Lora italic text), Statement, Title, and About/Vision. The signature left-gutter sidebar rule with rotated JetBrains Mono labels creates an archival research-notebook register that reads as scholarly and peer-reviewed — a significant advantage for an argument that leans on academic sources (BJPsych, RAND, CSM, Stanford). For an educator audience that values source rigor, the visual language of an academic monograph reinforces the argument's evidentiary weight rather than competing with it. The Lora italic serif creates a strong pull-quote register for the Quote slide (Slide 10) and adds literary depth to Statement slides. The limitation for this deck is coverage gaps: Monochrome has no native List pattern, no native CTA layout, and no native Comparison layout — three types that appear in this deck's plan. The sidebar column structure also needs adaptation for Split slides where the image column must extend to the right edge, as the sidebar's left gutter intrudes. Ultra-light Jost 200 weights also carry a projection legibility risk in large rooms.
+
+**Types handled natively:** Evidence (Stat + prose), Quote, Statement, Title, About/Vision
+**Risks:** No native List, CTA, or Comparison pattern; light-theme inversion required; ultra-light font weights may render poorly on low-quality projectors.
+
+---
+
+### Candidate C: Cobalt Grid
+
+Cobalt Grid is the most data-authoritative template but the weakest deck-level fit for this argument's type mix. Its native patterns cover Evidence (dominant stat + pixel-stack chart), Comparison (two-column grid), and Chart/Graph — three types that appear in this deck but account for only a small fraction of slides. The graph-paper grid canvas and top/bottom hairline framing create a rigorous analytical register that excels on evidence slides (Slides 9, 11, 15). The two-color constraint produces high print contrast and would render cleanly on any projection surface. However, the pixel-glitch decorative column and grid-paper canvas are designed for data-forward slides; on Statement and Quote slides (which dominate this deck's plan) the structural grid competes with the headline and must be suppressed, requiring per-slide CSS overrides. Cobalt Grid has no native About Me, Split (text + image), or List pattern. Its strict structural framing imposes a bureaucratic visual tone that may read as clinical or impersonal to a parent audience being asked to make decisions about their child — the deck's emotional register requires some warmth that Cobalt Grid's two-color precision does not provide.
+
+**Types handled natively:** Evidence/Stat, Comparison, Chart/Graph, Table of Contents
+**Risks:** No native Statement-first layout (grid competes with headlines); no native About Me, List, or Split pattern; visual tone may underserve emotional resonance required with parent audience.
+
+---
+
+## Section 2 — Per-Slide Fit Table
+
+Type abbreviations used below:
+- **VS** = Very strong (native pattern exists; no structural adaptation needed)
+- **S** = Strong (minor CSS adjustment only)
+- **M** = Moderate (structural adaptation required)
+
+| Slide # | Title | Type | Signal (A) | Monochrome (B) | Cobalt Grid (C) | Coda tips |
+|---|---|---|---|---|---|---|
+| 1 | Title — "Your Child Is Already Using It." | Title | S | VS | M | **A:** Use the chromeless Statement layout with kicker line "AI and Kids"; suppress the grid texture on the title slide for maximum breath. **C (M):** The topbar/hairline frame must be suppressed; replace with centred display headline over the bare grid canvas. Remove the pixel-glitch column. |
+| 2 | Opening PoV — Split (text + image) | Split (text + image) | VS | M | M | **B (M):** The sidebar left-gutter rule must not intrude into the image column. Build a two-column grid that begins at the frame's left edge (72px), not the sidebar rule. Suppress the sidebar structure entirely on this slide and replace with a header bar at top. **C (M):** There is no native image-column pattern. Build a standard CSS grid (60/40 split): left column uses topbar headline + body text; right column is a full-bleed image area. The graph-paper grid shows through the text column only — the image column uses `background: none`. |
+| 3 | About Me | About Me | VS | S | M | **B (S):** Monochrome's About/Vision pattern works as a base. Add a portrait image area (circular or rectangular panel) to the left and pull the bio text right — the sidebar rule provides the dividing spine naturally. **C (M):** No native About Me pattern. Build a two-column layout inside the frame: left column with image placeholder and name/title labels (Barlow Condensed + Barlow); right column with bio text and credential tags as a simple flat list. Use the existing topbar chrome to carry the section label. |
+| 4 | Shared False Premise — Statement | Statement | VS | VS | S | **C (S):** Optionally break the grid structure (suppress the frame column layout) and centre the display phrase. Use the hairline framing only; suppress the topbar for this slide so the claim fills the canvas. |
+| 5 | Three Schools — List | List | S | M | M | **A (S):** Signal has no native list pattern but the editorial column layout adapts easily — three items as stacked kicker + body pairs within a single column, separated by thin rules. **B (M):** Build three items as stacked blocks using Jost weight contrast (500 for school name, 200 for descriptor). The sidebar rule labels the section. No color differentiation — use spacing and weight only. **C (M):** Use the topbar for the slide title. Below, build three horizontal rows as a ledger-style list within the grid frame, separated by `var(--divider)` hairlines. Each row: label left (Barlow Condensed), descriptor right (Barlow 400). |
+| 6 | Limb A: Impossibility — Split (text + image) | Split (text + image) | VS | M | M | **B (M):** Same as Slide 2 — suppress sidebar on this slide; build left/right column grid from the frame's left edge. **C (M):** Same as Slide 2 — build native two-column grid with full-bleed image right. |
+| 7 | Limb A: Equity Cost — Statement | Statement | VS | VS | S | **A:** Apply the italic-accent Signal moment to the pivotal phrase "students least at risk" — renders in emerald italic for emphasis without a callout box. **C (S):** Suppress the topbar; centre display phrase. Add the Brookings source line in `var(--text-muted)` Barlow 400 below the headline at a reduced size. |
+| 8 | Age-Scoping Qualifier — List | List | S | M | M | **A (S):** Same approach as Slide 5: three age-band items as stacked editorial list with thin rule separators. Use the kicker label "Age-appropriate limits" above the first item. **B (M):** Three items using Jost weight contrast and spacing; sidebar label "Qualifier". **C (M):** Ledger-style three-row list inside the grid frame; topbar carries the slide title. |
+| 9 | Limb B: Scale — Split (text + image) | Split (text + image) | VS | S | VS | **B (S):** Use Monochrome's native Evidence layout (dominant stat + prose column). Treat the "77%" as the stat-num and the explanatory text as the right-column prose. The image functions as a background-panel supplement, not a structural element — place it as an absolute-positioned half-panel behind the right column at reduced opacity if required. |
+| 10 | Limb B: Sycophancy Mechanism — Quote | Quote | VS | VS | M | **C (M):** No native Quote pattern. Build a centred display layout: the display phrase at ~56px Barlow Condensed italic occupies the centre 70% of the slide width; attribution below in Barlow 400 small caps. The graph-paper grid background is retained but the topbar frame must be suppressed so the quote reads uncontained. |
+| 11 | Limb B: Documented Harm — Split (text + image) | Split (text + image) | VS | S | VS | **B (S):** Same Evidence layout as Slide 9. Use "1 in 8" as the stat-num (treat as a compound string: "1 in 8" in Jost 200 with "in" and "8" scaled uniformly). Right column carries the narrative text and image as a combined panel. |
+| 12 | Limb B: Cognitive Atrophy — Statement | Statement | VS | VS | S | **A:** Apply Signal moment to "Less thinking" — italic emerald draws attention to the cognitive risk phrase without competing with the display headline. **C (S):** Suppress topbar; centre display phrase "Better output. Less thinking." — use a two-line break to give each clause its own weight. |
+| 13 | Evidence Asymmetry — Comparison | Comparison | S | S | VS | **A (S):** Build two columns using Signal's editorial column model: left column (Hands-off harm) and right column (Over-protection harm), separated by a single vertical `var(--divider)` rule. Column headers as kicker labels. **B (S):** Use the Monochrome left-right column model with a thin vertical rule separator. Left column header in Lora italic (for the peer-reviewed/harder evidence side); right column header in Jost 400. The sidebar label reads "Asymmetry". |
+| 14 | Limb C: Adult as Variable — Statement | Statement | VS | VS | S | **A:** Apply Signal moment to "Different outcome" — italic emerald on the payoff phrase. **C (S):** Suppress topbar; the three-clause display phrase ("Same product. Different adult. Different outcome.") uses line breaks to stage the logical sequence. Add source line below in muted text. |
+| 15 | Gap 2: Adult Preparedness — Split (text + image) | Split (text + image) | VS | S | VS | **B (S):** Use Monochrome Evidence layout. "49%" as stat-num; right column carries explanatory text and image panel. Same handling as Slides 9 and 11. |
+| 16 | Gap 3: Honest Scope — Statement | Statement | VS | VS | S | **A:** Use the kicker label "The honest scope" above the rule to signal this is an acknowledgment slide, not a claim slide — differentiates it from the argument Statements tonally. **C (S):** Same as other Statement slides; suppress topbar. |
+| 17 | Warning Signs — List | List | S | M | M | **A (S):** Five-item editorial list with Signal's stacked kicker + body pattern. Apply a thin left-border rule in `var(--accent)` to each item to echo the existing `warning-list` component from ai-and-kids.css. **B (M):** Five items as Jost 500/200 stacked blocks; sidebar label "Warning signs". Use the existing `warning-list` CSS component (left-border accent rule) from ai-and-kids.css — it layers cleanly over Monochrome's frame. **C (M):** Five ledger rows in the grid frame. Each row: number label left (Barlow Condensed accent); description right (Barlow 400). Topbar carries slide title. |
+| 18 | CTA — "Five things you can do this week" | CTA | S | M | M | **A (S):** Use Signal's editorial column layout with a numbered list. The kicker label reads "Start this week". Each numbered action as a kicker + short body pair. The five actions are sub-steps of one ask — no structural conflict with Signal's one-column discipline. **B (M):** No native CTA pattern. Build a numbered list of five items using Jost 200 for numerals (large, left-gutter) and Jost 400 for the action text. The sidebar label reads "Your move". Use generous vertical spacing so the five items breathe. **C (M):** No native CTA pattern. Build a five-row ledger inside the grid frame: numeral left column (Barlow Condensed accent), action text right column (Barlow 400). Topbar carries the title. The ledger structure is native to Cobalt Grid — the five actions adapt naturally to the row format. |
+| 19 | References — "Key sources" | UNCLASSIFIED | S | S | S | All three templates handle a simple bibliographic list adequately through their base body-text styles. No native pattern required — this slide is functional, not argumentative. **All candidates:** Use the topbar/frame chrome to label the slide "Sources" or "References". Render the 13 sources as a two-column list using `font-size: var(--text-sm)` and `color: var(--text-muted)`. No accent color, no emphasis. |
+
+---
+
+## Recommendation
+
+**Signal (Candidate A)** is recommended.
+
+It covers more native slide types than either alternative (Statement, Quote, About Me, Split, and adapts cleanly to List and CTA with minor structural work), its editorial-authority register matches the deck's evidence-led PoV, and the italic-accent Signal moment provides a disciplined emphasis device that reinforces the argument's pivotal phrases without visual noise. The light-theme adaptation is straightforward — the cream/navy dual-surface model maps to the deck's off-white/navy tokens without friction — and the adaptation methodology is already documented in the template's README.
+
+Cobalt Grid scores highest on evidence slides but is outmatched by the deck's Statement and Split-heavy type mix, and its precise analytical tone underserves the parent audience's need for warmth and approachability. Monochrome is a credible second choice for an educator-only audience but its light-weight fonts carry projection risk and its coverage gaps on List and CTA would require more Coda build work than Signal.
+
+**Signal's only material risk** is the three-family font stack. The README documents the fallback (Barlow Condensed / Barlow) and this is already in use in the sample.html — the risk is contained.

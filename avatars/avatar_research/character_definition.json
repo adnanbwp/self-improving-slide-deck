@@ -1,0 +1,459 @@
+{
+  "master_prompt": "Clean editorial vector ink illustration.\n\nMinimalist Japanese-inspired systems aesthetic.\n\nBust portrait only.\n\nCentred composition.\n\nStrong whitespace.\n\nMonochrome dominant.\n\nOff-white or pure white background.\n\nThin black ink linework.\n\nFine editorial hatching only.\n\nNo painterly rendering.\n\nNo photorealism.\n\nNo cinematic lighting.\n\nNo gradients.\n\nNo 3D shading.\n\nNo textured backgrounds.\n\nNo dramatic contrast.\n\nMinimal facial detail using simplified geometry.\n\nEyes, nose and mouth lightly implied.\n\nHair treated as grouped ink masses.\n\nFacial hair treated as simplified grouped ink masses and sparse editorial hatching only.\n\nNo realistic beard texture.\n\nNo realistic skin texture.\n\nNo glossy surfaces.\n\nClothing lightly shaded with sparse ink hatching only.\n\nNo filled clothing colours.\n\nAccent colour used VERY sparingly as subtle clothing shading accents only.\n\nAccent colour may appear only in:\n- inner collar shading\n- blazer fold accents\n- knitwear hatch shading\n- tiny fabric edge details\n- pocket seam or lapel edge accents\n\nAccent colour must remain muted and restrained.\n\nClothing remains predominantly monochrome.\n\nPortrait should feel symbolic rather than realistic.\n\nProfessional LinkedIn editorial portrait posture.\n\nCalm executive presence.\n\nSubtle business-casual wardrobe.\n\nNo symbols.\n\nNo orbit systems.\n\nNo icons.\n\nNo floating UI elements.\n\nNo infographic composition.\n\nNo dashboard aesthetics.\n\nNo visual metaphors surrounding the character.\n\nNo typography.\n\nNo split layouts.\n\nNo bottom divider line.\n\nPortrait only.\n\nTelegram profile-picture safe.\n\nQuiet, calm, intelligent visual tone.\n\nEditorial illustration quality.\n\nControlled detail density.\n\nHigh detail ONLY in:\n- hair clusters\n- glasses\n- beard silhouette where relevant\n- subtle facial edges\n\nLow detail everywhere else.\n\nLarge negative space.\n\nThin consistent vector-clean line weight.\n\nNo sketchiness.\n\nNo rough comic lines.\n\nThe image should feel:\n- calm\n- composed\n- observant\n- editorial\n- modern\n- intelligent\n- minimal\n- high-trust\n\nAvoid:\nphotorealistic, cinematic lighting, painterly, oil painting, anime, comic book, cyberpunk, 3D render, glossy skin, dramatic shadows, infographic board, dashboard UI, typography, text labels, colourful clothing, realism, concept art, hyperdetail, videogame art, movie poster, fantasy illustration, realistic beard texture, detailed skin pores, HDR, high contrast, dynamic action pose, cluttered composition, busy background, neon, gradients, split layout, tech HUD, sci-fi interface, symbols, icons, orbit, dotted arcs, surrounding diagrams",
+  "usage_note": "For each image, combine master_prompt with exactly one character profile. For Adnan, use the reference photo only for likeness and silhouette, not as a 1:1 portrait. No characters should have symbols, orbits, icons, floating diagrams, or infographic elements.",
+  "characters": [
+    {
+      "name": "Adnan",
+      "title": "Human",
+      "role": "Presenter & Research Director",
+      "purpose": "Guides strategic direction, synthesises outcomes, presents narratives and validates decisions",
+      "personality": [
+        "thoughtful",
+        "calm",
+        "strategic",
+        "observant",
+        "truth-seeking"
+      ],
+      "accent_color": "#C49A30",
+      "accent_name": "Warm Ochre",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "high-trust advisor energy",
+        "quiet intelligence",
+        "modern systems thinker",
+        "recognisable from reference photo but not realistic"
+      ],
+      "posture": [
+        "standing relaxed",
+        "balanced shoulders",
+        "subtle confidence",
+        "one hand lightly presenting forward",
+        "minimal restrained gesture",
+        "calm upright posture"
+      ],
+      "expression": [
+        "neutral",
+        "thoughtful",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Minimal business-casual blazer or zip-collar executive knitwear; monochrome dominant; no coloured clothing; accent colour only as sparse hatch shading or tiny trim details.",
+      "silhouette_notes": "Tall clean silhouette, open approachable stance, symmetrical framing, minimal movement.",
+      "ethnicity": "South Asian — Pakistani",
+      "gender": "male",
+      "facial_features": "Glasses, full beard, balding with clean side hair, strong brow structure, warm intelligent presence. Use reference photo for likeness and silhouette only, not a 1:1 portrait.",
+      "hair": "Controlled grouped ink masses; balding crown with clean side hair; simplified, not realistic texture."
+    },
+    {
+      "name": "Larry",
+      "title": "Orchestrator",
+      "role": "Coordinator & Librarian",
+      "purpose": "Routes requests, coordinates specialists, synthesises outputs",
+      "personality": [
+        "composed",
+        "systematic",
+        "quietly intelligent"
+      ],
+      "accent_color": "#C8A870",
+      "accent_name": "Muted Gold",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "calm systems leadership",
+        "professional composure",
+        "quiet authority"
+      ],
+      "posture": [
+        "upright posture",
+        "balanced shoulders",
+        "subtle confidence",
+        "minimal relaxed hand gesture",
+        "calm executive presence"
+      ],
+      "expression": [
+        "neutral",
+        "observant",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Clean business-casual blazer or structured knitwear; monochrome dominant; muted gold only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Balanced symmetrical silhouette, stable shoulders, minimal movement.",
+      "ethnicity": "East Asian — Japanese",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, tidy professional styling, optional glasses if useful for intellectual presence.",
+      "hair": "Grouped ink masses, clean professional shape."
+    },
+    {
+      "name": "Nolan",
+      "title": "HR",
+      "role": "Team Growth & Governance",
+      "purpose": "Manages specialist lifecycle, onboarding, retirement and team hygiene",
+      "personality": [
+        "warm",
+        "structured",
+        "protective"
+      ],
+      "accent_color": "#B86248",
+      "accent_name": "Warm Brick",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "warm people leader",
+        "structured and reassuring",
+        "professional custodial energy"
+      ],
+      "posture": [
+        "upright relaxed posture",
+        "balanced shoulders",
+        "gentle confidence",
+        "hands calm and restrained",
+        "approachable executive presence"
+      ],
+      "expression": [
+        "soft neutral",
+        "warm",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Soft business-casual jacket or cardigan over shirt; monochrome dominant; warm brick only as sparse clothing hatch shading or small trim details.",
+      "silhouette_notes": "Friendly rounded posture with stable stance; professional, not playful.",
+      "ethnicity": "Black African — Ghanaian",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, warm brow, calm presence.",
+      "hair": "Short grouped ink masses, simple and low detail."
+    },
+    {
+      "name": "Pax",
+      "title": "Researcher",
+      "role": "Research & Verification",
+      "purpose": "Cross-source verification, fact-checking and structured intelligence gathering",
+      "personality": [
+        "curious",
+        "precise",
+        "methodical"
+      ],
+      "accent_color": "#6B8EC4",
+      "accent_name": "Dusty Blue",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "precise researcher",
+        "quietly analytical",
+        "high-trust verification energy"
+      ],
+      "posture": [
+        "slightly forward but still professional",
+        "balanced shoulders",
+        "restrained attentive posture",
+        "minimal movement"
+      ],
+      "expression": [
+        "focused",
+        "neutral",
+        "thoughtful"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Crisp shirt, blazer or simple knit layer; monochrome dominant; dusty blue only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Slightly angular inquisitive silhouette without dynamic action.",
+      "ethnicity": "Southeast Asian — Filipino",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, attentive eyes, composed mouth.",
+      "hair": "Controlled grouped ink masses, clean and simple."
+    },
+    {
+      "name": "Penn",
+      "title": "Journal Writer",
+      "role": "PKM & Reflection",
+      "purpose": "Transforms raw inputs into structured journal and knowledge artefacts",
+      "personality": [
+        "reflective",
+        "empathetic",
+        "quiet"
+      ],
+      "accent_color": "#8A7AAA",
+      "accent_name": "Dusty Lavender",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "reflective knowledge worker",
+        "quiet empathy",
+        "calm editorial presence"
+      ],
+      "posture": [
+        "relaxed upright posture",
+        "soft shoulders",
+        "hands calm or mostly out of frame",
+        "minimal movement"
+      ],
+      "expression": [
+        "soft neutral",
+        "reflective",
+        "composed"
+      ],
+      "gaze": "slightly downward or slightly off-camera",
+      "wardrobe": "Soft blouse, cardigan or minimal blazer; monochrome dominant; dusty lavender only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Soft flowing lines, relaxed professional posture.",
+      "ethnicity": "East Asian — Korean",
+      "gender": "female",
+      "facial_features": "Minimal facial detail, gentle facial geometry.",
+      "hair": "Grouped ink masses with soft flowing shape, low texture."
+    },
+    {
+      "name": "Mack",
+      "title": "Automation Specialist",
+      "role": "Integrations & Infrastructure",
+      "purpose": "Builds automations, APIs, webhooks and external execution pipelines",
+      "personality": [
+        "resourceful",
+        "practical",
+        "fast-moving"
+      ],
+      "accent_color": "#D47030",
+      "accent_name": "Electric Orange",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "practical technical operator",
+        "sharp but composed",
+        "modern execution energy"
+      ],
+      "posture": [
+        "upright business portrait posture",
+        "slight asymmetry in shoulders only",
+        "restrained confidence",
+        "no action pose"
+      ],
+      "expression": [
+        "alert",
+        "neutral",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Modern casual jacket or workwear-inspired blazer; monochrome dominant; electric orange only as sparse clothing hatching or tiny trim details, kept muted.",
+      "silhouette_notes": "Slightly asymmetrical but stable professional silhouette; no walking or motion.",
+      "ethnicity": "Latino — Colombian",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, practical focused presence.",
+      "hair": "Grouped ink masses, clean but slightly informal."
+    },
+    {
+      "name": "Silas",
+      "title": "Database Architect",
+      "role": "Knowledge Structure & Integrity",
+      "purpose": "Maintains schema integrity, imports knowledge and audits structure",
+      "personality": [
+        "rigorous",
+        "minimalist",
+        "stable"
+      ],
+      "accent_color": "#4A7888",
+      "accent_name": "Cool Steel",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "structured architect energy",
+        "rigorous and calm",
+        "minimalist professional authority"
+      ],
+      "posture": [
+        "very upright posture",
+        "balanced shoulders",
+        "still and grounded",
+        "hands restrained or out of frame"
+      ],
+      "expression": [
+        "neutral",
+        "precise",
+        "composed"
+      ],
+      "gaze": "slightly off-camera — looking to the side, NOT directly at the viewer",
+      "wardrobe": "Structured blazer or high-collar knitwear; monochrome dominant; cool steel only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Rectilinear grounded silhouette with strong symmetry.",
+      "ethnicity": "Middle Eastern — Lebanese",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, strong geometric face shape.",
+      "hair": "Neat grouped ink masses, controlled and low detail."
+    },
+    {
+      "name": "Coda",
+      "title": "Deck Author",
+      "role": "Narrative Presentation",
+      "purpose": "Transforms research and arguments into persuasive presentation decks",
+      "personality": [
+        "creative",
+        "polished",
+        "audience-aware"
+      ],
+      "accent_color": "#5A4E8A",
+      "accent_name": "Deep Indigo",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "polished narrative strategist",
+        "creative but restrained",
+        "executive presentation energy"
+      ],
+      "posture": [
+        "upright composed posture",
+        "subtle presenter confidence",
+        "one small restrained hand gesture",
+        "balanced framing"
+      ],
+      "expression": [
+        "calm",
+        "polished",
+        "attentive"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Elegant blazer, blouse or tailored knitwear; monochrome dominant; deep indigo only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Elegant upper body line flow, professional and minimal.",
+      "ethnicity": "White European — Swedish",
+      "gender": "female",
+      "facial_features": "Minimal facial detail, refined editorial geometry.",
+      "hair": "Controlled grouped ink masses with elegant flow."
+    },
+    {
+      "name": "Rex",
+      "title": "Logic Auditor",
+      "role": "Argument Validation",
+      "purpose": "Finds gaps, non-sequiturs and weak reasoning",
+      "personality": [
+        "sharp",
+        "direct",
+        "analytical"
+      ],
+      "accent_color": "#C24B3A",
+      "accent_name": "Crimson",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "analytical reviewer",
+        "direct and composed",
+        "serious professional authority"
+      ],
+      "posture": [
+        "upright posture",
+        "firm shoulders",
+        "arms relaxed or lightly folded but not aggressive",
+        "minimal movement"
+      ],
+      "expression": [
+        "neutral",
+        "focused",
+        "slightly stern"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Sharp blazer or structured shirt; monochrome dominant; crimson only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Sharp angular silhouette, rigid but professional posture.",
+      "ethnicity": "Black African — Senegalese",
+      "gender": "male",
+      "facial_features": "Minimal facial detail, distinct angular face structure, composed intensity.",
+      "hair": "Short grouped ink masses, clean geometric outline."
+    },
+    {
+      "name": "Vera",
+      "title": "Adversarial Critic",
+      "role": "Red Team & Pre-Mortem",
+      "purpose": "Challenges assumptions and pressure-tests decisions",
+      "personality": [
+        "skeptical",
+        "fearless",
+        "intense"
+      ],
+      "accent_color": "#8CB87A",
+      "accent_name": "Acid Green",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "critical advisor",
+        "controlled intensity",
+        "composed challenger energy"
+      ],
+      "posture": [
+        "upright posture with slight head tilt",
+        "balanced shoulders",
+        "restrained questioning presence",
+        "no dramatic pose"
+      ],
+      "expression": [
+        "calm scepticism",
+        "focused",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Minimal blazer or structured top; monochrome dominant; acid green only as very sparse muted clothing hatching or tiny trim details.",
+      "silhouette_notes": "Subtle asymmetry only; professional, not chaotic.",
+      "ethnicity": "Eastern European — Polish",
+      "gender": "female",
+      "facial_features": "Minimal facial detail, sharp but restrained facial geometry.",
+      "hair": "Grouped ink masses with controlled shape."
+    },
+    {
+      "name": "Aria",
+      "title": "Audience Persona Specialist",
+      "role": "Persuasion & Audience Alignment",
+      "purpose": "Optimises messaging for audience resonance and behavioural response",
+      "personality": [
+        "socially intelligent",
+        "adaptive",
+        "elegant"
+      ],
+      "accent_color": "#C4607A",
+      "accent_name": "Warm Rose",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "elegant audience strategist",
+        "socially intelligent",
+        "calm professional warmth"
+      ],
+      "posture": [
+        "open upright posture",
+        "balanced shoulders",
+        "gentle conversational confidence",
+        "minimal movement"
+      ],
+      "expression": [
+        "warm neutral",
+        "composed",
+        "attentive"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Elegant professional clothing with hijab; monochrome dominant; warm rose only as sparse clothing hatching or tiny trim details, not as full hijab colour.",
+      "silhouette_notes": "Fluid approachable silhouette with soft curves and professional framing.",
+      "ethnicity": "Black African — Somali",
+      "gender": "female",
+      "faith": "Muslim",
+      "appearance_note": "Wears a hijab/headscarf; elegant, composed, professional; hijab remains mostly monochrome with only tiny warm rose hatch accents.",
+      "facial_features": "Minimal facial detail, calm attentive presence.",
+      "hair": "Covered by hijab; no visible hair required."
+    },
+    {
+      "name": "Iris",
+      "title": "Image Prompt Specialist",
+      "role": "Visual Direction & Prompt Engineering",
+      "purpose": "Designs structured prompts for image generation systems",
+      "personality": [
+        "imaginative",
+        "precise",
+        "visually obsessed"
+      ],
+      "accent_color": "#D4882A",
+      "accent_name": "Warm Amber",
+      "portrait_mode": "LinkedIn editorial portrait",
+      "visual_presence": [
+        "visual director energy",
+        "imaginative but composed",
+        "precise editorial taste"
+      ],
+      "posture": [
+        "upright portrait posture",
+        "subtle creative confidence",
+        "hands calm or mostly out of frame",
+        "minimal movement"
+      ],
+      "expression": [
+        "thoughtful",
+        "visually attentive",
+        "composed"
+      ],
+      "gaze": "slightly off-camera",
+      "wardrobe": "Minimal creative-professional jacket, blouse or knitwear; monochrome dominant; warm amber only as sparse clothing hatching or tiny trim details.",
+      "silhouette_notes": "Dreamlike elegance reduced into a stable professional portrait silhouette.",
+      "ethnicity": "Black Caribbean — Trinidadian",
+      "gender": "female",
+      "facial_features": "Minimal facial detail, expressive but restrained eyes.",
+      "hair": "Grouped ink masses with controlled flowing form."
+    }
+  ]
+}

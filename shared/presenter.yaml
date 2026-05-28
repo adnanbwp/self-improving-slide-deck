@@ -1,0 +1,12 @@
+# Edit this file to update About Me slides across all decks.
+
+# Presenter profile — update fields before deck use
+# Wired into About Me slides across decks
+
+name: "Adnan Ali"
+title: "Parent"
+bio: "Ask me about me"
+credentials:
+  - "[Credential 1]"
+  - "[Credential 2]"
+photo: "shared/assets/AdnanAli-Headshot.png"  # drop your headshot here: shared/assets/presenter-photo.jpg

@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI and Kids — v1.2.0</title>
+  <!--
+    PATH NOTE: Deployed at decks/ai-and-kids/versions/v1.2.0/canonical.html
+    shared/ lives four levels up: ../../../../shared/
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--
+    Signal canonical font stack:
+      Source Serif 4  — editorial serif headlines (roman + italic mid-sentence = "Signal moment")
+      DM Sans         — body and support text
+      IBM Plex Mono   — kickers, chrome labels, stat notes
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600;1,8..60,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../../shared/lib/reset.css">
+  <link rel="stylesheet" href="../../../../shared/lib/reveal.css">
+  <link rel="stylesheet" href="../../theme/ai-and-kids.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       SIGNAL CANONICAL IMPLEMENTATION
+       ───────────────────────────────────────────────────────────────
+       Source: shared/design-library/_source/templates/signal/
+
+       Color language:
+         Dark surface  — navy #1C2644 + warm off-white text + gold accent
+         Light surface — cream #F0ECE3 + ink text + gold accent
+         Accent        — antique gold #C8A870 (rules, italic em, stats)
+
+       Typography:
+         Source Serif 4 — every headline; <em> in headlines = italic gold
+         DM Sans        — body, lead, support
+         IBM Plex Mono  — kicker, chrome labels (slide-header/footer)
+
+       Surface allocation:
+         Dark  → Title, all Statement slides (4, 7, 10, 12, 14, 16)
+         Light → All content slides (2, 3, 5, 6, 8–9, 11, 13, 15, 17–19)
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* ── Signal palette ───────────────────────────────────────────── */
+    :root {
+      --signal-navy:         #1c2644;
+      --signal-navy-alt:     #232f55;
+      --signal-cream:        #f0ece3;
+      --signal-cream-alt:    #e6e0d4;
+      --signal-gold:         #c8a870;
+      --signal-text-warm:    #e2dcd0;  /* primary on dark  */
+      --signal-muted-dark:   #8a96a8;  /* secondary on dark */
+      --signal-ink:          #1a2030;  /* primary on light  */
+      --signal-muted-light:  #5a6270;  /* secondary on light */
+      --signal-border-dark:  #2e3d5c;
+      --signal-border-light: #cac4b4;
+
+      /* Override design-system vars to Signal canonical values */
+      --font-display: "Source Serif 4", "Noto Serif SC", Georgia, serif;
+      --font-body:    "DM Sans", "Noto Sans SC", system-ui, sans-serif;
+      --f-mono:       "IBM Plex Mono", "JetBrains Mono", monospace;
+
+      /* Default surface tokens — cream (content slides) */
+      --bg:            var(--signal-cream);
+      --color-surface: var(--signal-cream-alt);
+      --text-primary:  var(--signal-ink);
+      --text-muted:    var(--signal-muted-light);
+      --accent:        var(--signal-gold);
+      --accent-dim:    color-mix(in srgb, var(--signal-gold) 18%, var(--signal-cream));
+      --divider:       var(--signal-border-light);
+    }
+
+    /* ── Reveal viewport ──────────────────────────────────────────── */
+    .reveal-viewport { background: var(--signal-navy); }
+    .reveal          { color: var(--text-primary); }
+
+    /* ── Default (cream) slides ───────────────────────────────────── */
+    .reveal .slides section {
+      flex-direction: column;
+      background: var(--signal-cream);
+    }
+
+    /* ── Dark (navy) slides ───────────────────────────────────────── */
+    .reveal .slides section.dark {
+      --bg:            var(--signal-navy);
+      --color-surface: var(--signal-navy-alt);
+      --text-primary:  var(--signal-text-warm);
+      --text-muted:    var(--signal-muted-dark);
+      --divider:       var(--signal-border-dark);
+      /* Navy + near-invisible 80px grid — Signal dark fingerprint */
+      background:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 80px 80px,
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px) 0 0 / 80px 80px,
+        var(--signal-navy);
+    }
+
+    /* Propagate per-section tokens to base.css heading/text rules */
+    .reveal .slides section h1,
+    .reveal .slides section h2,
+    .reveal .slides section h3    { color: var(--text-primary); }
+    .reveal .slides section p,
+    .reveal .slides section li    { color: var(--text-primary); }
+    .reveal .slides section a     { color: var(--accent); }
+
+    /* ── Content area — fills space between header and footer ─────── */
+    .slide-content {
+      flex: 1;
+      padding-bottom: 3rem;
+      overflow: visible;
+    }
+
+    /* Statement: center the claim vertically in the available space */
+    .slide-content.statement {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-bottom: 0;
+    }
+
+    /* On statement slides h2 is context frame; display-phrase is hero */
+    .slide-content.statement h2 {
+      font-size: var(--text-xl);
+      font-weight: 400;
+      color: var(--text-muted);
+      max-width: 56ch;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Kicker — IBM Plex Mono uppercase gold ────────────────────── */
+    .kicker {
+      font-family: var(--f-mono);
+      font-size: 0.7vw;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Chrome labels (header / footer) — mono metadata voice */
+    .deck-label, .page-num {
+      font-family: var(--f-mono) !important;
+    }
+
+    /* ── Short gold rule — Signal kicker separator ────────────────── */
+    hr.rule {
+      width: 36px;
+      height: 1px;
+      background: var(--accent);
+      border: none;
+      margin: 0 0 1.4rem;
+      display: block;
+    }
+
+    /* ── Signal moment — italic gold em inside headline ───────────── */
+    /* This is Signal's most distinctive typographic treatment:
+       roman serif + italic serif in gold mid-sentence. */
+    .signal-moment {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── Display phrase — the hero statement claim ────────────────── */
+    .display-phrase {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin: 0.75rem 0 1.2rem;
+      max-width: 68%;
+    }
+    .display-phrase em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── Support / lead line ──────────────────────────────────────── */
+    .support-line {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--text-muted);
+      max-width: 62ch;
+      line-height: var(--leading-normal);
+    }
+
+    /* ── Dominant stat numeral — gold serif ───────────────────────── */
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: var(--leading-tight);
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5rem;
+      display: block;
+    }
+
+    /* ── Split layout — text left, image/stat right ───────────────── */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+    .split-layout .left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .split-layout .left-col p {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--text-primary);
+      line-height: var(--leading-normal);
+      margin: 0;
+    }
+    .split-layout .right-col img {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 0;  /* Signal: no rounded corners */
+      display: block;
+    }
+    .stat-side {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    /* ── Editorial list ───────────────────────────────────────────── */
+    .editorial-list      { margin-top: 1rem; }
+    .editorial-list-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .editorial-list-item:first-child { border-top: 1px solid var(--divider); }
+    .item-kicker {
+      font-family: var(--f-mono);
+      font-size: 0.65vw;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .item-body {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--text-primary);
+      line-height: var(--leading-normal);
+    }
+
+    /* ── Age-scoping limit list ───────────────────────────────────── */
+    .limit-list {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+    }
+    .limit-list li {
+      padding: 0.65rem 0 0.65rem 1.2rem;
+      border-left: 1px solid var(--divider);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+    }
+    /* Em-dash bullet in mono gold — Signal list marker convention */
+    .limit-list li::before {
+      content: "—";
+      font-family: var(--f-mono);
+      color: var(--accent);
+      margin-right: 0.6rem;
+    }
+    .limit-list li strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* ── Comparison layout — two editorial columns ────────────────── */
+    .comparison-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: 1.5rem;
+    }
+    .comparison-col {
+      padding: 1.2rem 2.5rem 1.2rem 0;
+    }
+    .comparison-col + .comparison-col {
+      padding: 1.2rem 0 1.2rem 2.5rem;
+      border-left: 1px solid var(--divider);
+    }
+    .col-kicker {
+      font-family: var(--f-mono);
+      font-size: 0.65vw;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .comparison-col p {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      line-height: var(--leading-normal);
+      margin: 0;
+    }
+
+    /* ── Warning list — em-dash gold mono marker ──────────────────── */
+    .warning-list {
+      list-style: none;
+      margin: 1rem 0 0;
+      padding: 0;
+    }
+    .warning-list li {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--divider);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: var(--leading-normal);
+    }
+    .warning-list li:first-child { border-top: 1px solid var(--divider); }
+    .warning-list li::before {
+      content: "—";
+      font-family: var(--f-mono);
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    /* ── CTA action list ──────────────────────────────────────────── */
+    .cta-list  { list-style: none; margin: 1rem 0 0; padding: 0; }
+    .cta-item  {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: 0.75rem;
+      align-items: baseline;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--divider);
+    }
+    .cta-item:first-child { border-top: 1px solid var(--divider); }
+    .cta-num {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .cta-text {
+      font-family: var(--font-body);
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+      line-height: var(--leading-normal);
+    }
+
+    /* ── Title slide ──────────────────────────────────────────────── */
+    .title-main {
+      font-family: var(--font-display);
+      font-size: var(--text-4xl);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin: 0.75rem 0 1.5rem;
+    }
+    .title-pov {
+      font-family: var(--font-body);
+      font-size: var(--text-lg);
+      font-weight: 400;
+      line-height: var(--leading-normal);
+      color: var(--text-muted);
+      margin: 0 0 1.5rem;
+      max-width: 52ch;
+      border-left: 1px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+    .title-presenter {
+      font-family: var(--f-mono);
+      font-size: 0.7vw;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ── About Me ─────────────────────────────────────────────────── */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      margin-top: 1.5rem;
+    }
+    .about-photo {
+      width: 200px;
+      height: 200px;
+      background: var(--color-surface);
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .about-name {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 0 0 0.25rem;
+    }
+    .about-role {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--accent);
+      font-weight: 400;
+      margin: 0 0 0.75rem;
+    }
+    .about-bio {
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      color: var(--text-muted);
+      line-height: var(--leading-normal);
+      margin: 0;
+    }
+
+    /* ── References two-column ────────────────────────────────────── */
+    .refs-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 2.5rem;
+      margin-top: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+    .refs-list li {
+      font-family: var(--font-body);
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      line-height: 1.6;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--divider);
+    }
+  </style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 1 — TITLE (dark / navy)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <hr class="rule">
+        <h1 class="title-main">Your Child<br>Is Already<br>Using It.</h1>
+        <p class="title-pov">Over-protecting harms them. Leaving them to it causes documented harm. The guided path starts this week.</p>
+        <span class="title-presenter">Adnan Ali</span>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">1</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Open on this slide before speaking. Let the title land. The three-line title names the factual premise. The PoV line names both extremes and signals the argument arc without summarising it.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 2 — OPENING PoV (cream / Split)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">The central claim</span>
+        <hr class="rule">
+        <div class="split-layout">
+          <div class="left-col">
+            <h2>Most parents are handling AI wrong — and it is hurting their children either way.</h2>
+            <p class="support-line">Ban it and you remove the only guided context some children will ever have. Step back and you leave them alone with a product designed to form attachment. Both moves harm the child.</p>
+          </div>
+          <div class="right-col">
+            <img src="../v1.1.0/assets/slide1-parent-child.png" alt="A parent and child looking at a laptop together">
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">2</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This is the spiky opening claim. Name both extremes out loud before moving on: over-protection on one side, unguided access on the other. The image previews the solution (presence) before the problem is fully diagnosed. Pause and let the claim sit with the audience.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 3 — ABOUT ME (cream)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">About the presenter</span>
+        <hr class="rule">
+
+        <div class="about-layout">
+          <div class="about-photo">
+            <img src="../../../../shared/assets/AdnanAli-Headshot.png" alt="Adnan Ali">
+          </div>
+          <div>
+            <p class="about-name">Adnan Ali</p>
+            <p class="about-role">Parent</p>
+            <p class="about-bio">Ask me about me</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">3</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Update bio before presenting. Keep it to 2–3 sentences — the audience wants to know why you are qualified to make the argument, not your full career history.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 4 — THE SHARED FALSE PREMISE (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">The root problem</span>
+        <hr class="rule">
+        <h2>Both failure modes rest on the same false assumption</h2>
+        <div class="display-phrase">
+          Remove the adult.<br>
+          Remove the risk.<br>
+          <em class="signal-moment">Wrong.</em>
+        </div>
+        <p class="support-line">Restrict or step back — both positions eliminate adult presence. Adult presence is exactly what the research identifies as the deciding variable.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">4</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the shared false premise before splitting into the two failure modes. The digital native myth is well-documented: Nature (2017) and multiple systematic reviews confirm that young people are not inherently better at evaluating technology than older adults. High digital confidence in self-report studies does not correlate with actual skills in detecting AI errors, bias, or misinformation.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 5 — THREE SCHOOLS (cream / List)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Three schools of thought</span>
+        <hr class="rule">
+        <h2>School one is necessary — but not enough</h2>
+
+        <div class="editorial-list">
+          <div class="editorial-list-item">
+            <span class="item-kicker">School 1 — Protective</span>
+            <span class="item-body">Risks first. Delay exposure. Necessary — some age limits are evidence-based. Fails when restriction replaces preparation.</span>
+          </div>
+          <div class="editorial-list-item">
+            <span class="item-kicker">School 2 — AI Literacy</span>
+            <span class="item-body">Teach children to use, evaluate, and question AI. Skills over fear. Acknowledge the risks, then build the capacity to navigate them.</span>
+          </div>
+          <div class="editorial-list-item">
+            <span class="item-kicker">School 3 — Co-Learner</span>
+            <span class="item-body">Adults learn alongside — not from a position of superior knowledge. Presence and asking questions aloud is enough.</span>
+          </div>
+        </div>
+
+        <p class="support-line" style="margin-top: 1rem;">This deck's argument sits in Schools 2 and 3. School 1 is understandable but incomplete as a full strategy.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">5</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This orientation slide frames the argument before the evidence begins. Schools 2 and 3 are not in tension — AI literacy is the goal, co-learning is the method. The Protective school is named first because it is where most of the audience will currently sit, and the deck needs to take it seriously before it can persuade them to move.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 6 — OVER-PROTECTION: IMPOSSIBILITY (cream / Split)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Over-protection</span>
+        <hr class="rule">
+        <div class="split-layout">
+          <div class="left-col">
+            <h2>The decision to keep your child from AI has already been made for you — by Google</h2>
+            <p>Google Search puts AI-generated answers at the top of every homework result. No age gate. No parental decision required. As of May 2026, Google turned Gemini on by default for children under 13 in Family Link accounts.</p>
+            <p>The question has already shifted: not <em>should my child use AI</em> — but <em>was I there when they first did?</em></p>
+          </div>
+          <div class="right-col">
+            <img src="../v1.1.0/assets/slide4-homework-google.png" alt="A child doing homework with a Google AI Overview card visible on screen">
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">6</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This is the structural anchor for the over-protection argument. The argument here is not normative — it is factual. A parent who would disagree with a claim about developmental harm might still be persuaded by a factual claim about what their child encounters during ordinary homework searches. Confirm the Gemini Family Link default configuration is still accurate before live presentation — product configurations at this scale change frequently.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 7 — OVER-PROTECTION: EQUITY COST (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">Over-protection — continued</span>
+        <hr class="rule">
+        <h2>School AI bans don't prevent use — they just remove the only guided context some students will ever have</h2>
+        <div class="display-phrase">
+          The ban protects<br>
+          the <em class="signal-moment">students least at risk.</em>
+        </div>
+        <p class="support-line">Brookings (2024): students access AI outside school regardless. Students with tech-literate parents learn responsible use at home. Students without that support lose the one structured setting they had.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">7</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the harm of over-protection honestly — it is not the same kind of harm as what the Hands-Off section documents. The equity argument is strongest for the teacher audience — school bans are the institutional form of over-protection. Sources: Brookings (2024) on school ban ineffectiveness; OECD/EC AI Literacy Framework draft (May 2025).
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 8 — AGE-SCOPING QUALIFIER (cream / List)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Age-scoping</span>
+        <hr class="rule">
+        <h2>Some limits are right — the argument targets blanket avoidance, not graduated age-appropriate limits</h2>
+
+        <ul class="limit-list">
+          <li><strong>Under 5</strong> — no AI toy companions</li>
+          <li><strong>Ages 6–12</strong> — caution and close supervision</li>
+          <li><strong>Under 18</strong> — no social AI companion apps (Character.AI, Replika, Nomi) — mental health risk data is too strong</li>
+        </ul>
+
+        <p class="support-line" style="margin-top: 1.2rem;">Age-appropriate limits within a framework of guided exposure are not the problem. Blanket avoidance without that framework is.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">8</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide closes the age-scoping gap before the Hands-Off section begins. Without it, an audience member who knows that Common Sense Media recommends some AI restrictions could fairly object that the deck's PoV contradicts its own sources. The distinction is: the deck targets blanket avoidance as a strategy, not all forms of protective limit-setting.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 9 — HANDS-OFF: SCALE (cream / Split + Stat)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Hands-off</span>
+        <hr class="rule">
+        <div class="split-layout">
+          <div class="left-col">
+            <h2>This is not a marginal risk — it is a population-scale exposure problem</h2>
+            <p>UK teens using generative AI doubled in a single year. 86% of US high school students used AI in 2024–25. One in three prefers asking AI over a human for serious conversations.</p>
+            <p>The children who most need adult guidance are already in the deep end.</p>
+          </div>
+          <div class="stat-side">
+            <span class="stat-num">77%</span>
+            <p class="stat-label">of UK teens 13–18 used generative AI in 2024, up from 37% the year before.<br>BJPsych, 2024.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">9</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide establishes the scope of the problem before naming the specific harms. The adoption rate data is not itself harm evidence — it establishes that harm is not a marginal risk affecting a small minority.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 10 — HANDS-OFF: SYCOPHANCY (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">Hands-off — continued</span>
+        <hr class="rule">
+        <h2>AI companions are purposely engineered to form emotional attachment — this is design intent, not a side effect</h2>
+        <div class="display-phrase">"Purposely programmed<br>to be <em class="signal-moment">agreeable.</em>"</div>
+        <p class="support-line">APA Monitor, October 2025 — media psychologist Don Grant on AI companion design. Children with developing self-concept are the most vulnerable. The attachment is the designed outcome, not an accident.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">10</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide names the sycophancy mechanism explicitly. The precision matters: it converts the "emotional dependency" concern from a vague risk framing to a named design intent. Source: APA Monitor, October 2025, citing Don Grant; corroborated by Common Sense Media/Stanford Brainstorm Lab testing that found bots escalate emotional engagement rather than de-escalating distress.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 11 — HANDS-OFF: DOCUMENTED HARM (cream / Split + Stat)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Hands-off — continued</span>
+        <hr class="rule">
+        <div class="split-layout">
+          <div class="left-col">
+            <h2>The mental health harm is documented, not theoretical</h2>
+            <p>Common Sense Media and Stanford's Brainstorm Lab (April 2025) tested major AI chatbots posing as distressed teens. The bots frequently failed to intervene — some encouraged harmful behavior.</p>
+            <p>A 14-year-old in Florida died by suicide in February 2024 after forming an intense bond with a Character.AI chatbot. This corroborates a documented pattern, not an isolated incident.</p>
+          </div>
+          <div class="stat-side">
+            <span class="stat-num">1 in 8</span>
+            <p class="stat-label">adolescents and young adults use AI chatbots for mental health advice — without clinical safeguards.<br>RAND, 2025.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">11</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        The Character.AI case is introduced as corroborating a pattern, not as a standalone proof. Common Sense Media and Stanford's Brainstorm Lab testing is the key source — systematic, methodology-described testing of actual major platforms.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 12 — HANDS-OFF: COGNITIVE ATROPHY (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">Hands-off — continued</span>
+        <hr class="rule">
+        <h2>AI boosts immediate output while degrading durable learning — younger students are most at risk</h2>
+        <div class="display-phrase">Better output.<br><em class="signal-moment">Less thinking.</em></div>
+        <p class="support-line">Multiple 2024–25 studies document the pattern (observational evidence — causal direction consistent, RCT confirmation not yet available): AI use for task completion shows measurable declines in analytical reasoning and study motivation over time. The harm is quiet and accumulates. It is worst where adults have stepped back.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">12</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        The cognitive atrophy risk is documented across multiple observational studies (MDPI 2025, PMC 2025) but not yet in randomised controlled trials. The language is calibrated: "measurable declines" rather than "proven long-term damage."
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 13 — EVIDENCE ASYMMETRY (cream / Comparison)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Evidence asymmetry</span>
+        <hr class="rule">
+        <h2>The evidence on both sides is real — but the two kinds of harm are not equivalent</h2>
+
+        <div class="comparison-layout">
+          <div class="comparison-col">
+            <span class="col-kicker">Hands-off harm</span>
+            <p>Peer-reviewed. Hard data. Documented deaths. Clinical testing failures. APA national health advisory. Population-scale statistics.</p>
+          </div>
+          <div class="comparison-col">
+            <span class="col-kicker">Over-protection harm</span>
+            <p>Structural and longer-term. An equity gap that widens. A literacy deficit that accumulates. A generation arriving in the workforce underprepared.</p>
+          </div>
+        </div>
+
+        <p class="support-line" style="margin-top: 1.2rem;">Different kinds of harm. Neither cancels the other. Both are reasons to reject the extremes. The acute evidence is itself a reason for urgency.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">13</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Rex's argument map requires this disclosure explicitly. An educator audience reading a deck that cites peer-reviewed sources will notice if the two limbs are presented as empirically equivalent. Naming the asymmetry directly increases the deck's credibility with exactly the audience most likely to scrutinise the evidence.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 14 — GUIDED PATH: ADULT AS VARIABLE (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">Guided path</span>
+        <hr class="rule">
+        <h2>Adult guidance is the variable that determines whether AI helps or harms child development</h2>
+        <div class="display-phrase">
+          Same product.<br>
+          <em>Different adult.</em><br>
+          <em class="signal-moment">Different outcome.</em>
+        </div>
+        <p class="support-line">Springer Nature (2025): guided AI use supports storytelling, language development, and creativity. UNESCO (2024): 12-competency framework that functions only under adult guidance. UK National Literacy Trust (2025): teacher-mediated AI use showed measurable writing development benefits.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">14</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This is the pivot into the guided path. The claim here is directional — the research establishes that guided use produces better outcomes than unguided use, but longitudinal RCT evidence at scale does not yet exist. The language is calibrated accordingly.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 15 — GUIDED PATH: ADULT PREPAREDNESS (cream / Split + Stat)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Guided path — the gap</span>
+        <hr class="rule">
+        <div class="split-layout">
+          <div class="left-col">
+            <h2>49% of parents have never spoken to their child about AI — this deck is for that 49%</h2>
+            <p>96% of families with elementary-aged children do not know their school's AI policy. Only 11% of teachers received training on how to respond to harmful AI use.</p>
+            <p>You do not need to become an AI expert. Asking questions, modeling doubt, sitting alongside — parents and teachers already do all of this. Point it at AI. The first step is one conversation.</p>
+          </div>
+          <div class="stat-side">
+            <span class="stat-num">49%</span>
+            <p class="stat-label">of parents have never spoken to their child about generative AI.<br>Common Sense Media, 2024.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">15</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Sources: 49% figure — Common Sense Media, September 2024. 96% figure — USC/CARE survey, Spring 2025 (via CRPE), covering elementary-aged families specifically. 11% figure — CDT, October 2025. The behavioral reframe — "existing skills applied to a new context" — is the research-based response to the "I don't know enough about AI" self-exclusion.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 16 — HONEST SCOPE (dark / Statement)
+         ═══════════════════════════════════════════════ -->
+    <section class="dark">
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content statement">
+        <span class="kicker">Honest scope</span>
+        <hr class="rule">
+        <h2>Adult guidance is your lever — not the complete solution</h2>
+        <div class="display-phrase">Use the lever <em class="signal-moment">you have.</em></div>
+        <p class="support-line">AI companion products are designed to form attachment. Major platforms consistently fail to detect teen mental health crises. These are product and policy failures that require industry action — not just better parenting. Adult guidance is the most important lever you have. Acknowledging its limits makes it more credible, not less. The regulatory timeline is measured in years. Your child's AI encounter is happening this week.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">16</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide closes the product/policy non-sequitur gap identified by Rex. Without it, a critical audience will surface the unacknowledged rebuttal: "if the product is broken, what does parenting guidance accomplish?" The answer: adult guidance is the audience's lever, not the complete solution.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 17 — WARNING SIGNS (cream / List)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Behavioral signals</span>
+        <hr class="rule">
+        <h2>Five warning signs that a child's AI relationship needs immediate attention</h2>
+
+        <ul class="warning-list">
+          <li>Long stretches alone with a chatbot — especially late at night</li>
+          <li>Refers to the AI by name, or calls it a friend, partner, or therapist</li>
+          <li>Withdrawing from peers, losing sleep, dropping previously enjoyed activities</li>
+          <li>Anxious or upset when separated from the app</li>
+          <li>Shares things with the AI they will not share with anyone else</li>
+        </ul>
+
+        <p class="support-line" style="margin-top: 1rem;">Child Mind Institute. Two or three signals together are a prompt for a direct conversation — and possibly professional support.</p>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">17</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Give audiences something to do with the concern, not just something to fear. The checklist covers behavioral over-dependence regardless of cause.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 18 — CTA: WHAT YOU CAN DO THIS WEEK (cream)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Start this week</span>
+        <hr class="rule">
+        <h2>Five things you can do this week — no AI expertise required</h2>
+
+        <ol class="cta-list">
+          <li class="cta-item">
+            <span class="cta-num">1</span>
+            <span class="cta-text">Sit alongside your child's next Google homework search. Ask: "What did it say? Do you think that's right?"</span>
+          </li>
+          <li class="cta-item">
+            <span class="cta-num">2</span>
+            <span class="cta-text">Find out if your child's school has an AI policy. Most families have no idea. One email or call.</span>
+          </li>
+          <li class="cta-item">
+            <span class="cta-num">3</span>
+            <span class="cta-text">Apply the age limits: no AI companions under 5; no social AI companion apps for anyone under 18.</span>
+          </li>
+          <li class="cta-item">
+            <span class="cta-num">4</span>
+            <span class="cta-text">If your child uses AI for emotional support, review the warning signs from the previous slide and open a conversation.</span>
+          </li>
+          <li class="cta-item">
+            <span class="cta-num">5</span>
+            <span class="cta-text">Ask your child to show you one thing the AI got wrong recently. If they can't find one, find it together.</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">18</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        This slide is calibrated to the parent or teacher who has not yet had the conversation — the 49% — not to the ideal co-pilot parent the research imagines. Action 1 is the most important: it is an immediately available behavior that any parent can do during an ordinary homework session.
+      </aside>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SLIDE 19 — REFERENCES (cream)
+         ═══════════════════════════════════════════════ -->
+    <section>
+      <div class="slide-header">
+        <span class="deck-label">AI and Kids</span>
+      </div>
+
+      <div class="slide-content">
+        <span class="kicker">Sources</span>
+        <hr class="rule">
+        <h3>Key sources</h3>
+
+        <ul class="refs-list">
+          <li>APA. <em>Health Advisory: Artificial Intelligence and Adolescent Well-Being.</em> 2025.</li>
+          <li>Brookings Institution. <em>Should Schools Ban or Integrate Generative AI?</em> 2024.</li>
+          <li>British Journal of Psychiatry. <em>Increasing Use of Generative AI by Teenagers.</em> 2024.</li>
+          <li>Child Mind Institute. Behavioral warning signs for AI over-dependence. Via Allie K. Miller, AI with ALLIE, May 2026.</li>
+          <li>Common Sense Media / Stanford Brainstorm Lab. <em>Major AI Chatbots Unsafe for Teen Mental Health Support.</em> April 2025.</li>
+          <li>Common Sense Media. <em>AI Companions Decoded.</em> 2025.</li>
+          <li>Common Sense Media. <em>Talk, Trust, and Trade-Offs: How and Why Teens Use AI Companions.</em> 2025.</li>
+          <li>eSafety Commissioner. <em>Transparency Findings: AI Companion Apps.</em> October 2025.</li>
+          <li>National Literacy Trust (UK). <em>Young People and Teachers' Use of Generative AI to Support Literacy in 2025.</em></li>
+          <li>OECD / European Commission. <em>AI Literacy Framework for Primary and Secondary Education (draft).</em> May 2025.</li>
+          <li>RAND. <em>One in Eight Adolescents and Young Adults Use AI Chatbots for Mental Health Advice.</em> 2025.</li>
+          <li>Springer Nature. <em>Child-Centered Integration of Generative AI in Early Learning.</em> 2025.</li>
+          <li>UNESCO. <em>AI Competency Frameworks for Students and Teachers.</em> 2024.</li>
+        </ul>
+      </div>
+
+      <div class="slide-footer">
+        <span class="page-num">19</span>
+        <span class="deck-label">AI and Kids — v1.2.0</span>
+      </div>
+
+      <aside class="notes">
+        Full citations with URLs are in the research brief at decks/ai-and-kids/research/2026-05-25-research-brief-v1.md.
+      </aside>
+    </section>
+
+  </div>
+</div>
+
+<script src="../../../../shared/lib/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    controls: true,
+    progress: false,
+    center: false,
+    slideNumber: false,
+    transition: 'none',
+    transitionSpeed: 'fast',
+    display: 'flex',
+  });
+</script>
+</body>
+</html>

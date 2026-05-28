@@ -2,7 +2,7 @@
 """
 generate-image.py — Fal.ai image generation for slide deck assets.
 
-Usage:
+Usage (deck asset):
     python scripts/generate-image.py \
         --prompt "A child using a tablet with a curious expression" \
         --deck ai-and-kids \
@@ -10,6 +10,20 @@ Usage:
         --output hero.png \
         --aspect-ratio landscape_16_9 \
         --model fal-ai/flux-pro/v1.1
+
+Usage (shared/arbitrary path):
+    python scripts/generate-image.py \
+        --prompt "..." \
+        --output-path shared/assets/avatars/larry.png \
+        --aspect-ratio square_hd \
+        --model ultra
+
+Usage (image-to-image):
+    python scripts/generate-image.py \
+        --prompt "..." \
+        --input-image shared/assets/AdnanAli-Headshot.png \
+        --output-path shared/assets/avatars/adnan.png \
+        --model fal-ai/nano-banana-2/edit
 """
 
 import argparse
@@ -35,12 +49,14 @@ if _env_path.exists():
 MODEL_ALIASES = {
     "schnell": "fal-ai/flux/schnell",
     "ultra": "fal-ai/flux-pro/v1.1-ultra",
+    "nanobanan2": "fal-ai/nano-banana-2",
+    "nanobanan2-edit": "fal-ai/nano-banana-2/edit",
 }
 
 ULTRA_MODEL = "fal-ai/flux-pro/v1.1-ultra"
 
 # Models that use `image_size` parameter
-IMAGE_SIZE_MODELS = {"fal-ai/flux-pro/v1.1", "fal-ai/flux/schnell"}
+IMAGE_SIZE_MODELS = {"fal-ai/flux-pro/v1.1", "fal-ai/flux/schnell", "fal-ai/nano-banana-2", "fal-ai/nano-banana-2/edit"}
 
 # Mapping from landscape_16_9 style to aspect_ratio string for ultra
 ASPECT_RATIO_MAP = {
@@ -99,19 +115,36 @@ def main() -> None:
         dest="aspect_ratio",
         help="Aspect ratio / image size token (default: landscape_16_9).",
     )
-    parser.add_argument("--output", required=True, help="Output filename (e.g. hero.png).")
-    parser.add_argument("--deck", required=True, help="Deck slug (e.g. ai-and-kids).")
-    parser.add_argument("--version", required=True, help="Version string (e.g. v1.1.0).")
+    parser.add_argument("--output", default=None, help="Output filename (e.g. hero.png). Required without --output-path.")
+    parser.add_argument("--deck", default=None, help="Deck slug (e.g. ai-and-kids). Required without --output-path.")
+    parser.add_argument("--version", default=None, help="Version string (e.g. v1.1.0). Required without --output-path.")
+    parser.add_argument(
+        "--output-path",
+        default=None,
+        dest="output_path",
+        help="Absolute or repo-relative output path. Overrides --deck/--version/--output when set.",
+    )
     parser.add_argument(
         "--model",
         default="fal-ai/flux-pro/v1.1",
         help=(
             "Model ID or alias. Aliases: schnell → fal-ai/flux/schnell, "
-            "ultra → fal-ai/flux-pro/v1.1-ultra. "
+            "ultra → fal-ai/flux-pro/v1.1-ultra, "
+            "nanobanan2 → fal-ai/nano-banana-2, "
+            "nanobanan2-edit → fal-ai/nano-banana-2/edit. "
             "Default: fal-ai/flux-pro/v1.1."
         ),
     )
+    parser.add_argument(
+        "--input-image",
+        default=None,
+        dest="input_image",
+        help="Path to input image for image-to-image models (absolute or repo-relative).",
+    )
     args = parser.parse_args()
+
+    if args.output_path is None and not all([args.deck, args.version, args.output]):
+        parser.error("Either --output-path or all of --deck, --version, and --output are required.")
 
     # --- Validate credentials before any network call -----------------------
     fal_key = os.environ.get("FAL_KEY", "").strip()
@@ -127,16 +160,27 @@ def main() -> None:
 
     # --- Resolve output path ------------------------------------------------
     repo_root = Path(__file__).parent.parent
-    assets_dir = repo_root / "decks" / args.deck / "versions" / args.version / "assets"
-    assets_dir.mkdir(parents=True, exist_ok=True)
-    output_path = assets_dir / args.output
+    if args.output_path:
+        output_path = Path(args.output_path)
+        if not output_path.is_absolute():
+            output_path = repo_root / output_path
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+    else:
+        assets_dir = repo_root / "decks" / args.deck / "versions" / args.version / "assets"
+        assets_dir.mkdir(parents=True, exist_ok=True)
+        output_path = assets_dir / args.output
+
+    try:
+        log_output = str(output_path.relative_to(repo_root))
+    except ValueError:
+        log_output = str(output_path)
 
     # --- Idempotency check --------------------------------------------------
     if output_path.exists():
         log({
             "service": "fal.ai",
             "model": model,
-            "output": str(output_path.relative_to(repo_root)),
+            "output": log_output,
             "skipped": True,
             "reason": "file already exists",
             "ts": datetime.now(timezone.utc).isoformat(),
@@ -153,8 +197,22 @@ def main() -> None:
         )
         sys.exit(1)
 
+    # --- Upload input image if provided (image-to-image) --------------------
+    input_image_url = None
+    if args.input_image:
+        input_image_path = Path(args.input_image)
+        if not input_image_path.is_absolute():
+            input_image_path = repo_root / input_image_path
+        if not input_image_path.exists():
+            print(f"ERROR: input image not found: {input_image_path}", file=sys.stderr)
+            sys.exit(1)
+        input_image_url = fal_client.upload_file(str(input_image_path))
+        log({"event": "input_image_uploaded", "url": input_image_url, "ts": datetime.now(timezone.utc).isoformat()})
+
     # --- Submit request -----------------------------------------------------
     arguments = build_arguments(model, args.prompt, args.aspect_ratio)
+    if input_image_url:
+        arguments["image_urls"] = [input_image_url]
     result = fal_client.run(model, arguments=arguments)
 
     # --- Extract image URL and seed -----------------------------------------
@@ -177,7 +235,7 @@ def main() -> None:
     log({
         "service": "fal.ai",
         "model": model,
-        "output": str(output_path.relative_to(repo_root)),
+        "output": log_output,
         "seed": seed,
         "ts": datetime.now(timezone.utc).isoformat(),
     })
