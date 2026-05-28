@@ -1,0 +1,8 @@
+services:
+  slides:
+    build: .
+    ports:
+      - "0.0.0.0:8080:80"
+    volumes:
+      - /root/slides:/usr/share/nginx/html:ro
+    restart: unless-stopped
