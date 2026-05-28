@@ -218,6 +218,12 @@ def main():
 
         print(f"→ Pushing {slug} {version}")
 
+        # Ensure remote deck directory exists before rsyncing into subdirs
+        subprocess.run(
+            ['ssh', VPS, f'mkdir -p {REMOTE_DIR}/decks/{slug}/versions'],
+            check=True,
+        )
+
         # 2. Sync deck theme
         theme_dir = deck_dir / 'theme'
         if theme_dir.exists():
