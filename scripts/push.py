@@ -229,6 +229,11 @@ def main():
         if theme_dir.exists():
             rsync(str(theme_dir) + '/', f'{VPS}:{REMOTE_DIR}/decks/{slug}/theme/')
 
+        # 2b. Sync deck-level assets (images/diagrams referenced via ../../assets/)
+        assets_dir = deck_dir / 'assets'
+        if assets_dir.exists():
+            rsync(str(assets_dir) + '/', f'{VPS}:{REMOTE_DIR}/decks/{slug}/assets/')
+
         # 3. Sync latest version folder only
         rsync(str(version_dir) + '/', f'{VPS}:{REMOTE_DIR}/decks/{slug}/versions/{version}/', delete=True)
 
