@@ -1,0 +1,2216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Iteration Manager in the Age of Agents</title>
+  <!--
+    PATH NOTE: Deployed at decks/hybrid-delivery/versions/v1.5.1/canonical.html
+    shared/ lives four levels up: ../../../../shared/
+    theme/ lives two levels up:   ../../theme/
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Lora:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="../../../../shared/lib/reset.css" />
+  <link rel="stylesheet" href="../../../../shared/lib/reveal.css" />
+  <link rel="stylesheet" href="../../theme/hybrid-delivery-light.css" />
+
+  <style>
+    /* ════════════════════════════════════════════════════════════════
+       ZONE A · TOKENS
+    ════════════════════════════════════════════════════════════════ */
+    :root {
+      --f-display: "Jost", system-ui, sans-serif;
+      --f-heading: "Jost", system-ui, sans-serif;
+      --f-body:    "Jost", system-ui, sans-serif;
+      --f-serif:   "Lora", Georgia, serif;
+      --f-mono:    "JetBrains Mono", monospace;
+
+      --sz-display: 8.5vw;
+      --sz-h1:      5vw;
+      --sz-h2:      3.2vw;
+      --sz-h3:      2vw;
+      --sz-lead:    1.5vw;
+      --sz-body:    1.1vw;
+      --sz-caption: 0.85vw;
+      --sz-label:   0.72vw;
+
+      --pad-x:  8vw;
+      --pad-y:  6vh;
+      --gap-lg: 5vh;
+      --gap-md: 3vh;
+      --gap-sm: 1.5vh;
+
+      --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
+      --dur-slide:  0.9s;
+      --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-enter:  0.7s;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       ZONE B · ENGINE — DO NOT MODIFY
+    ════════════════════════════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: var(--c-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    #deck {
+      display: flex;
+      height: 100vh;
+      transition: transform var(--dur-slide) var(--ease-slide);
+      will-change: transform;
+    }
+    .slide {
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      padding: var(--pad-y) var(--pad-x) var(--pad-y) calc(var(--pad-x) + 3.5vw);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+    }
+    .slide-body { min-height: 0; }
+
+    /* Speaker notes — hidden from slide view */
+    aside.notes {
+      display: none !important;
+    }
+
+    /* ── Animation system ───────────────────────────────────────── */
+    [data-anim] { opacity: 0; }
+    .slide.is-active [data-anim] {
+      animation-duration: var(--dur-enter);
+      animation-timing-function: var(--ease-enter);
+      animation-fill-mode: forwards;
+    }
+    .slide.is-active [data-anim="fade-up"]      { animation-name: kFadeUp; }
+    .slide.is-active [data-anim="fade-in"]      { animation-name: kFadeIn; }
+    .slide.is-active [data-anim="reveal-right"] { animation-name: kRevealRight; }
+
+    [data-delay="0"] { animation-delay: 0s; }
+    [data-delay="1"] { animation-delay: 0.08s; }
+    [data-delay="2"] { animation-delay: 0.18s; }
+    [data-delay="3"] { animation-delay: 0.30s; }
+    [data-delay="4"] { animation-delay: 0.44s; }
+    [data-delay="5"] { animation-delay: 0.60s; }
+    [data-delay="6"] { animation-delay: 0.78s; }
+
+    @keyframes kFadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes kFadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes kRevealRight {
+      from { clip-path: inset(0 100% 0 0); opacity: 1; }
+      to   { clip-path: inset(0 0% 0 0);   opacity: 1; }
+    }
+
+    /* ── Nav dots ───────────────────────────────────────────────── */
+    #nav-dots {
+      position: fixed; bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; gap: 7px; z-index: 100;
+    }
+    .nav-dot {
+      width: 5px; height: 5px; border-radius: 50%; border: none;
+      background: oklch(75% 0.006 78);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      padding: 0;
+    }
+    .nav-dot.is-active {
+      background: oklch(38% 0.14 158);
+      transform: scale(1.4);
+    }
+    #slide-counter {
+      position: fixed; bottom: 20px; right: 28px;
+      font-family: var(--f-mono); font-size: 10px;
+      letter-spacing: 0.12em;
+      color: oklch(55% 0.009 258);
+      z-index: 100; user-select: none;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       ZONE C · TYPOGRAPHY
+    ════════════════════════════════════════════════════════════════ */
+    .display {
+      font-family: var(--f-display); font-size: var(--sz-display);
+      font-weight: 200; line-height: 0.96; letter-spacing: -0.02em;
+      color: var(--c-fg);
+    }
+    .h1 {
+      font-family: var(--f-heading); font-size: var(--sz-h1);
+      font-weight: 200; line-height: 1.1; letter-spacing: -0.01em;
+      color: var(--c-fg);
+    }
+    .h2 {
+      font-family: var(--f-heading); font-size: var(--sz-h2);
+      font-weight: 300; line-height: 1.2;
+      color: var(--c-fg);
+    }
+    .h3 {
+      font-family: var(--f-heading); font-size: var(--sz-h3);
+      font-weight: 400; line-height: 1.3;
+      color: var(--c-fg);
+    }
+    .lead {
+      font-family: var(--f-body); font-size: var(--sz-lead);
+      font-weight: 300; line-height: 1.65;
+      color: var(--c-fg);
+    }
+    .body {
+      font-family: var(--f-body); font-size: var(--sz-body);
+      font-weight: 300; line-height: 1.7;
+      color: var(--c-fg);
+    }
+    .caption {
+      font-family: var(--f-body); font-size: var(--sz-caption);
+      font-weight: 300; line-height: 1.55;
+      color: var(--c-fg-2);
+    }
+    .label {
+      font-family: var(--f-mono); font-size: var(--sz-label);
+      font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--c-fg-3);
+    }
+    .muted { color: var(--c-fg-2); }
+
+    /* ════════════════════════════════════════════════════════════════
+       ZONE D · CHROME
+    ════════════════════════════════════════════════════════════════ */
+    .slide-sidebar { display: none !important; }
+
+    .slide-chrome, .slide-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .slide-chrome {
+      padding-bottom: var(--gap-sm);
+      border-bottom: 1px solid var(--c-border);
+      margin-bottom: var(--gap-md);
+    }
+    .slide-foot {
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      margin-top: var(--gap-md);
+    }
+    .slide--cover .slide-chrome, .slide--cover .slide-foot,
+    .slide--chapter .slide-chrome, .slide--chapter .slide-foot,
+    .slide--quote .slide-chrome, .slide--quote .slide-foot,
+    .slide--end .slide-chrome, .slide--end .slide-foot,
+    .slide--question .slide-chrome, .slide--question .slide-foot,
+    .slide--divider .slide-chrome, .slide--divider .slide-foot,
+    .slide--team .slide-chrome, .slide--team .slide-foot { display: none; }
+
+    /* ════════════════════════════════════════════════════════════════
+       ZONE E · LAYOUT PATTERNS
+    ════════════════════════════════════════════════════════════════ */
+
+    /* COVER */
+    .slide--cover {
+      display: flex; flex-direction: column; justify-content: flex-end;
+    }
+    .cover-body {
+      display: flex; flex-direction: column; flex: 1;
+      justify-content: flex-end; gap: var(--gap-md);
+    }
+    .cover-meta {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-top: var(--gap-lg);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+    }
+
+    /* STATEMENT */
+    .slide--statement .statement-body {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: var(--gap-md);
+    }
+
+    /* QUESTION */
+    .slide--question {
+      display: flex; flex-direction: column; justify-content: center;
+    }
+
+    /* STATS */
+    .slide--stats .slide-body {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: var(--gap-lg);
+    }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .stat-card {
+      display: flex; flex-direction: column; gap: var(--gap-sm);
+      padding: var(--gap-md) var(--gap-md) var(--gap-md) 0;
+      border-top: 1px solid var(--c-border);
+    }
+    .stat-value {
+      font-family: var(--f-display); font-size: 5.5vw;
+      font-weight: 200; line-height: 1; letter-spacing: -0.03em;
+      color: var(--c-fg);
+    }
+    .stat-label {
+      font-family: var(--f-body); font-size: var(--sz-body);
+      font-weight: 300; line-height: 1.5; color: var(--c-fg);
+    }
+    .stat-note {
+      font-family: var(--f-mono); font-size: var(--sz-caption);
+      letter-spacing: 0.05em; color: var(--c-fg-3);
+    }
+
+    /* LIST */
+    .slide--list .slide-body {
+      display: grid; grid-template-columns: 2fr 3fr;
+      gap: calc(var(--pad-x) * 0.8); align-items: center;
+    }
+    .list-head {
+      display: flex; flex-direction: column; gap: var(--gap-md);
+      padding-top: var(--gap-sm);
+    }
+    .bullet-list {
+      list-style: none; display: flex; flex-direction: column;
+      gap: var(--gap-md);
+    }
+    .bullet-list li {
+      display: grid; grid-template-columns: 1.2em 1fr; gap: 0.5em;
+      font-family: var(--f-body); font-size: var(--sz-lead);
+      font-weight: 300; line-height: 1.5; color: var(--c-fg);
+    }
+    .bullet-list li::before {
+      content: "—"; color: var(--c-fg-3); font-family: var(--f-mono);
+    }
+
+    /* COMPARE */
+    .slide--compare .slide-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto; height: 100%;
+    }
+    .compare-panel {
+      display: flex; flex-direction: column; gap: var(--gap-md);
+      padding: var(--gap-md) 0;
+    }
+    .compare-panel.left {
+      padding-right: calc(var(--pad-x) * 0.55);
+      border-right: 1px solid var(--c-border);
+    }
+    .compare-panel.right {
+      padding-left: calc(var(--pad-x) * 0.55);
+    }
+    .compare-label {
+      font-family: var(--f-mono); font-size: var(--sz-label);
+      letter-spacing: 0.16em; text-transform: uppercase;
+      padding-bottom: var(--gap-sm);
+      border-bottom: 1px solid var(--c-border);
+      color: var(--c-fg-3);
+    }
+    .compare-label.after {
+      color: var(--c-accent); border-color: var(--c-accent);
+    }
+    .compare-item {
+      font-family: var(--f-body); font-size: var(--sz-lead);
+      font-weight: 300; line-height: 1.5; color: var(--c-fg);
+    }
+    .compare-annotation {
+      grid-column: 1 / -1;
+      font-family: var(--f-mono); font-size: 0.80vw;
+      letter-spacing: 0.10em; color: var(--c-fg-3);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      margin-top: var(--gap-sm);
+    }
+
+    /* TIMELINE */
+    .slide--timeline {
+      background: var(--c-bg-cream);
+      grid-template-rows: auto auto 1fr auto;
+    }
+    .timeline-hl {
+      font-family: var(--f-heading); font-size: var(--sz-h2);
+      font-weight: 300; line-height: 1.2;
+      padding-bottom: var(--gap-md);
+      border-bottom: 1px solid var(--c-border);
+      max-width: 70%;
+      color: var(--c-fg);
+    }
+    .timeline-track {
+      display: flex; align-items: flex-start; gap: 0;
+      padding-top: var(--gap-md); position: relative; min-height: 0;
+    }
+    .timeline-step {
+      flex: 1; display: flex; flex-direction: column; gap: var(--gap-sm);
+      padding-right: calc(var(--pad-x) * 0.3); position: relative;
+    }
+    .timeline-step::before {
+      content: ""; position: absolute;
+      top: 0.55em; left: 0; right: 0; height: 1px;
+      background: var(--c-border); z-index: 0;
+    }
+    .timeline-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c-accent);
+      border: 2px solid var(--c-bg-cream);
+      position: relative; z-index: 1;
+      margin-bottom: var(--gap-sm); flex-shrink: 0;
+    }
+    .timeline-date {
+      font-family: var(--f-mono); font-size: var(--sz-caption);
+      letter-spacing: 0.10em; color: var(--c-fg-3);
+    }
+    .timeline-label {
+      font-family: var(--f-heading); font-size: var(--sz-h3);
+      font-weight: 400; line-height: 1.25; color: var(--c-fg);
+    }
+    .timeline-desc {
+      font-family: var(--f-body); font-size: var(--sz-body);
+      font-weight: 300; line-height: 1.6; color: var(--c-fg-2);
+    }
+
+    /* END / CTA */
+    .slide--end {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: var(--gap-md);
+    }
+
+    /* PROCESS */
+    .slide--process .slide-body {
+      display: flex; flex-direction: column; gap: var(--gap-lg);
+    }
+
+    /* CHAPTER / DIVIDER */
+    .slide--chapter {
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .chapter-num {
+      font-family: var(--f-mono); font-size: var(--sz-label);
+      letter-spacing: 0.20em; text-transform: uppercase;
+      color: var(--c-accent); margin-bottom: var(--gap-md);
+    }
+    .chapter-rule {
+      width: 36px; height: 1px; background: var(--c-accent);
+      margin-bottom: var(--gap-md);
+    }
+
+    /* TEAM */
+    .slide--team {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: var(--gap-lg);
+    }
+
+    /* COMPONENTS */
+    .rule {
+      width: 36px; height: 1px; background: var(--c-accent);
+    }
+    .rule.full {
+      width: 100%; background: var(--c-border);
+    }
+    .kicker {
+      font-family: var(--f-mono); font-size: var(--sz-label);
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--c-fg-3);
+    }
+
+    /* ── Hero stat ──────────────────────────────────────────────── */
+    .hero-stat {
+      font-family: var(--f-display);
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 200;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--c-fg);
+    }
+    .hero-stat-label {
+      font-family: var(--f-mono);
+      font-size: var(--sz-label);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-fg-3);
+      margin-top: 1.5vh;
+    }
+    .hero-stat-note {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.06em;
+      color: var(--c-fg-3);
+      margin-top: 0.8vh;
+    }
+    .hero-stat-explain {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.55;
+      margin-top: 1vh;
+      max-width: 68%;
+    }
+
+    /* ── Centaur split columns ────────────────────────────────────── */
+    .centaur-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      margin-top: var(--gap-md);
+    }
+    .centaur-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      padding-top: var(--gap-sm);
+    }
+    .centaur-col.left {
+      padding-right: calc(var(--pad-x) * 0.4);
+      border-right: 1px solid var(--c-border);
+    }
+    .centaur-col.right {
+      padding-left: calc(var(--pad-x) * 0.4);
+    }
+    .centaur-col-label {
+      font-family: var(--f-mono);
+      font-size: var(--sz-label);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-fg-3);
+      padding-bottom: var(--gap-sm);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .centaur-col-item {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.6;
+    }
+    .centaur-attribution {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.08em;
+      color: var(--c-fg-3);
+      margin-top: var(--gap-sm);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+    }
+
+    /* ── HITL pattern list ────────────────────────────────────────── */
+    .hitl-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+    }
+    .hitl-item {
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4vh;
+    }
+    .hitl-ordinal {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+    }
+    .hitl-pattern {
+      font-family: var(--f-heading);
+      font-size: var(--sz-lead);
+      font-weight: 300;
+      color: var(--c-fg);
+      line-height: 1.3;
+    }
+    .hitl-meta {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.06em;
+      color: var(--c-fg-3);
+      line-height: 1.6;
+    }
+    .hitl-annotation {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.08em;
+      color: var(--c-fg-2);
+      line-height: 1.55;
+      margin-top: var(--gap-sm);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+    }
+
+    /* ── Secondary stat row ───────────────────────────────────────── */
+    .secondary-stats {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      padding-top: var(--gap-md);
+      border-top: 1px solid var(--c-border);
+    }
+    .secondary-stat-item {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.6;
+    }
+
+    /* ── Credential list ──────────────────────────────────────────── */
+    .cred-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+    }
+    .cred-item {
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3vh;
+    }
+    .cred-ordinal {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+    }
+    .cred-name {
+      font-family: var(--f-heading);
+      font-size: var(--sz-lead);
+      font-weight: 300;
+      color: var(--c-fg);
+      line-height: 1.3;
+    }
+    .cred-meta {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.06em;
+      color: var(--c-fg-3);
+    }
+    .cred-maps {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.5;
+    }
+
+    /* ── Process steps — horizontal ───────────────────────────────── */
+    .process-steps-h {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+      margin-top: var(--gap-md);
+    }
+    .process-step-h {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      padding-right: calc(var(--pad-x) * 0.35);
+      padding-top: var(--gap-md);
+      border-top: 1px solid var(--c-border);
+    }
+    .process-horizon-h {
+      font-family: var(--f-mono);
+      font-size: var(--sz-label);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+    }
+    .process-step-h-title {
+      font-family: var(--f-heading);
+      font-size: var(--sz-h3);
+      font-weight: 200;
+      color: var(--c-fg);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+    .process-step-h-body {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.65;
+    }
+
+    /* ── Failure modes list ───────────────────────────────────────── */
+    .failure-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+    }
+    .failure-item {
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3vh;
+    }
+    .failure-eyebrow {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-fg-3);
+    }
+    .failure-desc {
+      font-family: var(--f-body);
+      font-size: var(--sz-lead);
+      font-weight: 300;
+      color: var(--c-fg);
+      line-height: 1.4;
+    }
+    .failure-source {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.06em;
+      color: var(--c-fg-3);
+    }
+
+    /* ── Appendix incident detail ─────────────────────────────────── */
+    .incident-detail {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+    }
+    .incident-eyebrow {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-fg-3);
+    }
+    .incident-desc {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg-2);
+      line-height: 1.6;
+    }
+
+    /* ── Squad audit list ─────────────────────────────────────────── */
+    .audit-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+    }
+    .audit-item {
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+      display: flex;
+      gap: 2vw;
+      align-items: baseline;
+    }
+    .audit-num {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--c-accent);
+      flex-shrink: 0;
+      width: 2vw;
+    }
+    .audit-q {
+      font-family: var(--f-body);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg);
+      line-height: 1.55;
+    }
+    .audit-framing {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.08em;
+      color: var(--c-fg-2);
+      line-height: 1.55;
+      margin-top: var(--gap-sm);
+      padding-top: var(--gap-sm);
+      border-top: 1px solid var(--c-border);
+    }
+
+    /* ── Team grid — two rows ─────────────────────────────────────── */
+    .team-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-md);
+    }
+    .team-row-top,
+    .team-row-bottom {
+      display: flex;
+      gap: 2.5vw;
+      align-items: flex-start;
+    }
+    .team-row-top {
+      justify-content: flex-start;
+    }
+    .team-row-bottom {
+      justify-content: center;
+    }
+    .team-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1vh;
+      width: calc((100% - 4 * 2.5vw) / 5);
+    }
+    .team-av {
+      width: 6.5vw;
+      height: 6.5vw;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--c-border);
+      background: var(--c-bg-alt);
+      position: relative;
+    }
+    .team-av img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      clip-path: circle(50%);
+    }
+    .team-av.presenter {
+      box-shadow: 0 0 0 2px var(--c-accent), 0 0 0 5px var(--c-bg);
+    }
+    .team-av.agent {
+      overflow: visible;
+    }
+    .team-av.agent::after {
+      content: '✦';
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 1.4vw;
+      height: 1.4vw;
+      border-radius: 50%;
+      background: var(--c-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.55vw;
+      color: var(--c-accent);
+      line-height: 1.4vw;
+      text-align: center;
+      z-index: 2;
+    }
+    .team-name {
+      font-family: var(--f-heading);
+      font-size: var(--sz-body);
+      font-weight: 300;
+      color: var(--c-fg);
+      text-align: center;
+    }
+    .team-role {
+      font-family: var(--f-mono);
+      font-size: var(--sz-caption);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--c-fg-3);
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+<div id="deck">
+
+  <!-- ════════════════════════════════════════════════════════════════
+   SLIDE 01 · COVER
+  ════════════════════════════════════════════════════════════════ -->
+    <!-- ════ SLIDE 01 ════ -->
+  <section class="slide slide--cover">
+    <div
+      style="position:absolute;top:var(--pad-y);right:var(--pad-x);text-align:right;"
+      data-anim="fade-in" data-delay="1"
+    >
+      <span class="label">Hybrid Delivery · 2026</span>
+    </div>
+
+    <div class="cover-body">
+      <p class="kicker" data-anim="fade-in" data-delay="1">Delivery Leadership in Human+AI Teams</p>
+
+      <h1 class="display" data-anim="fade-up" data-delay="2">
+        The Iteration Manager<br />in the Age of Agents
+      </h1>
+
+      <div class="rule" data-anim="reveal-right" data-delay="3" style="margin:1.5vh 0"></div>
+
+      <p class="lead muted" data-anim="fade-up" data-delay="4" style="max-width:55%">
+        Own what agents can generate but can't decide.
+      </p>
+    </div>
+
+    <div class="cover-meta" data-anim="fade-in" data-delay="5">
+      <span class="label">Adnan Ali</span>
+      <span class="label">v1.5.1</span>
+    </div>
+
+    <aside class="notes">
+      Welcome. The central question for everyone here is not whether AI will change your job — it already has. The question is whether you design that change or it gets designed around you. This deck argues that the Iteration Manager and Delivery Manager are the natural locus for that design work, and it makes the case with evidence, not assertion.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 02 ════ -->
+  <section class="slide slide--statement">
+    <header class="slide-chrome">
+      <span class="label">The Shift</span>
+      <span class="label">02</span>
+    </header>
+
+    <div class="statement-body">
+      <p class="kicker" data-anim="fade-in" data-delay="1">What "agent" means now</p>
+      <h2 class="h1" data-anim="fade-up" data-delay="2" style="max-width:90%;font-size:3.8vw;line-height:1.12">
+        "Agent" stopped meaning a chatbot.<br />Now it means something that acts.
+      </h2>
+      <p class="lead muted" data-anim="fade-up" data-delay="3" style="max-width:58%">
+        How much it acts — how much you hand over — is a ladder.
+      </p>
+      <div class="rule" data-anim="reveal-right" data-delay="4" style="margin-top:var(--gap-sm)"></div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Bridge slide. Its only job is to carry the title into the maturity ladder on the next slide. The word "agent" in the title is doing a lot of work, so name the shift plainly: a year ago "agent" meant a chatbot you prompt; now it means something that acts on its own — and how much it acts is a spectrum. Keep this fast; it is a setup beat, not an argument. The next slide makes the spectrum concrete with the five rungs. (This replaces the former "the jobs question is settled / the structure question isn't" pivot, removed in v1.5.1.)
+    </aside>
+  </section>
+  <!-- ════ SLIDE 03 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">Age of Agents</span>
+      <span class="label">03</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">What "agent" actually means</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Agent capability<br />is a ladder.
+        </h2>
+        <p class="body muted" data-anim="fade-up" data-delay="3" style="margin-top:var(--gap-sm);max-width:90%">
+          As agents climb it, your job moves from doing the work, to steering it, to governing it.
+        </p>
+        <p class="stat-note" data-anim="fade-in" data-delay="3" style="margin-top:var(--gap-sm)">
+          Synthesis · autonomy framing after Feng, McDonald &amp; Zhang (Univ. of Washington, 2025); cf. SAE J3016, Cloud Security Alliance 2026
+        </p>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="4">
+        <div class="block-item">
+          <span class="block-item-marker">Assisted</span>
+          <span class="block-item-title">You operate</span>
+          <span class="block-item-body">The agent suggests; you do the work.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Augmented</span>
+          <span class="block-item-title">You review</span>
+          <span class="block-item-body">The agent drafts and recommends; you execute and edit.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Collaborative</span>
+          <span class="block-item-title">You supervise</span>
+          <span class="block-item-body">The agent plans and executes alongside you; you steer.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Orchestrated</span>
+          <span class="block-item-title">You architect</span>
+          <span class="block-item-body">Agents hand off to each other; you set the gates and escalation.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Autonomous</span>
+          <span class="block-item-title">You govern</span>
+          <span class="block-item-body">Agents run end-to-end; you audit and hold the kill-switch.</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      This ladder is a synthesis of industry agentic-maturity models (Microsoft, Salesforce, Adaline, Bessemer). The rung labels are shorthand; the substance is the human-role escalation, independently grounded in the University of Washington "Levels of Autonomy for AI Agents" paper (Feng, McDonald and Zhang, 2025), the Cloud Security Alliance autonomy levels (2026), and the SAE J3016 analogy. The load-bearing point: as agents mature, the human's job shifts from doing the work, to steering it, to governing it — gatekeeping becomes auditing. This pre-arms the HITL pattern selector and the generate/decide boundary later in the deck. Keep it distinct from the AI Governance Maturity ladder, which measures how well an organisation governs agents, not what the agents can do. Source confidence: High for the autonomy-spectrum concept (triangulated across four independent sources); the five-rung labelling is a presentation synthesis, not a single citable framework.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 04 ════ -->
+  <section class="slide slide--image">
+    <header class="slide-chrome">
+      <span class="label">The Shift</span>
+      <span class="label">04</span>
+    </header>
+
+    <div class="slide-body" style="display:flex;flex-direction:column;align-items:stretch;gap:var(--gap-md);">
+      <p class="kicker" data-anim="fade-in" data-delay="1">Chat ends when you stop typing. Agents don't.</p>
+      <div style="flex:1;min-height:0;overflow:hidden;" data-anim="fade-in" data-delay="2">
+        <img
+          src="../../assets/images/slide-08-chat-vs-agent.png"
+          alt="LLM Chat vs Agent: Chat is stateless single-turn; Agent wraps the LLM with Context (memory · knowledge), Connections (tools · APIs), Capabilities (skills · actions), and Cadence (schedules · triggers)"
+          style="width:100%;height:100%;display:block;object-fit:contain;object-position:center;"
+          onerror="this.style.opacity='0.15'"
+        />
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Start here every time you use the word "agent" — because most people in the room are thinking "chatbot with a longer context window." They're not wrong. Chat is exactly that: you ask, the model responds, done. No state, no tools, no follow-through. An agent is different in kind. The LLM is still the reasoning engine — the brain — but now it has four things around it that chat doesn't: Context (persistent memory and a knowledge base it can query), Connections (tools and APIs it can invoke — search, calendar, code execution), Capabilities (multi-step skills it can execute without you re-prompting), and Cadence (it can be triggered on a schedule or by an event, not just by a human typing). That shift from "model that responds" to "system that runs" is what agentic workflow means. The next slide shows what that looks like in motion.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 05 ════ -->
+  <section class="slide slide--image">
+    <header class="slide-chrome">
+      <span class="label">The Loop</span>
+      <span class="label">05</span>
+    </header>
+
+    <div class="slide-body" style="display:flex;flex-direction:column;align-items:stretch;gap:var(--gap-md);">
+      <p class="kicker" data-anim="fade-in" data-delay="1">The loop runs until it hits a gate you designed.</p>
+      <div style="flex:1;min-height:0;overflow:hidden;" data-anim="fade-in" data-delay="2">
+        <img
+          src="../../assets/images/slide-09-agentic-loop.png"
+          alt="Agentic loop: Receive → Think → Act → Observe → Decide → (complete or loop back to Think)"
+          style="width:100%;height:100%;display:block;object-fit:contain;object-position:center;"
+          onerror="this.style.opacity='0.15'"
+        />
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The loop is what makes an agent feel different from a chatbot. A chatbot stops when you stop typing. An agent doesn't. It receives a trigger — a scheduled time, an incoming ticket, a threshold crossed in a dataset. It thinks: what do I know, what do I need to do. It acts: searches, queries, writes, updates. It observes the result: did that work, what changed. Then it decides: am I done, or do I need another pass. It loops until the task is complete or it hits a gate you've designed. That gate — the human-in-the-loop decision point — is exactly where the IM's governance role sits. The loop doesn't stop itself. Someone decides when human judgment enters the cycle.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 06 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">The Gap in the Squad</span>
+      <span class="label">06</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        Engineers on the team are already running agents. The coordination isn't keeping up.
+      </h2>
+
+      <div style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="hero-stat">441%</div>
+        <p class="hero-stat-label">Increase in PR review time · DORA 2025</p>
+        <p class="hero-stat-explain">As engineering throughput accelerated with agentic tooling, PR review time jumped 441%. The bottleneck shifted right — more work in, same review capacity out.</p>
+      </div>
+
+      <div class="secondary-stats" data-anim="fade-in" data-delay="3">
+        <p class="secondary-stat-item">Stack Overflow 2025 (n=65,000+): 31% of developers using agents · 51% daily AI use</p>
+        <p class="secondary-stat-item">AI4Agile 2026 (n=289): IM cohort at chatbot-level · engineering teams agentic</p>
+        <p class="secondary-stat-item">"AI Hasn't Fixed Teamwork" (arXiv, 2023–2025): individual AI adoption does not improve team coordination</p>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The squad capability gap is assembled from three surveys with different sampling frames — the directional claim is well-supported but the precise magnitude cannot be stated as a single number from a single study. The 441% PR review time figure is from DORA 2025 — this is the most concrete evidence on this slide and it is the signal a delivery manager can look for in their own sprint data. If PR review time has increased in the last two sprints, that is likely an agent-in-the-loop coordination signal. The arXiv longitudinal study (2509.10956, 2023–2025) is the most significant finding: individual AI adoption does not improve team coordination — it can erode practices of role differentiation, accountability, and coordination. That is the specific risk the IM is positioned to address. Source confidence: High for DORA 2025 and Stack Overflow 2025 (large-sample studies); Medium-High for AI4Agile 2026 and arXiv longitudinal. The framing "the squad is ahead; the job is to architect what they are building into" is a speaker line, not slide copy.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 07 ════ -->
+  <section class="slide slide--compare">
+    <header class="slide-chrome">
+      <span class="label">Locate Yourself</span>
+      <span class="label">07</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="compare-panel left" data-anim="fade-up" data-delay="1">
+        <div class="compare-label">Where the squad is</div>
+        <p class="compare-item">Using AI agents in daily work</p>
+        <p class="compare-item">Several ways of working with AI, all informal</p>
+        <p class="compare-item">Coordination quietly getting harder</p>
+        <p class="compare-item">Extra review work nobody is tracking</p>
+      </div>
+
+      <div class="compare-panel right" data-anim="fade-up" data-delay="2">
+        <div class="compare-label after">Where you are</div>
+        <p class="compare-item">Still mostly using chatbots</p>
+        <p class="compare-item">No agreed way to govern agent work</p>
+        <p class="compare-item">No deliberate choice of how humans stay involved</p>
+        <p class="compare-item">Same ceremonies as before</p>
+      </div>
+
+      <div class="compare-annotation" data-anim="fade-in" data-delay="3">
+        That gap is the opportunity. You close it from inside the team — not by waiting for a mandate.
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      This slide lands early, before the deck has taught the mechanics — so the criteria are kept in plain language deliberately. The point is recognition, not precision: most managers will see their own squad on the left and themselves on the right. The rest of the deck explains how to close the gap (the boundary, the HITL patterns, the governance cadence). The "from inside the team, not from a mandate" framing is the throughline: this is an IM making a decision for their own team's workflow, not a central CoE initiative.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 08 ════ -->
+  <section class="slide slide--compare">
+    <header class="slide-chrome">
+      <span class="label">The Gap</span>
+      <span class="label">08</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="compare-panel left" data-anim="fade-up" data-delay="1">
+        <div class="compare-label">Adoption</div>
+        <div class="stat-value" style="font-size:5.5vw">83%</div>
+        <p class="compare-item muted">of agile practitioners already use AI tools</p>
+        <p class="stat-note">AI4Agile Practitioners Report 2026 · n=289</p>
+      </div>
+
+      <div class="compare-panel right" data-anim="fade-up" data-delay="2">
+        <div class="compare-label after">Integration</div>
+        <div class="stat-value" style="font-size:5.5vw">55%</div>
+        <p class="compare-item muted">spend 10% or less of work time with AI</p>
+        <p class="stat-note">Same survey</p>
+      </div>
+
+      <div class="compare-annotation" data-anim="fade-in" data-delay="3">Wide. Not deep.</div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: Medium-High. AI4Agile 2026 survey, n=289 agile practitioners. The gap between 83% using tools and 55% spending under 10% of time with AI is the productive tension that runs through the whole deck. Wide adoption, shallow integration — the deck is an argument for what changes when integration deepens. If an audience member asks about survey methodology, note the sample is practitioner-self-selected, not a population-representative study. The directional claim holds across multiple surveys.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 09 ════ -->
+  <section class="slide slide--question">
+    <h2 class="question-text" data-anim="fade-up" data-delay="1">
+      What actually happens when a delivery team runs<br />
+      <em style="font-style:italic;color:var(--c-accent)">with</em> AI —<br />
+      not beside it?
+    </h2>
+
+    <aside class="notes">
+      Hold this slide for a beat. The distinction between running with AI and running beside it is the argument. Running beside it means using AI as a productivity tool in individual tasks — the thing most teams already do. Running with it means redesigning the workflow so AI is a participant in the delivery system, not a sidecar. The next four slides give the performance evidence for why the distinction matters.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 10 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">The Evidence</span>
+      <span class="label">10</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        For complex, generative work — the upside is real
+      </h2>
+
+      <div class="stats-grid" style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card">
+          <div class="stat-value">+40%</div>
+          <p class="stat-label muted">quality uplift, human+AI vs. solo</p>
+          <p class="stat-note">BCG RCT · Organization Science 2026 · n=758</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">25%</div>
+          <p class="stat-label muted">faster task completion</p>
+          <p class="stat-note">BCG · same study</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3×</div>
+          <p class="stat-label muted">more likely to produce a top-10% solution</p>
+          <p class="stat-note">P&amp;G RCT · NBER 2025 · n=776</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: High — both BCG (Organization Science 2026, n=758) and P&G (NBER 2025, n=776) are randomised controlled trials, not surveys. State this explicitly if challenged. Critical qualifier: these gains apply to complex, generative, iterative knowledge work — writing, ideation, analysis, design tasks. The next slide shows why the same claim does not hold for decision and classification tasks. Do not drop the conditional framing here. If you present this without the Malone counter-evidence on Slide 6, the argument is overstated.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 11 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">The Counter-Evidence</span>
+      <span class="label">11</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        On decision tasks, human+AI underperforms the best solo performer
+      </h2>
+
+      <div class="stats-grid" style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card">
+          <div class="stat-value">106</div>
+          <p class="stat-label muted">studies analysed</p>
+          <p class="stat-note">Malone et al. · Nature Human Behaviour 2024</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">90%</div>
+          <p class="stat-label muted">were decision or classification tasks</p>
+          <p class="stat-note">Task-type breakdown</p>
+        </div>
+        <div class="stat-card" style="border-top-color:var(--c-accent)">
+          <div class="stat-value" style="color:var(--c-accent)">cond.</div>
+          <p class="stat-label muted">The advantage is real — and conditional on task type</p>
+          <p class="stat-note">Generative + iterative work only</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Surfacing this proactively is a credibility signal, not a concession. Any analytically oriented audience member has either read this paper or will find it. The reconciliation is the task-type breakdown: 90% of the studies in the Malone meta-analysis tested decision and classification tasks — exactly the conditions where AI degrades performance. The BCG and P&G results come from the 10% — generative, iterative, open-ended creation. Both findings are correct. They apply to different work types. Source confidence: High — Nature Human Behaviour 2024, 106 studies, 370 effect sizes. See Appendix Slide 31 for the full breakdown.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 12 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">The Structural Problem</span>
+      <span class="label">12</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        Most businesses don't redesign. They bolt AI on.
+      </h2>
+
+      <div style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card" style="max-width:50%;border-top:none;padding-top:0">
+          <div class="hero-stat">&lt;40%</div>
+          <p class="stat-label muted">of businesses report measurable profit gains from AI</p>
+          <p class="stat-note">McKinsey MGI · AI adoption research</p>
+        </div>
+      </div>
+
+      <p class="lead muted" data-anim="fade-in" data-delay="3" style="max-width:55%;margin-top:var(--gap-md)">
+        They layer AI on top of legacy workflow. The workflow never changes.
+      </p>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: High — McKinsey MGI is a well-regarded institutional research source. The workflow redesign point is the bridge between the performance evidence (Slides 5–6) and the structural argument that follows. The audience has probably seen AI layered on top of existing Jira boards, existing ceremonies, existing reporting structures. Name that experience directly — that is exactly the bolt-on pattern McKinsey is measuring. The argument from here is: what does it look like to redesign instead of bolt on?
+    </aside>
+  </section>
+  <!-- ════ SLIDE 13 ════ -->
+  <section class="slide slide--compare">
+    <header class="slide-chrome">
+      <span class="label">What's Happening Now</span>
+      <span class="label">13</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="compare-panel left" data-anim="fade-up" data-delay="1">
+        <div class="compare-label">Agents are generating this now</div>
+        <p class="compare-item">Requirements drafts</p>
+        <p class="compare-item">User stories</p>
+        <p class="compare-item">Sprint tracking</p>
+        <p class="compare-item">Status reports</p>
+        <p class="compare-item">Dependency mapping</p>
+        <p class="compare-item">Stand-up summaries</p>
+      </div>
+
+      <div class="compare-panel right" data-anim="fade-up" data-delay="2">
+        <div class="compare-label after">Nobody's governing this</div>
+        <p class="compare-item">Design choices</p>
+        <p class="compare-item">Risk thresholds</p>
+        <p class="compare-item">Approval gates</p>
+        <p class="compare-item">Production calls</p>
+        <p class="compare-item">Agentic workflow architecture</p>
+      </div>
+
+      <div class="compare-annotation" data-anim="fade-in" data-delay="3">
+        The automation is here. The governance gap is where the IM gets bypassed.
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The left column is factual and demonstrable right now — every item on it is a task an agent can perform with current tools. The right column is the accountability gap. The bypass mechanism works like this: if nobody governs the right column, the tech lead fills it de facto because they understand the tooling. That is not elimination of the IM role — it is quiet erosion of standing. The governance gap on the right is the IM's opening, not their threat, if they choose to occupy it. The claim that this is the bypass mechanism is structural inference from the Wave 1 analogy — there is no direct longitudinal study of IM standing in AI-enabled teams (G2 residual).
+    </aside>
+  </section>
+  <!-- ════ SLIDE 14 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">The Governance Gap</span>
+      <span class="label">14</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        The gap between those two numbers is where the risk lives
+      </h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card">
+          <div class="hero-stat">84%</div>
+          <p class="stat-label muted">of agile teams use AI tools</p>
+          <p class="stat-note">Digital.ai · 18th State of Agile 2025 · n=350</p>
+        </div>
+        <div class="stat-card" style="border-left:1px solid var(--c-border);padding-left:calc(var(--pad-x) * 0.4)">
+          <div class="hero-stat">49%</div>
+          <p class="stat-label muted">of those teams have governance guardrails</p>
+          <p class="stat-note">Same survey</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: Medium-High — Digital.ai 18th State of Agile report, 2025, n=350. The 35-point gap between adoption and governance is not an abstract metric — it describes real teams where AI is running without accountability design. The framing "where the risk lives" is accurate but also "where the role lives" — the governance gap is the space the IM occupies in the evolved model. If an audience member asks what "governance guardrails" means in the survey, note it is self-reported by practitioners and likely includes informal policies as well as formal frameworks. The directional finding is robust even with that caveat.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 15 ════ -->
+  <section class="slide slide--compare">
+    <header class="slide-chrome">
+      <span class="label">The Boundary</span>
+      <span class="label">15</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="compare-panel left" data-anim="fade-up" data-delay="1">
+        <div class="compare-label">Agents generate</div>
+        <p class="compare-item">Drafts</p>
+        <p class="compare-item">Tracking</p>
+        <p class="compare-item">Analysis</p>
+        <p class="compare-item">Dependency detection</p>
+        <p class="compare-item">Test coverage</p>
+        <p class="compare-item">Communication summaries</p>
+      </div>
+
+      <div class="compare-panel right" data-anim="fade-up" data-delay="2">
+        <div class="compare-label after">Agents cannot decide</div>
+        <p class="compare-item">Risk tolerance calls</p>
+        <p class="compare-item">Approval gates</p>
+        <p class="compare-item">Production decisions</p>
+        <p class="compare-item">Competing stakeholder interests</p>
+        <p class="compare-item">Ethical edge cases</p>
+      </div>
+
+      <div class="compare-annotation" data-anim="fade-in" data-delay="3">
+        The boundary is not permanent. The job is to own it right now.
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      This is the hinge of the entire argument. The annotation is the most important sentence in the deck — "not permanent" disarms the objection that AI will eventually cross this boundary too. Yes, it will. The argument is about right now, not forever. The right column is what requires human judgment today, and that is the IM's accountability. The next two slides — Centaur teams (Slide 16) and HITL patterns (Slide 17) — give the structural model and mechanism for how an IM occupies this accountability. Without those two slides, the boundary claim is assertion. With them, it is argued.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 16 ════ -->
+  <section class="slide slide--statement">
+    <header class="slide-chrome">
+      <span class="label">Centaur Teams</span>
+      <span class="label">16</span>
+    </header>
+
+    <div class="statement-body">
+      <h2 class="h1" data-anim="fade-up" data-delay="1" style="max-width:90%;font-size:3.7vw;line-height:1.08">
+        Weak human + machine + better process<br />beat the grandmaster.
+      </h2>
+
+      <p class="lead muted" data-anim="fade-up" data-delay="2" style="max-width:65%">
+        Process design is the variable. That is the IM's job.
+      </p>
+
+      <div class="centaur-split" data-anim="fade-up" data-delay="3">
+        <div class="centaur-col left">
+          <div class="centaur-col-label">Human</div>
+          <p class="centaur-col-item">Judgment</p>
+          <p class="centaur-col-item">Accountability</p>
+          <p class="centaur-col-item">Context</p>
+          <p class="centaur-col-item">Stakeholder navigation</p>
+          <p class="centaur-col-item">Final sign-off</p>
+        </div>
+        <div class="centaur-col right">
+          <div class="centaur-col-label">AI</div>
+          <p class="centaur-col-item">Speed</p>
+          <p class="centaur-col-item">Throughput</p>
+          <p class="centaur-col-item">Pattern matching</p>
+          <p class="centaur-col-item">Draft generation</p>
+          <p class="centaur-col-item">Spec execution</p>
+        </div>
+      </div>
+
+      <p class="centaur-attribution" data-anim="fade-in" data-delay="4">
+        Kasparov · NYRB 2010 · 2005 Freestyle Chess Championship
+      </p>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Primary source: Garry Kasparov, "The Chess Master and the Computer," New York Review of Books, 2010. The 2005 Freestyle Chess Championship is the empirical event — teams of amateur players using computers beat both grandmasters playing without computers and computers playing without humans. The winning teams were not the strongest players or the most powerful computers. They were the teams with the best process for combining human judgment with machine calculation. The bridge to software development contexts: the arXiv centaur programmer paper (2304.11172, 2023) documents the same pattern in code review and development tasks. Source confidence: High for the Kasparov primary source; Medium-High for the arXiv centaur programmer paper. The human/AI split in the columns is argued from functional alignment — it is not a citable taxonomy from a single study.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 17 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">The Mechanism</span>
+      <span class="label">17</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">A governance decision — the IM picks the pattern, not the agent</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          You decide which pattern.<br />The agent can't.
+        </h2>
+        <p class="body muted" data-anim="fade-up" data-delay="3" style="margin-top:var(--gap-sm);max-width:94%">
+          This is workflow design — set before the agent runs. That's architecture, not the in-task judgment calls where adding AI degrades the decision.
+        </p>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="4">
+        <div class="block-item">
+          <span class="block-item-marker">AI drafts &rarr; Human reviews</span>
+          <span class="block-item-title">Code, docs, plans</span>
+          <span class="block-item-body">Your move: define the review gates in the Definition of Done.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Human steers &rarr; AI executes</span>
+          <span class="block-item-title">Complex analysis, research</span>
+          <span class="block-item-body">Your move: maintain the backlog the agents pull from.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">AI monitors &rarr; Human intervenes</span>
+          <span class="block-item-title">Ops, alerts, QA</span>
+          <span class="block-item-body">Your move: set the escalation thresholds.</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The HITL taxonomy comes from LangGraph documentation, the DEV Community HITL taxonomy, and Anthropic's Trustworthy Agents guidelines. These are engineering documentation sources, not controlled studies of IM behavior. The mapping from each pattern to a specific IM accountability decision is argued from functional alignment: each pattern requires a governance decision that is natively in the IM's accountability space, not the tech lead's. The tech lead designs the agent. The IM decides which human-in-the-loop pattern governs how that agent participates in the team's delivery system. The three IM-role entries — DoD gate design, task backlog stewardship, escalation threshold setting — are the concrete G-NEW-1 connection: these are IM-specific decisions, not engineering decisions. The Malone distinction is critical for analytically-minded audiences: Malone et al. (Slide 6) establishes that adding AI to decision tasks degrades performance below the best solo performer. This is not a contradiction of the HITL argument — the IM's governance role is selecting which pattern applies to which work (a workflow design decision made before the work begins), not making decisions augmented by AI within a task. The distinction matters: an IM deciding "this workflow uses AI Monitors → Human Intervenes" is doing workflow architecture, not AI-augmented decision-making.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 18 ════ -->
+  <section class="slide slide--compare">
+    <header class="slide-chrome">
+      <span class="label">The Fork</span>
+      <span class="label">18</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="compare-panel left" data-anim="fade-up" data-delay="1">
+        <div class="compare-label">Fragmentation path</div>
+        <p class="compare-item">Tech lead absorbs the workflow</p>
+        <p class="compare-item">A new AI-governance specialist takes the risk</p>
+        <p class="compare-item">No single owner of human-agent coordination</p>
+        <p class="compare-item muted">The role dissolves into its parts</p>
+      </div>
+
+      <div class="compare-panel right" data-anim="fade-up" data-delay="2">
+        <div class="compare-label after">Evolution path</div>
+        <p class="compare-item">You own the workflow architecture</p>
+        <p class="compare-item">You govern the human-in-the-loop patterns</p>
+        <p class="compare-item">You own risk at the human-AI boundary</p>
+        <p class="compare-item">One accountable owner &mdash; the role expands</p>
+      </div>
+
+      <div class="compare-annotation" data-anim="fade-in" data-delay="3">
+        This fork is real. The argument for evolution is cost: one accountable owner beats handoffs between separate specialists.
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Use this slide for the "the role will just dissolve anyway" objection. Fragmentation is real and will happen in some organisations. The argument for evolution is probabilistic — not every IM will make the governance decision in time. The structural case for evolution is handoff cost: splitting workflow architecture and human-AI risk across a tech lead and a separate governance specialist creates new coordination seams where today there is one owner. That is slower and more expensive, and organisations that fragment the role tend to rediscover this within a couple of years as coordination overhead returns in a new form. Note: prioritisation is deliberately not shown as a fragmentation outcome — that is legitimately the product manager's job, not a piece of the IM role being taken away.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 19 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">The Collision</span>
+      <span class="label">19</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">Five failure modes</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Agents don't slot in.<br />They collide —<br />unless you compose them.
+        </h2>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="3">
+        <div class="block-item">
+          <span class="block-item-title">Pull vs. push lifecycle</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-title">Learning vs. execution orientation</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-title">State transition mismatch</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-title">Handoff ambiguity</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-title">Shared context gaps</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: Medium — Webframp practitioner analysis, not peer-reviewed research. These five collision points are a practitioner diagnostic framework, not a citable study. The value is recognition: most audience members managing a team with AI tools will have felt at least one of these without having named it. Pull vs. push lifecycle is the most immediately recognizable — a team works in sprints (pull-based, time-boxed, team-initiated); an agent can be invoked at any moment by any trigger (operator-initiated, event-driven). That mismatch alone creates planning and accountability friction that nobody owns by default.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 20 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">The Evolved Role</span>
+      <span class="label">20</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">What to build</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Three capabilities.<br />One survival argument.
+        </h2>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="3">
+        <div class="block-item">
+          <span class="block-item-marker">01</span>
+          <span class="block-item-title">Workflow architecture</span>
+          <span class="block-item-body">Compose agent lifecycles inside the delivery system — select HITL patterns per work type, maintain the backlog agents pull from</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">02</span>
+          <span class="block-item-title">Agentic governance</span>
+          <span class="block-item-body">Prompt evaluation, tool usage governance, model evaluation on new releases, permission scoping, oversight gate design</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">03</span>
+          <span class="block-item-title">Risk at the boundary</span>
+          <span class="block-item-body">Own human-agent decision splits — design approval gates, take central AI capability into the team's operating rhythm</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The expanded capability list — prompt evaluation, model evaluation on new releases, agent workflow enablement — represents the centaur steering competencies, not a definitively researched skill taxonomy. These are argued as the practical skills an IM needs to govern the HITL patterns from Slide 17. They are acquirable through daily delivery practice, not just listed as requirements. Connecting to G-NEW-2: the centaur framing implies learnable AI literacy. A speaker should be explicit that these skills develop in practice, not through a one-time training event. An IM who governs one agent workflow this sprint knows more than a colleague who attended a workshop. The credential track on Slide 25 is the organised version of capability development that is already happening informally. Source confidence: Medium — the mastery list is argued from the centaur structural model and practitioner observation, not a peer-reviewed skill framework.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 21 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">Practice Changes</span>
+      <span class="label">21</span>
+    </header>
+
+    <div class="slide-body" style="display:flex;flex-direction:column;gap:var(--gap-md);">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">VERDICT, mapped to your cadence</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Governance isn't a new ceremony.<br />It's the old ones, upgraded.
+        </h2>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="3" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-sm) calc(var(--pad-x)*0.4);">
+        <div class="block-item">
+          <span class="block-item-marker">V · Validation</span>
+          <span class="block-item-title">Definition of Done</span>
+          <span class="block-item-body">Decide which agent actions need a gate before they run.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">E · Evidence</span>
+          <span class="block-item-title">Daily Scrum</span>
+          <span class="block-item-body">Review agent action logs as part of the deviation check.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">R · Runtime control</span>
+          <span class="block-item-title">Stop-the-line</span>
+          <span class="block-item-body">Define who can halt an agent mid-run, and when.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">D · Decisions</span>
+          <span class="block-item-title">Retrospective</span>
+          <span class="block-item-body">Inspect agent reasoning; debug the failures.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">I · Identity</span>
+          <span class="block-item-title">Working agreements</span>
+          <span class="block-item-body">Give every agent a named human owner.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">C · Cost &amp; compliance</span>
+          <span class="block-item-title">Sprint review</span>
+          <span class="block-item-body">Track agent spend and compliance next to velocity.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">T · Transparency</span>
+          <span class="block-item-title">Stakeholder reporting</span>
+          <span class="block-item-body">Make agent activity a dashboard line, not a black box.</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      VERDICT is a seven-pillar runtime-governance model from practitioners Niharika Srivastav and Sanjay Saxena (2026) — a useful organising scaffold, not peer-reviewed research, so present it as an actionable checklist rather than a citable study. The mapping from each pillar to an agile cadence is this deck's own synthesis; the framework's authors did not map to ceremonies. The credibility of the pillars comes from the failures they explain — Knight Capital (no kill-switch), Replit (no validation gate), Meta (no identity check) — on the next slide. The point for the IM: none of these is a new meeting. Each is an upgrade to a ceremony already in the calendar. Source confidence: Medium — single-source practitioner framework; the incidents it maps to are independently documented (High).
+    </aside>
+  </section>
+  <!-- ════ SLIDE 22 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">The Urgency</span>
+      <span class="label">22</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">Three failure modes</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          No owner at the boundary.<br />Here is what that looks like.
+        </h2>
+      </div>
+
+      <div class="failure-list" data-anim="fade-up" data-delay="3">
+        <div class="failure-item">
+          <span class="failure-eyebrow">Replit · July 2025</span>
+          <span class="failure-desc">Agent deleted production database during a code freeze. Missing infrastructure-level approval gate.</span>
+          <span class="failure-source">Fortune · The Register · AI Incident Database #1152</span>
+        </div>
+        <div class="failure-item">
+          <span class="failure-eyebrow">Meta · December 2024</span>
+          <span class="failure-desc">Agent posted sensitive user data to a public forum without authorization. 2-hour exposure. Sev 1.</span>
+          <span class="failure-source">SecurityBrief Asia · AI Magazine</span>
+        </div>
+        <div class="failure-item">
+          <span class="failure-eyebrow">Context leak pattern</span>
+          <span class="failure-desc">Data accessible in the agent's context window becomes data the agent acts on. No authorization check.</span>
+          <span class="failure-source">Design implication: scope context windows explicitly at workflow design time</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence note: Both documented incidents — Replit July 2025 and Meta December 2024 — occurred in engineering and technical deployment contexts, not specifically in delivery team governance contexts. The inference to delivery teams is structural: these incidents illustrate what happens when no one designs the approval gates. They are workflow design failures, not IT security failures. The agent had legitimate access in both cases. The governance failure was the absence of a designed approval gate at a meaningful decision junction. That is exactly the kind of gate the IM is responsible for in the evolved role. If a technically sophisticated audience member challenges the relevance to delivery management, the response is: the governance pattern is identical — agentic systems need explicit human-in-the-loop gates at meaningful decision points, and who designs those gates for the delivery team is the IM's accountability (G-NEW-3). See Appendix Slide 33 for primary source links and full incident timelines.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 23 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">Governance Maturity</span>
+      <span class="label">23</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">Where most organisations sit — and where you move them</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          AI Governance Maturity.<br />Most teams are at Level 1&ndash;2.
+        </h2>
+        <p class="stat-note" data-anim="fade-in" data-delay="3" style="margin-top:var(--gap-sm)">
+          VERDICT governance model · Srivastav &amp; Saxena, 2026 (practitioner framework)
+        </p>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="4">
+        <div class="block-item">
+          <span class="block-item-marker">Level 1 · Unseen</span>
+          <span class="block-item-title">No inventory, no oversight</span>
+          <span class="block-item-body">Agents run with no organisational awareness. Most teams are here.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Level 2 · Observed</span>
+          <span class="block-item-title">Visibility without control</span>
+          <span class="block-item-body">You know what's running; you can't yet govern or stop it.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker" style="color:var(--c-accent)">Level 3 · Controlled — your target</span>
+          <span class="block-item-title">Policies enforced, owners assigned</span>
+          <span class="block-item-body">Actions logged, gates enforced, every agent owned. This is the move.</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Level 4 · Autonomous</span>
+          <span class="block-item-title">Agents monitoring agents</span>
+          <span class="block-item-body">Continuous compliance, board-ready. Few are here.</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: Medium — the VERDICT framework is a practitioner and consultant heuristic, not peer-reviewed academic research. Use it as a useful orientation tool, not a citable study. The practical value for the audience is the self-diagnosis: most enterprise organisations sit at Level 1 or 2. The move from L2 to L3 is the IM's immediate opportunity — and it is owned from inside the team. It requires assigning ownership and defining policies, which is governance work, not technical work. G-NEW-1 connection: the IM is the natural actor to move a team from L2 to L3 because the move requires governance decisions about HITL patterns, approval gate design, and escalation thresholds — all IM accountabilities from Slide 17. The framing here shows what moving to L3 actually requires: this is not a committee proposal, it is a delivery manager making a governance decision for their team.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 24 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">Action Path</span>
+      <span class="label">24</span>
+    </header>
+
+    <div class="slide-body">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">This week</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Start with a question, not a plan.
+        </h2>
+      </div>
+
+      <div data-anim="fade-up" data-delay="3">
+        <div class="audit-list">
+          <div class="audit-item">
+            <span class="audit-num">1</span>
+            <span class="audit-q">Who is using AI tools? Chatbots only, or agents?</span>
+          </div>
+          <div class="audit-item">
+            <span class="audit-num">2</span>
+            <span class="audit-q">For what work? (code, docs, analysis, stand-up summaries, testing?)</span>
+          </div>
+          <div class="audit-item">
+            <span class="audit-num">3</span>
+            <span class="audit-q">What HITL pattern is in play — even informally? (Who reviews? Who steers? Who monitors?)</span>
+          </div>
+          <div class="audit-item">
+            <span class="audit-num">4</span>
+            <span class="audit-q">Where does the team sit on the maturity ladder? (Unseen / Observed / Controlled / Autonomous)</span>
+          </div>
+          <div class="audit-item">
+            <span class="audit-num">5</span>
+            <span class="audit-q">Where do the gaps between individual adoption and team coordination show up?</span>
+          </div>
+        </div>
+        <p class="audit-framing">The audit takes one sprint. It tells you where to put governance before someone else decides for you.</p>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The squad audit is the IM's first governance act. It does not require permission from a CoE or a committee. It is a delivery manager understanding their own team's workflow. The five questions are designed to produce a governance map: which workflows have informal HITL patterns that need to be formalised, which have no pattern at all, and which are already at Controlled level. The audit output is the input to the next slide's path. Source the maturity levels from the VERDICT framework (Slide 22) — Unseen AI, Observed AI, Controlled AI, Autonomous Governance.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 25 ════ -->
+  <section class="slide slide--process">
+    <header class="slide-chrome">
+      <span class="label">Action Path</span>
+      <span class="label">25</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        The 12-month path
+      </h2>
+
+      <div class="process-steps-h" data-anim="fade-up" data-delay="2">
+        <div class="process-step-h">
+          <span class="process-horizon-h">This quarter</span>
+          <span class="process-step-h-title">Map one workflow</span>
+          <p class="process-step-h-body">Interpret the audit. Pick the workflow with the highest coordination risk and map it to a HITL pattern. Design one approval gate. Present the governance map to the team. This is not a committee proposal — it is an IM making a delivery decision.</p>
+        </div>
+        <div class="process-step-h">
+          <span class="process-horizon-h">This year</span>
+          <span class="process-step-h-title">Three or four workflows governed</span>
+          <p class="process-step-h-body">HITL patterns visible in the Definition of Done. The squad's AI maturity is a known quantity, not an informal assumption. The IM is the conduit between the org's AI capability and the team's operating rhythm — whether or not a central CoE exists.</p>
+        </div>
+        <div class="process-step-h">
+          <span class="process-horizon-h">What success looks like</span>
+          <span class="process-step-h-title">The role has not fragmented</span>
+          <p class="process-step-h-body">The IM owns the boundary. Engineers are moving fast; the governance layer is moving with them, not behind them. The 12 months did not start with a consultant — they started with a question in a sprint.</p>
+        </div>
+      </div>
+
+      <p class="compare-annotation" style="margin-top:var(--gap-md)" data-anim="fade-in" data-delay="3">
+        Bottom-up is not a philosophy — it is a delivery practice. The governance decisions happen in the work, not in a workshop.
+      </p>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Hybrid Delivery</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      The 12-month path is deliberately framed as delivery practice, not change management. The alternative — waiting for a central CoE, hiring a consultant, forming an AI governance committee — is the Salesforce Agentforce model (8% adoption after one year of mandate-driven rollout vs. 68% adoption through champion-driven peer diffusion). The IM who acts in the work closes the squad capability gap from the inside. The one who waits for permission gets bypassed — exactly the mechanism named in Slide 13.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 26 ════ -->
+  <section class="slide slide--end">
+    <p class="kicker" data-anim="fade-in" data-delay="1">The move</p>
+
+    <h2 class="cta-imperative" data-anim="fade-up" data-delay="2">
+      Own the decisions<br />agents can't make.
+    </h2>
+
+    <div class="rule" data-anim="reveal-right" data-delay="3" style="margin:2vh 0"></div>
+
+    <p class="cta-url" data-anim="fade-in" data-delay="4" style="margin-bottom:1.5vh">
+      Start with the squad audit — this week.
+    </p>
+
+    <p class="cta-support" data-anim="fade-up" data-delay="5">
+      The capability gap closes on its own.<br />The governance gap is yours to close.
+    </p>
+
+    <p class="cta-url" data-anim="fade-in" data-delay="6">
+      Next step — speak to Adnan after this session
+    </p>
+
+    <aside class="notes">
+      The closing line ties the two ladders together: agent capability keeps climbing on its own, but the governance gap only closes when someone owns it — and that someone is the IM. Forward-looking, no backward reference. The CTA is to run the squad audit this week — five questions, one sprint, a governance map as output. The presenter's next-step offer should be specific: offer to map one of their workflows to a HITL pattern in a 30-minute conversation after the session.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 27 ════ -->
+  <section class="slide slide--team">
+    <p class="kicker" data-anim="fade-in" data-delay="1">The team behind this deck</p>
+    <h2 class="h2" data-anim="fade-up" data-delay="2">The Team</h2>
+
+    <div class="team-grid" data-anim="fade-up" data-delay="3">
+      <div class="team-row-top">
+        <div class="team-card">
+          <div class="team-av presenter">
+            <img src="../../../../shared/assets/avatars/adnan.png" alt="Adnan Ali" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Adnan Ali</span>
+          <span class="team-role">Presenter</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/pax.png" alt="Pax" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Pax</span>
+          <span class="team-role">Research</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/rex.png" alt="Rex" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Rex</span>
+          <span class="team-role">Argument</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/coda.png" alt="Coda" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Coda</span>
+          <span class="team-role">Production</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/iris.png" alt="Iris" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Iris</span>
+          <span class="team-role">Design</span>
+        </div>
+      </div>
+
+      <div class="team-row-bottom">
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/aria.png" alt="Aria" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Aria</span>
+          <span class="team-role">Persuasion</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/vera.png" alt="Vera" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Vera</span>
+          <span class="team-role">Adversarial</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/larry.png" alt="Larry" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Larry</span>
+          <span class="team-role">Orchestration</span>
+        </div>
+        <div class="team-card">
+          <div class="team-av agent">
+            <img src="../../../../shared/assets/avatars/nolan.png" alt="Nolan" onerror="this.style.display='none'" />
+          </div>
+          <span class="team-name">Nolan</span>
+          <span class="team-role">Team</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="notes">
+      This deck was produced by a human-AI team using the myPKA system. Adnan drove the brief and will present. Pax researched; Rex stress-tested the argument; Vera ran the adversarial pass; Aria assessed persuasion; Coda authored the HTML; Iris consulted on visual design; Larry orchestrated the team; Nolan structured it. The team slide is not decoration — it models the centaur collaboration the deck is arguing for.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 28 ════ -->
+  <section class="slide slide--divider">
+    <div data-anim="fade-in" data-delay="1">
+      <p class="divider-label">Reference material</p>
+      <div class="divider-rule"></div>
+      <h2 class="divider-title">Appendix</h2>
+    </div>
+
+    <aside class="notes">
+      The appendix contains four reference slides for objection handling and detailed evidence. Slides 31–34 are not part of the main presentation flow. Navigate here only if an audience question requires primary source detail.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 29 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">Appendix A</span>
+      <span class="label">29</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        Malone et al. in full — why BCG and P&amp;G results reconcile
+      </h2>
+
+      <div class="stats-grid" style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card">
+          <div class="stat-value">106</div>
+          <p class="stat-label muted">studies, 370 effect sizes</p>
+          <p class="stat-note">Nature Human Behaviour 2024</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">90%</div>
+          <p class="stat-label muted">decision/classification tasks — where AI degrades performance</p>
+          <p class="stat-note">Task-type breakdown</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">10%</div>
+          <p class="stat-label muted">generative/creative tasks — where BCG and P&amp;G results live</p>
+          <p class="stat-note">The conditional scope</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Appendix</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Use this slide when an audience member challenges the BCG/P&G results by citing Malone. The reconciliation is precise: BCG and P&G studied generative, open-ended knowledge work tasks. Malone's meta-analysis studied primarily decision and classification tasks. Both findings are correct in their respective domains. The deck's conditional framing on Slide 5 ("for complex, generative work") is what holds the argument together — if a presenter drops that qualifier, the Malone challenge cannot be answered. Source: Malone et al., Nature Human Behaviour, 2024. DOI on request.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 30 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">Appendix B</span>
+      <span class="label">30</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        Wave 1 dissolution — primary sources
+      </h2>
+
+      <div class="stats-grid" style="margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="stat-card">
+          <div class="stat-value">49%</div>
+          <p class="stat-label muted">SM training enrollment at peak (2020)</p>
+          <p class="stat-note">Wolpers enrollment data</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">&lt;5%</div>
+          <p class="stat-label muted">SM enrollment by 2024</p>
+          <p class="stat-note">Wolpers · same longitudinal data</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">18%</div>
+          <p class="stat-label muted">of orgs now report dedicated Agile Coach demand</p>
+          <p class="stat-note">Scrum Alliance · 2024</p>
+        </div>
+      </div>
+
+      <p class="body muted" data-anim="fade-in" data-delay="3" style="margin-top:var(--gap-md);max-width:70%">
+        Cessan: "Capital is expensive, companies now demand real returns on every role."
+      </p>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Appendix</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Source confidence: High for Wolpers enrollment data (longitudinal, primary-source training data); Medium-High for Cessan QE/QT mechanism analysis and Scrum Alliance demand figure. The Wolpers data is the primary source behind the Wave 1 timeline on Slide 11. Use this slide when an audience member questions whether the Wave 1 pattern was real or whether the narrative is being retrofitted. The enrollment collapse from 49% to under 5% in four years is unambiguous. The Cessan quote on the QE/QT mechanism provides the causal explanation.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 31 ════ -->
+  <section class="slide slide--stats">
+    <header class="slide-chrome">
+      <span class="label">Appendix C</span>
+      <span class="label">31</span>
+    </header>
+
+    <div class="slide-body">
+      <h2 class="h2" data-anim="fade-up" data-delay="1">
+        Governance failure — primary sources for the two named incidents
+      </h2>
+
+      <div style="display:flex;flex-direction:column;gap:var(--gap-md);margin-top:var(--gap-lg)" data-anim="fade-up" data-delay="2">
+        <div class="incident-detail">
+          <span class="incident-eyebrow">Replit · July 2025 · AI Incident Database #1152</span>
+          <span class="incident-desc">Agent deleted production database during a declared code freeze. Root cause: missing infrastructure-level approval gate. Sources: Fortune (article URL on request), The Register, AI Incident Database #1152. Safeguards implemented post-incident: mandatory human approval for destructive operations.</span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-eyebrow">Meta · December 2024</span>
+          <span class="incident-desc">Agent posted sensitive user data to a public forum without authorization. 2-hour exposure window. Sev 1 classification. Sources: SecurityBrief Asia, AI Magazine, PointGuard AI. Root cause: missing authorization check — agent context window contained data it was permitted to act on without a human review gate.</span>
+        </div>
+        <div class="incident-detail">
+          <span class="incident-eyebrow">Gartner · May 2026</span>
+          <span class="incident-desc">40% of agentic deployments predicted to be decommissioned due to uncontrolled costs or governance failures by 2027. Primary press release URL available on request.</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Appendix</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      Note for presenters: the $110K/month token cost figure from v1.0.0 Slide 17 has been moved out of the main narrative. The source (LeanOps practitioner analysis, public API pricing methodology) is available on request if a presenter wants to use it. The figure has not been independently verified and is a practitioner estimate, not a measured study. The Replit and Meta incidents are the stronger evidence for governance failure — they are named, dated, and multi-source confirmed. Both incidents occurred in engineering and technical deployment contexts, not delivery management contexts. The inference to delivery teams is structural.
+    </aside>
+  </section>
+  <!-- ════ SLIDE 32 ════ -->
+  <section class="slide slide--list">
+    <header class="slide-chrome">
+      <span class="label">Appendix D</span>
+      <span class="label">32</span>
+    </header>
+
+    <div class="slide-body" style="display:flex;flex-direction:column;gap:var(--gap-md);">
+      <div class="list-head">
+        <p class="kicker" data-anim="fade-in" data-delay="1">Full credential landscape — start with the first three</p>
+        <h2 class="h2" data-anim="fade-up" data-delay="2">
+          Start with three. Seven paths in all.
+        </h2>
+      </div>
+
+      <div class="block-list" data-anim="fade-up" data-delay="4" style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap-sm) calc(var(--pad-x)*0.4);">
+        <div class="block-item">
+          <span class="block-item-marker" style="color:var(--c-accent)">Start here · Scrum.org</span>
+          <span class="block-item-title">PSM-AI — 1-day, launched Feb 2026</span>
+          <span class="block-item-body">Maps to: HITL pattern governance and ceremony redesign</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker" style="color:var(--c-accent)">Start here · PMI</span>
+          <span class="block-item-title">AI in Agile Delivery — 5-module, PDU credit</span>
+          <span class="block-item-body">Maps to: workflow architecture and agentic governance</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker" style="color:var(--c-accent)">Start here · IAPP</span>
+          <span class="block-item-title">AIGP — AI governance &amp; risk professional</span>
+          <span class="block-item-body">Maps to: risk at the human-AI boundary, context leak, governance failure prevention</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Scrum Alliance</span>
+          <span class="block-item-title">AI for Scrum Masters</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">PMI</span>
+          <span class="block-item-title">CPMAI — advanced AI project management</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">CI Agile</span>
+          <span class="block-item-title">AI-Driven Agile</span>
+        </div>
+        <div class="block-item">
+          <span class="block-item-marker">Agile Seekers</span>
+          <span class="block-item-title">AI for Agile Leaders</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="slide-foot">
+      <span class="label">Appendix</span>
+      <span class="label">Adnan Ali · 2026</span>
+    </footer>
+
+    <aside class="notes">
+      No salary figures appear anywhere in the deck. The first three credentials are the curated set (formerly a standalone slide), each mapped directly to a capability argued earlier — PSM-AI for HITL and ceremony patterns, PMI AI in Agile Delivery for workflow architecture, AIGP for boundary-risk governance. They are the organised version of capability development that many practitioners are already doing informally; the credential is proof of capability, not its source. The remaining four cover adjacent needs — CPMAI for project-management contexts, the others for teams earlier in their adoption curve.
+    </aside>
+  </section>
+
+
+</div><!-- /#deck -->
+
+<!-- Navigation dots -->
+<div id="nav-dots"></div>
+<div id="slide-counter"></div>
+
+<script>
+  /* ════════════════════════════════════════════════════════════════
+     Navigation engine — keyboard, touch, wheel
+  ════════════════════════════════════════════════════════════════ */
+  (function () {
+    const deck     = document.getElementById('deck');
+    const slides   = Array.from(deck.querySelectorAll('.slide'));
+    const dotsEl   = document.getElementById('nav-dots');
+    const counterEl= document.getElementById('slide-counter');
+    const total    = slides.length;
+    let current    = 0;
+    let locked     = false;
+
+    // Set deck width
+    deck.style.width = (total * 100) + 'vw';
+
+    // Build nav dots
+    slides.forEach((_, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-dot';
+      btn.setAttribute('aria-label', 'Slide ' + (i + 1));
+      btn.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(btn);
+    });
+
+    function resetAnim(slide) {
+      slide.querySelectorAll('[data-anim]').forEach(el => {
+        el.style.animation = 'none';
+        el.offsetHeight; // force reflow
+        el.style.animation = '';
+      });
+    }
+
+    function goTo(index) {
+      if (index < 0 || index >= total || locked) return;
+      locked = true;
+      slides[current].classList.remove('is-active');
+      current = index;
+      deck.style.transform = 'translateX(-' + (current * 100) + 'vw)';
+      resetAnim(slides[current]);
+      slides[current].classList.add('is-active');
+      // Sync dots
+      dotsEl.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('is-active', i === current);
+      });
+      counterEl.textContent = (current + 1) + ' / ' + total;
+      setTimeout(() => { locked = false; }, 950);
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                    { e.preventDefault(); prev(); }
+      if (e.key === 'Home') goTo(0);
+      if (e.key === 'End')  goTo(total - 1);
+    });
+
+    // Touch
+    let touchX = 0;
+    document.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    document.addEventListener('touchend',   e => {
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+    }, { passive: true });
+
+    // Wheel (debounced)
+    let wheelTimer = null;
+    document.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (wheelTimer) return;
+      e.deltaY > 0 ? next() : prev();
+      wheelTimer = setTimeout(() => { wheelTimer = null; }, 800);
+    }, { passive: false });
+
+    // Init
+    goTo(0);
+  })();
+</script>
+</body>
+</html>
