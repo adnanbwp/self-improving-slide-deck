@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>hybrid-delivery — Diagram Review</title>
+  <style>
+    body { margin: 0; background: #1C1E26; font-family: "JetBrains Mono", monospace; color: #F8F5EE; }
+    header { padding: 32px 48px 24px; border-bottom: 1px solid #333; }
+    header h1 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 6px; color: #2E6B4E; }
+    header p { font-size: 12px; color: #6A6C7A; margin: 0; }
+    .gallery { padding: 48px; display: flex; flex-direction: column; gap: 64px; }
+    .item { }
+    .item-label { font-size: 11px; letter-spacing: 2px; color: #6A6C7A; margin-bottom: 12px; text-transform: uppercase; }
+    .item-label strong { color: #2E6B4E; }
+    .item-desc { font-size: 12px; color: #9A9DA8; margin-bottom: 16px; max-width: 900px; line-height: 1.6; }
+    .item img, .item object {
+      width: 100%;
+      max-width: 1200px;
+      height: auto;
+      border: 1px solid #2E2E38;
+      border-radius: 4px;
+      display: block;
+    }
+    .image-placeholder {
+      width: 100%;
+      max-width: 1200px;
+      height: 300px;
+      background: #2A2B35;
+      border: 1px dashed #3A3B45;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6A6C7A;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    .divider { height: 1px; background: #2A2B35; margin: 0 0 0 0; }
+    footer { padding: 24px 48px; border-top: 1px solid #2A2B35; font-size: 11px; color: #3A3C48; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>hybrid-delivery · Diagram Review</h1>
+    <p>5 diagrams + 1 AI image (pending). Review before integrating into the slide deck.</p>
+  </header>
+
+  <div class="gallery">
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 15</strong> · The Mechanism · HITL Patterns</div>
+      <div class="item-desc">
+        Three HITL patterns as vertical flows. Each column: actor A → (action) → actor B, plus Use and IM Role annotations.
+        This is the argument peak slide — the mechanism that earns the "IM/DM as natural locus" claim.
+        High-value candidate: replaces or supplements the numbered text list.
+      </div>
+      <img src="diagrams/slide-15-hitl-patterns.svg" alt="Slide 15 — HITL Patterns"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 20</strong> · Governance Maturity · Maturity Ladder</div>
+      <div class="item-desc">
+        L1→L4 staircase ascending left-to-right. L3 (Controlled AI) highlighted in jade as the target.
+        "Most orgs here" bracket spans L1–L2. L2→L3 transition label names the IM/DM work.
+        Replaces the flat text-list .ladder CSS element.
+      </div>
+      <img src="diagrams/slide-20-maturity-ladder.svg" alt="Slide 20 — Maturity Ladder"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 16</strong> · The Fork · Evolution vs Fragmentation</div>
+      <div class="item-desc">
+        Y-fork from single starting node. Left path: Fragmentation (neutral, text on surface background).
+        Right path: Evolution (jade highlight). Replaces two-column compare panel.
+        The Y-fork structure makes the "choice point" viscerally clear.
+      </div>
+      <img src="diagrams/slide-16-fork.svg" alt="Slide 16 — The Fork"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 09</strong> · Historical Pattern · Timeline</div>
+      <div class="item-desc">
+        Horizontal timeline with 3 nodes: QE Era (2020–2022) → QT Era (2022–2023) → Hybrid roles (2023–2024).
+        Stat callouts (49% → &lt;5%) with collapse arrow. Node 3 in jade as the surviving form.
+        CSS already has a .timeline-track — this is the Excalidraw-style alternative. Compare against in-browser
+        rendering to decide which is stronger.
+      </div>
+      <img src="diagrams/slide-09-timeline.svg" alt="Slide 09 — Timeline"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 24</strong> · Action Path · Three Horizons</div>
+      <div class="item-desc">
+        Three columns with jade accent bars at top: This Week / This Month / This Year.
+        Progress track connects the three horizon nodes. Counter-example note (Salesforce 8% mandate failure)
+        in the source note below. Reinforces the "inside the team, not from a mandate" framing.
+      </div>
+      <img src="diagrams/slide-24-action-path.svg" alt="Slide 24 — Action Path"/>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <div class="item-label"><strong>SLIDE 14</strong> · The Structural Model · AI-Generated Image (Centaur / Chess)</div>
+      <div class="item-desc">
+        Image brief in progress (Iris → Mack). Editorial black-and-white: chess board + human hand + computational element.
+        NYRB / Magnum Photos aesthetic. No faces, no colour. Monochrome to match Ivory Ledger theme.
+        Will appear here once generated.
+      </div>
+      <img src="images/slide-14-centaur.png" alt="Slide 14 — Centaur/Chess"/>
+    </div>
+
+  </div>
+
+  <footer>hybrid-delivery · assets/review.html · diagrams generated 2026-05-30</footer>
+</body>
+</html>

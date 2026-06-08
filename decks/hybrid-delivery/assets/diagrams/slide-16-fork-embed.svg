@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 66 1600 792" width="1600" height="900">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&amp;family=JetBrains+Mono:wght@400&amp;display=swap');
+      text { font-family: Jost, system-ui, sans-serif; }
+      .mono { font-family: "JetBrains Mono", monospace; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="#F8F5EE"/>
+
+  <!-- Header band -->
+  <rect width="1600" height="66" fill="#EDE8DF"/>
+  <text x="90" y="29" class="mono" font-size="10" fill="#6A6C7A" letter-spacing="2">SLIDE 16  ·  THE FORK</text>
+  <text x="90" y="52" font-size="17" font-weight="300" fill="#1C1E26">Fragmentation is a real outcome. The argument for evolution is probabilistic, not guaranteed.</text>
+
+  <!-- ═══════════════════════════════════════ STARTING NODE ═══════════════════════════════════════ -->
+  <rect x="582" y="98" width="436" height="72" rx="6" fill="#EDE8DF" stroke="#CAC7BF" stroke-width="1.5"/>
+  <text x="800" y="127" text-anchor="middle" class="mono" font-size="11" fill="#6A6C7A" letter-spacing="2">THE ROLE TODAY</text>
+  <text x="800" y="153" text-anchor="middle" font-size="22" font-weight="300" fill="#1C1E26">IM / DM</text>
+
+  <!-- Stem line down from starting node -->
+  <line x1="800" y1="170" x2="800" y2="234" stroke="#CAC7BF" stroke-width="1.5"/>
+
+  <!-- Fork point circle -->
+  <circle cx="800" cy="240" r="7" fill="#1C1E26"/>
+
+  <!-- Fork label -->
+  <text x="800" y="220" text-anchor="middle" class="mono" font-size="10" fill="#6A6C7A" letter-spacing="2">THE FORK</text>
+
+  <!-- Left branch line: (800,240) → (310,330) -->
+  <line x1="800" y1="247" x2="310" y2="332" stroke="#CAC7BF" stroke-width="1.5"/>
+
+  <!-- Right branch line: (800,240) → (1290,330) -->
+  <line x1="800" y1="247" x2="1290" y2="332" stroke="#2E6B4E" stroke-width="1.5"/>
+
+  <!-- ═══════════════════════════════════════ FRAGMENTATION PATH (LEFT) ═══════════════════════════════════════ -->
+  <rect x="80" y="334" width="460" height="380" rx="6" fill="#F3F0EA" stroke="#CAC7BF" stroke-width="1.25"/>
+
+  <!-- Header bar -->
+  <rect x="80" y="334" width="460" height="48" rx="6" fill="#EDE8DF" stroke="#CAC7BF" stroke-width="1.25"/>
+  <rect x="80" y="357" width="460" height="25" fill="#EDE8DF"/>
+  <text x="310" y="364" text-anchor="middle" class="mono" font-size="11" fill="#6A6C7A" letter-spacing="2">FRAGMENTATION PATH</text>
+
+  <!-- Items -->
+  <line x1="110" y1="408" x2="510" y2="408" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="110" y="432" font-size="16" font-weight="300" fill="#1C1E26">Tech lead takes workflow architecture</text>
+
+  <line x1="110" y1="455" x2="510" y2="455" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="110" y="479" font-size="16" font-weight="300" fill="#1C1E26">PM takes prioritisation</text>
+
+  <line x1="110" y1="502" x2="510" y2="502" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="110" y="526" font-size="16" font-weight="300" fill="#1C1E26">AI governance specialist takes risk</text>
+
+  <line x1="110" y1="549" x2="510" y2="549" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="110" y="573" font-size="16" font-weight="300" fill="#6A6C7A">Handoff friction returns</text>
+
+  <line x1="110" y1="595" x2="510" y2="595" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="110" y="619" font-size="16" font-weight="300" fill="#6A6C7A">No single human-agent coordinator</text>
+
+  <!-- Outcome label -->
+  <line x1="80" y1="666" x2="540" y2="666" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="310" y="696" text-anchor="middle" font-size="14" font-weight="300" fill="#6A6C7A" font-style="italic">Three owners. Three handoffs. Slower.</text>
+
+  <!-- ═══════════════════════════════════════ EVOLUTION PATH (RIGHT) ═══════════════════════════════════════ -->
+  <rect x="1060" y="334" width="460" height="380" rx="6" fill="#EBF5F0" stroke="#2E6B4E" stroke-width="1.25"/>
+
+  <!-- Header bar -->
+  <rect x="1060" y="334" width="460" height="48" rx="6" fill="#D2EBE2" stroke="#2E6B4E" stroke-width="1.25"/>
+  <rect x="1060" y="357" width="460" height="25" fill="#D2EBE2"/>
+  <text x="1290" y="364" text-anchor="middle" class="mono" font-size="11" fill="#2E6B4E" letter-spacing="2">EVOLUTION PATH</text>
+
+  <!-- Items -->
+  <line x1="1090" y1="408" x2="1490" y2="408" stroke="#A8D4C0" stroke-width="0.5"/>
+  <text x="1090" y="432" font-size="16" font-weight="300" fill="#2E6B4E">Single accountability — delivery and governance</text>
+
+  <line x1="1090" y1="455" x2="1490" y2="455" stroke="#A8D4C0" stroke-width="0.5"/>
+  <text x="1090" y="479" font-size="16" font-weight="300" fill="#2E6B4E">Faster decisions at the boundary</text>
+
+  <line x1="1090" y1="502" x2="1490" y2="502" stroke="#A8D4C0" stroke-width="0.5"/>
+  <text x="1090" y="526" font-size="16" font-weight="300" fill="#2E6B4E">One person understands both systems</text>
+
+  <line x1="1090" y1="549" x2="1490" y2="549" stroke="#A8D4C0" stroke-width="0.5"/>
+  <text x="1090" y="573" font-size="16" font-weight="300" fill="#1C1E26">Organisation gains coherence</text>
+
+  <line x1="1090" y1="595" x2="1490" y2="595" stroke="#A8D4C0" stroke-width="0.5"/>
+  <text x="1090" y="619" font-size="16" font-weight="300" fill="#1C1E26">IM/DM scope expands in accountability</text>
+
+  <!-- Outcome label -->
+  <line x1="1060" y1="666" x2="1520" y2="666" stroke="#2E6B4E" stroke-width="0.5"/>
+  <text x="1290" y="696" text-anchor="middle" font-size="14" font-weight="300" fill="#2E6B4E" font-style="italic">One owner. Coherent governance. Faster.</text>
+
+  <!-- ═══════════════════════════════════════ Center annotation ═══════════════════════════════════════ -->
+  <text x="800" y="760" text-anchor="middle" class="mono" font-size="10" fill="#6A6C7A" letter-spacing="1">The organisation that fragments the IM/DM role will likely discover within two years</text>
+  <text x="800" y="780" text-anchor="middle" class="mono" font-size="10" fill="#6A6C7A" letter-spacing="1">that coordination overhead returns in a different form. Cheaper is not always cheaper.</text>
+
+  <!-- Footer -->
+  <line x1="0" y1="858" x2="1600" y2="858" stroke="#CAC7BF" stroke-width="0.5"/>
+  <text x="90" y="878" class="mono" font-size="10" fill="#6A6C7A" letter-spacing="1">Slide 16 · hybrid-delivery deck</text>
+</svg>
