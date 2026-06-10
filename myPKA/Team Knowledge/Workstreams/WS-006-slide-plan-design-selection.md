@@ -12,9 +12,11 @@
 Resolve three decisions before Coda writes a single slide:
 1. What is the purpose and narrative role of each slide?
 2. What type of slide best conveys that message?
-3. What visual design language should the deck use?
+3. How does each slide map onto the brand templating system's layouts?
 
-Exits with an approved slide plan, a chosen template recorded in `pov.md`, and Iris's Coda tips ready for Coda Pass 2.
+**Brand default (from 2026-06-10):** every deck uses the **aha agile templating system** at `shared/templates/aha-agile/` (brand source of truth: `shared/aha-agile-brand/`). The three-candidate design-library selection only runs when Adnan explicitly requests an off-brand deck; otherwise Step 3 is a layout-mapping proposal against the brand system and Step 4 is skipped.
+
+Exits with an approved slide plan, `design_template: aha-agile` recorded in `pov.md`, and Iris's per-slide layout mapping + Coda tips ready for Coda Pass 2.
 
 ---
 
@@ -73,23 +75,21 @@ Larry surfaces the slide plan to Adnan. Adnan can: approve, request changes, res
 
 **WS-005 shortcut:** If the delta has zero `type` and zero `purpose` changes, Larry surfaces as FYI and proceeds without requiring explicit approval, unless Adnan requests a review.
 
-### Step 3 — Design Proposal (Iris)
+### Step 3 — Layout Mapping Proposal (Iris) — brand default
 
 Larry briefs Iris:
 
-> "Read the approved slide plan at `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`, the design library index at `shared/design-library/INDEX.md`, and the raw source at `shared/design-library/_source/<slug>/design.md` and `template.html` for each candidate (the annotated README is a reference only — the source files are canonical). Read the PoV at `decks/<slug>/pov.md` for topic, audience(s), and tone. Select three template candidates using ranked criteria: (1) slide-type coverage — does the template have native patterns for the majority of types in this deck's slide plan?, (2) aesthetic register fit — does the template's visual register match the deck's PoV tone and audience?, (3) audience resonance — which candidate best holds attention and builds trust with the specific audience(s)?
+> "Read the approved slide plan at `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`, the brand templating system README at `shared/templates/aha-agile/README.md` (slide-type catalogue, content budgets, field rules), and the PoV at `decks/<slug>/pov.md` for topic, audience(s), and tone.
 >
 > Produce a design proposal at `decks/<slug>/reports/YYYY-MM-DD-design-proposal-vN.md` with:
-> - **Section 1:** Three template options with deck-level rationale (strengths, weaknesses, risks for this specific deck and audience). For each candidate, include a **Canonical vs. adaptation** paragraph that names: what colors, fonts, and structural patterns the canonical template uses; what the design system substitutes; and what is lost in that substitution. If a template's defining characteristic (e.g. Signal's antique gold accent, dual-surface model, or Source Serif 4 italic) is being replaced by design-system equivalents, name it explicitly so Adnan can decide whether to accept the substitution or apply the template canonically.
-> - **Section 2:** A per-slide table with one row per slide: slide number, purpose, narrative reason, type (from the slide plan), and a fit assessment for each of the three options using: Very strong (native pattern exists in sample.html — no structural adaptation needed) / Strong (minor CSS adjustment needed) / Moderate (structural adaptation required). A Coda tip is required on every Moderate cell. Coda tips on Strong or Very strong cells are optional — add only where a non-obvious enhancement exists."
+> - **Section 1:** Field allocation for the deck — which slides shout (`f-orange`), which read (`f-paper`), which break (`f-ink`), with a one-paragraph rationale for the rhythm across the deck arc.
+> - **Section 2:** A per-slide table with one row per slide: slide number, purpose, narrative reason, type (from the slide plan), the chosen `t-*` layout from the catalogue, the field class, and a budget check (does the planned content fit the layout's documented budget? If not, the Coda tip must say what to tighten or split). A Coda tip is required wherever the budget check fails or a production extension (`t-content`, `t-cards`, `t-figure`, `t-stat-grid`) needs non-obvious composition."
 
-**Minimum library floor:** If `shared/design-library/INDEX.md` has fewer than 3 annotated entries, Iris produces a partial proposal labelled "Partial proposal — N of 3 options available" and Larry surfaces this to Adnan with the option to wait for full annotation or proceed.
+**Off-brand exception:** Only when Adnan explicitly requests a non-brand deck, run the legacy three-candidate selection against `shared/design-library/INDEX.md` (criteria: slide-type coverage, aesthetic register fit, audience resonance; canonical-vs-adaptation paragraphs per candidate; minimum library floor of 3 annotated entries) and then run Step 4.
 
-### Step 4 — Template Pick (Larry → Adnan)
+### Step 4 — Template Pick (Larry → Adnan) — off-brand decks only
 
-Larry surfaces the design proposal. Adnan selects one of the three options. Larry:
-- Records the choice: `design_template: <template-slug>` in `decks/<slug>/pov.md`
-- Logs the selection rationale in `decks/<slug>/decisions.md`
+Skipped on the brand default — Larry records `design_template: aha-agile` in `decks/<slug>/pov.md` without a pick. For an off-brand deck, Adnan selects one of the three options and Larry records the choice in `pov.md` and the rationale in `decks/<slug>/decisions.md`.
 
 **Template lock protocol:**
 
@@ -103,11 +103,11 @@ Larry surfaces the design proposal. Adnan selects one of the three options. Larr
 
 Larry briefs Coda with:
 - Approved slide plan path
-- Chosen template name and library path (`shared/design-library/<template-slug>/`)
-- Raw source path (`shared/design-library/_source/`) for patterns not yet in annotated entry
+- The brand system paths: `shared/templates/aha-agile/` (start every deck from `deck-skeleton.html`; `README.md` budgets and field rules are binding)
 - All Coda tips extracted from the design proposal, keyed by slide number
-- **Reveal.js constraint (mandatory boilerplate for all Reveal.js decks):** "Do not modify `display` or add `overflow: hidden` to `.reveal .slides section` in CSS. If flex layout is needed on sections, set `display: 'flex'` in `Reveal.initialize()` config — Reveal manages section display via inline styles and CSS overrides break slide navigation. Do not add any section-level CSS that could interfere with Reveal.js's transform-based slide management."
+- **Budget constraint (mandatory boilerplate):** "Respect the content budgets in `shared/templates/aha-agile/README.md`. If content exceeds a layout's budget, tighten the copy or split the slide — never shrink fonts, never restyle `engine.css` selectors, never unlock a layout. Speaker notes go in `<aside class="notes">` inside each `.slide` (the engine hides them)."
+- **(Legacy Reveal.js decks only, e.g. patching a pre-v2 version):** "Do not modify `display` or add `overflow: hidden` to `.reveal .slides section` in CSS. If flex layout is needed on sections, set `display: 'flex'` in `Reveal.initialize()` config."
 
-Coda writes each slide against its row in the slide plan. The chosen template's `sample.html` and `README.md` are the visual reference. Slides with a Coda tip must honour that tip.
+Coda writes each slide against its row in the slide plan, on the layout and field assigned in the design proposal. Slides with a Coda tip must honour that tip.
 
 WS-006 is complete. Control returns to WS-004 Step 5a or WS-005 Step 5a.

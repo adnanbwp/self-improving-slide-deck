@@ -47,27 +47,23 @@ If any precondition is missing, Iris asks Larry for it before proceeding. One ti
 
 ## Design selection method (WS-006 Step 3)
 
-When Larry routes to Iris for design selection, Iris has not yet seen any HTML. The inputs are the approved slide plan, the design library index, and the PoV file.
+When Larry routes to Iris for design selection, Iris has not yet seen any HTML. The inputs are the approved slide plan, the brand templating system, and the PoV file.
 
-1. **Read the slide plan in full.** Inventory the slide types present — this determines which templates have native coverage.
-2. **Read `shared/design-library/INDEX.md`.** Note the best-fit types per annotated template.
-3. **Select three candidates** using ranked criteria:
-   - **(1) Slide-type coverage first** — count how many types in the slide plan have native patterns in the template's `sample.html`. Higher coverage = stronger candidate.
-   - **(2) Aesthetic register fit** — does the template's visual language match the PoV's tone and the deck's intended register (credible/provocative/measured per `PRODUCT.md`)?
-   - **(3) Audience resonance** — of remaining candidates, which best holds attention and builds trust with the audience(s) specified in `pov.md`?
-4. **For templates not yet annotated,** inspect the raw source HTML in `shared/design-library/_source/` directly. Apply the same criteria.
+**Brand default (from 2026-06-10):** every deck uses the aha agile templating system at `shared/templates/aha-agile/`. Step 3 is therefore a **layout mapping proposal**, not a template competition:
+
+1. **Read the slide plan in full.** Inventory the slide types present.
+2. **Read `shared/templates/aha-agile/README.md`.** The slide-type catalogue, content budgets, and field rules (orange shouts / paper reads / ink breaks) are the design constraints.
+3. **Allocate fields across the deck arc.** Decide which slides shout (`f-orange`), read (`f-paper`), or break (`f-ink`) so the rhythm serves the argument — if everything shouts, nothing does.
+4. **Map every slide to a `t-*` layout** from the catalogue, and run a budget check per slide: does the planned content fit the layout's documented budget?
 5. **Write the design proposal** to `decks/<slug>/reports/YYYY-MM-DD-design-proposal-vN.md` in two sections:
-   - Section 1: deck-level rationale for each of the three options
-   - Section 2: per-slide table with fit assessments (Very strong / Strong / Moderate) and Coda tips where required
+   - Section 1: field allocation with a one-paragraph rationale for the deck-arc rhythm
+   - Section 2: per-slide table — slide number, purpose, narrative reason, type, chosen `t-*` layout, field class, budget check, and Coda tips
 
-**Fit level definitions:**
-- **Very strong:** template has a native pattern for this slide type in its `sample.html`; no structural adaptation needed
-- **Strong:** template handles this type with minor CSS adjustments only
-- **Moderate:** template requires structural adaptation; Coda must suppress or rework key elements
+**Coda tip rule:** A Coda tip is required wherever the budget check fails (say what to tighten or split) or where a production extension (`t-content`, `t-cards`, `t-figure`, `t-stat-grid`) needs non-obvious composition.
 
-**Coda tip rule:** A Coda tip is required on every Moderate cell. Tips on Strong or Very strong cells are optional — add only where a non-obvious enhancement exists.
+**New-layout rule:** If no `t-*` layout fits a slide type, do not improvise — flag it to Larry as a proposed addition to `shared/templates/aha-agile/layouts.css` so the system grows once, centrally.
 
-**Partial proposal rule:** If `shared/design-library/INDEX.md` has fewer than 3 annotated entries, produce a partial proposal labelled "Partial proposal — N of 3 options available." Report this to Larry with the recommendation to annotate additional entries before proceeding.
+**Off-brand exception (only when Adnan explicitly requests a non-brand deck):** run the legacy three-candidate selection against `shared/design-library/INDEX.md` — ranked criteria of slide-type coverage, aesthetic register fit (per `PRODUCT.md`), and audience resonance; inspect `shared/design-library/_source/` for unannotated templates; fit levels Very strong / Strong / Moderate with a Coda tip on every Moderate cell; partial-proposal label if fewer than 3 annotated entries exist.
 
 ---
 

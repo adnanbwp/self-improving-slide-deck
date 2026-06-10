@@ -1,0 +1,40 @@
+/* ============================================================
+   AHA AGILE — DECK TOKENS (deck-pixel scale)
+   The single file you edit to rebrand every deck at once.
+
+   Lineage: mirrors shared/aha-agile-brand/tokens.css (document
+   scale). Decks are drawn on a fixed 1280×720 stage, so the
+   spacing scale here is intentionally larger — that override is
+   canonical per the brand tokens file.
+   ============================================================ */
+
+:root{
+
+  /* ---- BRAND COLOUR ---- */
+  --orange:        #E0531E;   /* primary field · brand · "shouts"        */
+  --orange-tint:   #EE8050;   /* oversized numerals ON orange only       */
+  --paper:         #E1D9C6;   /* secondary field · warm cream · "reads"  */
+  --paper-tint:    #CFC4AC;   /* oversized numerals ON paper only        */
+  --ink:           #1A1916;   /* all type, marks, dark field · "breaks"  */
+  --bone:          #F6F3EC;   /* inverse type, badge ring, icons         */
+
+  /* ---- SURFACE / UI ---- */
+  --letterbox:     #0E0D0B;             /* deck stage backdrop       */
+  --control:       rgba(38,36,33,.62);  /* translucent glass buttons */
+
+  /* ---- TYPE ---- */
+  --font-display:  'Archivo', system-ui, sans-serif;      /* weight 900, large only */
+  --font-mono:     'Space Mono', ui-monospace, monospace; /* labels, captions, body */
+
+  /* ---- LINES ---- */
+  --hair:          1.5px solid var(--ink);
+
+  /* ---- SPACING · deck unit scale (1280×720 slide pixels) ---- */
+  --s-1: 8px;  --s-2: 16px; --s-3: 24px; --s-4: 32px;
+  --s-5: 48px; --s-6: 64px; --s-7: 96px; --s-8: 128px;
+
+  /* ---- RADII ---- */
+  --r-bar:  9px;     /* redaction bars & cards     */
+  --r-ctrl: 26px;    /* icon / glass controls      */
+  --r-pill: 999px;   /* badge & circular marks     */
+}

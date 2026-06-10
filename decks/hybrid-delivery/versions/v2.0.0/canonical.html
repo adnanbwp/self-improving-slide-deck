@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Iteration Manager in the Age of Agents — aha agile</title>
+
+<!--
+  Deployed at decks/hybrid-delivery/versions/v2.0.0/canonical.html
+  shared/ lives four levels up: ../../../../shared/
+  deck assets live two levels up: ../../assets/
+  v2.0.0 — aha agile rebrand of v1.5.1 via shared/templates/aha-agile/
+  Content, slide order, and speaker notes carried over unchanged.
+-->
+
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../shared/aha-agile-brand/aha-agile-favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/tokens.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/engine.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/layouts.css">
+
+<style>
+/* Deck-specific overrides only. */
+.t-title .subtitle{position:absolute;left:var(--s-7);top:560px;font-family:var(--font-mono);font-size:18px;max-width:620px;line-height:1.55}
+/* Appendix D runs at the 7-card budget ceiling; tighten the dense grid so the src line clears the footer logo */
+.s-appendix-d .grid.dense{gap:16px}
+.s-appendix-d .grid.dense .card{padding:11px 22px}
+</style>
+</head>
+<body>
+
+<div class="hint">← → navigate &nbsp;·&nbsp; G grid &nbsp;·&nbsp; F fullscreen</div>
+<div class="gridtitle">The Iteration Manager in the Age of Agents</div>
+
+<div class="viewport">
+  <div class="stage">
+    <div class="deck" id="deck">
+
+      <!-- 01 · TITLE -->
+      <section class="slide active" data-type="Title">
+        <div class="slide-inner f-orange t-title">
+          <div class="tag">Hybrid Delivery <span class="dash">—</span> 2026</div>
+          <div class="bleed-num">26</div>
+          <div class="topiclabel">Delivery Leadership in Human+AI Teams</div>
+          <h1 class="display">The Iteration<br>Manager in the<br>Age of Agents</h1>
+          <div class="subtitle">Own what agents can generate but can't decide.</div>
+          <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+          <div class="meta">
+            <div class="kv"><b>Presenter</b><br>Adnan Ali</div>
+            <div class="kv"><b>Version</b><br>v2.0.0</div>
+          </div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Welcome. The central question for everyone here is not whether AI will change your job — it already has. The question is whether you design that change or it gets designed around you. This deck argues that the Iteration Manager and Delivery Manager are the natural locus for that design work, and it makes the case with evidence, not assertion.
+        </aside>
+      </section>
+
+      <!-- 02 · STATEMENT -->
+      <section class="slide" data-type="Statement">
+        <div class="slide-inner f-orange t-statement">
+          <div class="tag">The Shift</div>
+          <div class="claim display">"Agent" stopped meaning a chatbot. Now it means something that acts.</div>
+          <div class="support">How much it acts — how much you hand over — is a ladder.</div>
+          <div class="pageno">02</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Bridge slide. Its only job is to carry the title into the maturity ladder on the next slide. The word "agent" in the title is doing a lot of work, so name the shift plainly: a year ago "agent" meant a chatbot you prompt; now it means something that acts on its own — and how much it acts is a spectrum. Keep this fast; it is a setup beat, not an argument. The next slide makes the spectrum concrete with the five rungs.
+        </aside>
+      </section>
+
+      <!-- 03 · LIST — autonomy ladder -->
+      <section class="slide" data-type="List">
+        <div class="slide-inner f-paper t-list labels">
+          <div class="tag">Age of Agents</div>
+          <div class="pad">
+            <h2 class="head display">Agent capability is a ladder.</h2>
+            <p class="lead">As agents climb it, your job moves from doing the work, to steering it, to governing it.</p>
+            <ul>
+              <li><span class="n">Assisted</span><span><b>You operate</b> — the agent suggests; you do the work.</span></li>
+              <li><span class="n">Augmented</span><span><b>You review</b> — the agent drafts and recommends; you execute and edit.</span></li>
+              <li><span class="n">Collaborative</span><span><b>You supervise</b> — the agent plans and executes alongside you; you steer.</span></li>
+              <li><span class="n">Orchestrated</span><span><b>You architect</b> — agents hand off to each other; you set the gates and escalation.</span></li>
+              <li><span class="n">Autonomous</span><span><b>You govern</b> — agents run end-to-end; you audit and hold the kill-switch.</span></li>
+            </ul>
+            <p class="foot">Synthesis · autonomy framing after Feng, McDonald &amp; Zhang (Univ. of Washington, 2025); cf. SAE J3016, Cloud Security Alliance 2026</p>
+          </div>
+          <div class="pageno">03</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          This ladder is a synthesis of industry agentic-maturity models (Microsoft, Salesforce, Adaline, Bessemer). The rung labels are shorthand; the substance is the human-role escalation, independently grounded in the University of Washington "Levels of Autonomy for AI Agents" paper (Feng, McDonald and Zhang, 2025), the Cloud Security Alliance autonomy levels (2026), and the SAE J3016 analogy. The load-bearing point: as agents mature, the human's job shifts from doing the work, to steering it, to governing it — gatekeeping becomes auditing. This pre-arms the HITL pattern selector and the generate/decide boundary later in the deck. Keep it distinct from the AI Governance Maturity ladder, which measures how well an organisation governs agents, not what the agents can do. Source confidence: High for the autonomy-spectrum concept (triangulated across four independent sources); the five-rung labelling is a presentation synthesis, not a single citable framework.
+        </aside>
+      </section>
+
+      <!-- 04 · FIGURE — chat vs agent -->
+      <section class="slide" data-type="Figure">
+        <div class="slide-inner f-paper t-figure">
+          <div class="tag">The Shift</div>
+          <div class="pad">
+            <h2 class="head display">Chat ends when you stop typing. Agents don't.</h2>
+            <div class="fig">
+              <img src="../../assets/images/slide-08-chat-vs-agent.png"
+                   alt="LLM Chat vs Agent: Chat is stateless single-turn; Agent wraps the LLM with Context (memory · knowledge), Connections (tools · APIs), Capabilities (skills · actions), and Cadence (schedules · triggers)"
+                   onerror="this.style.opacity='0.15'">
+            </div>
+          </div>
+          <div class="pageno">04</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Start here every time you use the word "agent" — because most people in the room are thinking "chatbot with a longer context window." They're not wrong. Chat is exactly that: you ask, the model responds, done. No state, no tools, no follow-through. An agent is different in kind. The LLM is still the reasoning engine — the brain — but now it has four things around it that chat doesn't: Context (persistent memory and a knowledge base it can query), Connections (tools and APIs it can invoke — search, calendar, code execution), Capabilities (multi-step skills it can execute without you re-prompting), and Cadence (it can be triggered on a schedule or by an event, not just by a human typing). That shift from "model that responds" to "system that runs" is what agentic workflow means. The next slide shows what that looks like in motion.
+        </aside>
+      </section>
+
+      <!-- 05 · FIGURE — agentic loop -->
+      <section class="slide" data-type="Figure">
+        <div class="slide-inner f-paper t-figure">
+          <div class="tag">The Loop</div>
+          <div class="pad">
+            <h2 class="head display">The loop runs until it hits a gate you designed.</h2>
+            <div class="fig">
+              <img src="../../assets/images/slide-09-agentic-loop.png"
+                   alt="Agentic loop: Receive → Think → Act → Observe → Decide → (complete or loop back to Think)"
+                   onerror="this.style.opacity='0.15'">
+            </div>
+          </div>
+          <div class="pageno">05</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The loop is what makes an agent feel different from a chatbot. A chatbot stops when you stop typing. An agent doesn't. It receives a trigger — a scheduled time, an incoming ticket, a threshold crossed in a dataset. It thinks: what do I know, what do I need to do. It acts: searches, queries, writes, updates. It observes the result: did that work, what changed. Then it decides: am I done, or do I need another pass. It loops until the task is complete or it hits a gate you've designed. That gate — the human-in-the-loop decision point — is exactly where the IM's governance role sits. The loop doesn't stop itself. Someone decides when human judgment enters the cycle.
+        </aside>
+      </section>
+
+      <!-- 06 · EVIDENCE — 441% -->
+      <section class="slide" data-type="Evidence">
+        <div class="slide-inner f-paper t-evidence">
+          <div class="tag">The Gap in the Squad</div>
+          <div class="col">
+            <h2 class="head display">Engineers are already running agents. The coordination isn't keeping up.</h2>
+            <div class="big display">441%</div>
+            <div class="ctx">Increase in PR review time as engineering throughput accelerated with agentic tooling. The bottleneck shifted right — more work in, same review capacity out.</div>
+            <div class="src">DORA 2025 &nbsp;·&nbsp; Stack Overflow 2025 (n=65,000+): 31% of developers using agents, 51% daily AI use<br>AI4Agile 2026 (n=289): IM cohort at chatbot-level &nbsp;·&nbsp; arXiv 2023–25: individual AI adoption does not improve team coordination</div>
+          </div>
+          <div class="pageno">06</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The squad capability gap is assembled from three surveys with different sampling frames — the directional claim is well-supported but the precise magnitude cannot be stated as a single number from a single study. The 441% PR review time figure is from DORA 2025 — this is the most concrete evidence on this slide and it is the signal a delivery manager can look for in their own sprint data. If PR review time has increased in the last two sprints, that is likely an agent-in-the-loop coordination signal. The arXiv longitudinal study (2509.10956, 2023–2025) is the most significant finding: individual AI adoption does not improve team coordination — it can erode practices of role differentiation, accountability, and coordination. That is the specific risk the IM is positioned to address. Source confidence: High for DORA 2025 and Stack Overflow 2025 (large-sample studies); Medium-High for AI4Agile 2026 and arXiv longitudinal. The framing "the squad is ahead; the job is to architect what they are building into" is a speaker line, not slide copy.
+        </aside>
+      </section>
+
+      <!-- 07 · COMPARE — locate yourself -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">Locate Yourself</div>
+          <div class="half f-orange">
+            <div class="lab">Where the squad is</div>
+            <ul class="mini-list">
+              <li>Using AI agents in daily work</li>
+              <li>Several ways of working with AI, all informal</li>
+              <li>Coordination quietly getting harder</li>
+              <li>Extra review work nobody is tracking</li>
+            </ul>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Where you are</div>
+            <ul class="mini-list">
+              <li>Still mostly using chatbots</li>
+              <li>No agreed way to govern agent work</li>
+              <li>No deliberate choice of how humans stay involved</li>
+              <li>Same ceremonies as before</li>
+            </ul>
+          </div>
+          <div class="annot-line">That gap is the opportunity. You close it from inside the team — not by waiting for a mandate.</div>
+          <div class="pageno" style="color:var(--ink)">07</div>
+        </div>
+        <aside class="notes">
+          This slide lands early, before the deck has taught the mechanics — so the criteria are kept in plain language deliberately. The point is recognition, not precision: most managers will see their own squad on the left and themselves on the right. The rest of the deck explains how to close the gap (the boundary, the HITL patterns, the governance cadence). The "from inside the team, not from a mandate" framing is the throughline: this is an IM making a decision for their own team's workflow, not a central CoE initiative.
+        </aside>
+      </section>
+
+      <!-- 08 · COMPARE — wide not deep -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">The Gap</div>
+          <div class="half f-orange">
+            <div class="lab">Adoption</div>
+            <div class="val display">83%</div>
+            <div class="desc">of agile practitioners already use AI tools</div>
+            <div class="note">AI4Agile Practitioners Report 2026 · n=289</div>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Integration</div>
+            <div class="val display">55%</div>
+            <div class="desc">spend 10% or less of work time with AI</div>
+            <div class="note">Same survey</div>
+          </div>
+          <div class="annot-line">Wide. Not deep.</div>
+          <div class="pageno" style="color:var(--ink)">08</div>
+        </div>
+        <aside class="notes">
+          Source confidence: Medium-High. AI4Agile 2026 survey, n=289 agile practitioners. The gap between 83% using tools and 55% spending under 10% of time with AI is the productive tension that runs through the whole deck. Wide adoption, shallow integration — the deck is an argument for what changes when integration deepens. If an audience member asks about survey methodology, note the sample is practitioner-self-selected, not a population-representative study. The directional claim holds across multiple surveys.
+        </aside>
+      </section>
+
+      <!-- 09 · QUESTION -->
+      <section class="slide" data-type="Question">
+        <div class="slide-inner f-orange t-question">
+          <div class="tag">The Pivot</div>
+          <div class="q display">What actually happens when a delivery team runs <em>with</em> AI — not beside it?</div>
+          <div class="pageno">09</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Hold this slide for a beat. The distinction between running with AI and running beside it is the argument. Running beside it means using AI as a productivity tool in individual tasks — the thing most teams already do. Running with it means redesigning the workflow so AI is a participant in the delivery system, not a sidecar. The next four slides give the performance evidence for why the distinction matters.
+        </aside>
+      </section>
+
+      <!-- 10 · STAT GRID — the upside -->
+      <section class="slide" data-type="Stat grid">
+        <div class="slide-inner f-paper t-stat-grid">
+          <div class="tag">The Evidence</div>
+          <div class="pad">
+            <h2 class="head display">For complex, generative work — the upside is real</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="num">+40%</div><div class="cap">quality uplift, human+AI vs. solo</div><div class="note">BCG RCT · Organization Science 2026 · n=758</div></div>
+              <div class="card"><div class="num">25%</div><div class="cap">faster task completion</div><div class="note">BCG · same study</div></div>
+              <div class="card"><div class="num">3×</div><div class="cap">more likely to produce a top-10% solution</div><div class="note">P&amp;G RCT · NBER 2025 · n=776</div></div>
+            </div>
+          </div>
+          <div class="pageno">10</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence: High — both BCG (Organization Science 2026, n=758) and P&G (NBER 2025, n=776) are randomised controlled trials, not surveys. State this explicitly if challenged. Critical qualifier: these gains apply to complex, generative, iterative knowledge work — writing, ideation, analysis, design tasks. The next slide shows why the same claim does not hold for decision and classification tasks. Do not drop the conditional framing here. If you present this without the Malone counter-evidence, the argument is overstated.
+        </aside>
+      </section>
+
+      <!-- 11 · STAT GRID — counter-evidence -->
+      <section class="slide" data-type="Stat grid">
+        <div class="slide-inner f-paper t-stat-grid">
+          <div class="tag">The Counter-Evidence</div>
+          <div class="pad">
+            <h2 class="head display">On decision tasks, human+AI underperforms the best solo performer</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="num">106</div><div class="cap">studies analysed</div><div class="note">Malone et al. · Nature Human Behaviour 2024</div></div>
+              <div class="card"><div class="num">90%</div><div class="cap">were decision or classification tasks</div><div class="note">Task-type breakdown</div></div>
+              <div class="card" style="border-color:var(--orange);border-width:3px"><div class="num long" style="color:var(--orange)">cond.</div><div class="cap">The advantage is real — and conditional on task type</div><div class="note">Generative + iterative work only</div></div>
+            </div>
+          </div>
+          <div class="pageno">11</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Surfacing this proactively is a credibility signal, not a concession. Any analytically oriented audience member has either read this paper or will find it. The reconciliation is the task-type breakdown: 90% of the studies in the Malone meta-analysis tested decision and classification tasks — exactly the conditions where AI degrades performance. The BCG and P&G results come from the 10% — generative, iterative, open-ended creation. Both findings are correct. They apply to different work types. Source confidence: High — Nature Human Behaviour 2024, 106 studies, 370 effect sizes. See the appendix for the full breakdown.
+        </aside>
+      </section>
+
+      <!-- 12 · EVIDENCE — bolt-on -->
+      <section class="slide" data-type="Evidence">
+        <div class="slide-inner f-paper t-evidence">
+          <div class="tag">The Structural Problem</div>
+          <div class="col">
+            <h2 class="head display">Most businesses don't redesign. They bolt AI on.</h2>
+            <div class="big display">&lt;40%</div>
+            <div class="ctx">of businesses report measurable profit gains from AI. They layer AI on top of legacy workflow — the workflow never changes.</div>
+            <div class="src">McKinsey MGI · AI adoption research</div>
+          </div>
+          <div class="pageno">12</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence: High — McKinsey MGI is a well-regarded institutional research source. The workflow redesign point is the bridge between the performance evidence and the structural argument that follows. The audience has probably seen AI layered on top of existing Jira boards, existing ceremonies, existing reporting structures. Name that experience directly — that is exactly the bolt-on pattern McKinsey is measuring. The argument from here is: what does it look like to redesign instead of bolt on?
+        </aside>
+      </section>
+
+      <!-- 13 · COMPARE — generating vs governing -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">What's Happening Now</div>
+          <div class="half f-orange">
+            <div class="lab">Agents are generating this now</div>
+            <ul class="mini-list">
+              <li>Requirements drafts</li>
+              <li>User stories</li>
+              <li>Sprint tracking</li>
+              <li>Status reports</li>
+              <li>Dependency mapping</li>
+              <li>Stand-up summaries</li>
+            </ul>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Nobody's governing this</div>
+            <ul class="mini-list">
+              <li>Design choices</li>
+              <li>Risk thresholds</li>
+              <li>Approval gates</li>
+              <li>Production calls</li>
+              <li>Agentic workflow architecture</li>
+            </ul>
+          </div>
+          <div class="annot-line">The automation is here. The governance gap is where the IM gets bypassed.</div>
+          <div class="pageno" style="color:var(--ink)">13</div>
+        </div>
+        <aside class="notes">
+          The left column is factual and demonstrable right now — every item on it is a task an agent can perform with current tools. The right column is the accountability gap. The bypass mechanism works like this: if nobody governs the right column, the tech lead fills it de facto because they understand the tooling. That is not elimination of the IM role — it is quiet erosion of standing. The governance gap on the right is the IM's opening, not their threat, if they choose to occupy it. The claim that this is the bypass mechanism is structural inference from the Wave 1 analogy — there is no direct longitudinal study of IM standing in AI-enabled teams (G2 residual).
+        </aside>
+      </section>
+
+      <!-- 14 · COMPARE — 84 vs 49 -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">The Governance Gap</div>
+          <div class="half f-orange">
+            <div class="lab">Adoption</div>
+            <div class="val display">84%</div>
+            <div class="desc">of agile teams use AI tools</div>
+            <div class="note">Digital.ai · 18th State of Agile 2025 · n=350</div>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Governance</div>
+            <div class="val display">49%</div>
+            <div class="desc">of those teams have governance guardrails</div>
+            <div class="note">Same survey</div>
+          </div>
+          <div class="annot-line">The gap between those two numbers is where the risk lives.</div>
+          <div class="pageno" style="color:var(--ink)">14</div>
+        </div>
+        <aside class="notes">
+          Source confidence: Medium-High — Digital.ai 18th State of Agile report, 2025, n=350. The 35-point gap between adoption and governance is not an abstract metric — it describes real teams where AI is running without accountability design. The framing "where the risk lives" is accurate but also "where the role lives" — the governance gap is the space the IM occupies in the evolved model. If an audience member asks what "governance guardrails" means in the survey, note it is self-reported by practitioners and likely includes informal policies as well as formal frameworks. The directional finding is robust even with that caveat.
+        </aside>
+      </section>
+
+      <!-- 15 · COMPARE — the boundary -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">The Boundary</div>
+          <div class="half f-orange">
+            <div class="lab">Agents generate</div>
+            <ul class="mini-list">
+              <li>Drafts</li>
+              <li>Tracking</li>
+              <li>Analysis</li>
+              <li>Dependency detection</li>
+              <li>Test coverage</li>
+              <li>Communication summaries</li>
+            </ul>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Agents cannot decide</div>
+            <ul class="mini-list">
+              <li>Risk tolerance calls</li>
+              <li>Approval gates</li>
+              <li>Production decisions</li>
+              <li>Competing stakeholder interests</li>
+              <li>Ethical edge cases</li>
+            </ul>
+          </div>
+          <div class="annot-line">The boundary is not permanent. The job is to own it right now.</div>
+          <div class="pageno" style="color:var(--ink)">15</div>
+        </div>
+        <aside class="notes">
+          This is the hinge of the entire argument. The annotation is the most important sentence in the deck — "not permanent" disarms the objection that AI will eventually cross this boundary too. Yes, it will. The argument is about right now, not forever. The right column is what requires human judgment today, and that is the IM's accountability. The next two slides — Centaur teams and HITL patterns — give the structural model and mechanism for how an IM occupies this accountability. Without those two slides, the boundary claim is assertion. With them, it is argued.
+        </aside>
+      </section>
+
+      <!-- 16 · COMPARE — centaur -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-head has-annot">
+          <div class="tag" style="color:var(--ink)">Centaur Teams</div>
+          <h2 class="seam-head display">Weak human + machine + better process beat the grandmaster.</h2>
+          <div class="half f-orange">
+            <div class="lab">Human</div>
+            <ul class="mini-list">
+              <li>Judgment</li>
+              <li>Accountability</li>
+              <li>Context</li>
+              <li>Stakeholder navigation</li>
+              <li>Final sign-off</li>
+            </ul>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">AI</div>
+            <ul class="mini-list">
+              <li>Speed</li>
+              <li>Throughput</li>
+              <li>Pattern matching</li>
+              <li>Draft generation</li>
+              <li>Spec execution</li>
+            </ul>
+          </div>
+          <div class="annot-line">Process design is the variable. That is the IM's job. &nbsp;·&nbsp; Kasparov · NYRB 2010 · 2005 Freestyle Chess Championship</div>
+          <div class="pageno" style="color:var(--ink)">16</div>
+        </div>
+        <aside class="notes">
+          Primary source: Garry Kasparov, "The Chess Master and the Computer," New York Review of Books, 2010. The 2005 Freestyle Chess Championship is the empirical event — teams of amateur players using computers beat both grandmasters playing without computers and computers playing without humans. The winning teams were not the strongest players or the most powerful computers. They were the teams with the best process for combining human judgment with machine calculation. The bridge to software development contexts: the arXiv centaur programmer paper (2304.11172, 2023) documents the same pattern in code review and development tasks. Source confidence: High for the Kasparov primary source; Medium-High for the arXiv centaur programmer paper. The human/AI split in the columns is argued from functional alignment — it is not a citable taxonomy from a single study.
+        </aside>
+      </section>
+
+      <!-- 17 · CARDS — HITL patterns -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The Mechanism</div>
+          <div class="pad">
+            <h2 class="head display">You decide which pattern. The agent can't.</h2>
+            <p class="lead">This is workflow design — set before the agent runs. That's architecture, not the in-task judgment calls where adding AI degrades the decision.</p>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">AI drafts → Human reviews</div><div class="t">Code, docs, plans</div><div class="d">Your move: define the review gates in the Definition of Done.</div></div>
+              <div class="card"><div class="k">Human steers → AI executes</div><div class="t">Complex analysis, research</div><div class="d">Your move: maintain the backlog the agents pull from.</div></div>
+              <div class="card"><div class="k">AI monitors → Human intervenes</div><div class="t">Ops, alerts, QA</div><div class="d">Your move: set the escalation thresholds.</div></div>
+            </div>
+          </div>
+          <div class="pageno">17</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The HITL taxonomy comes from LangGraph documentation, the DEV Community HITL taxonomy, and Anthropic's Trustworthy Agents guidelines. These are engineering documentation sources, not controlled studies of IM behavior. The mapping from each pattern to a specific IM accountability decision is argued from functional alignment: each pattern requires a governance decision that is natively in the IM's accountability space, not the tech lead's. The tech lead designs the agent. The IM decides which human-in-the-loop pattern governs how that agent participates in the team's delivery system. The three IM-role entries — DoD gate design, task backlog stewardship, escalation threshold setting — are the concrete G-NEW-1 connection: these are IM-specific decisions, not engineering decisions. The Malone distinction is critical for analytically-minded audiences: the IM's governance role is selecting which pattern applies to which work (a workflow design decision made before the work begins), not making decisions augmented by AI within a task.
+        </aside>
+      </section>
+
+      <!-- 18 · COMPARE — the fork -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-annot">
+          <div class="tag" style="color:var(--ink)">The Fork</div>
+          <div class="half f-orange">
+            <div class="lab">Fragmentation path</div>
+            <ul class="mini-list">
+              <li>Tech lead absorbs the workflow</li>
+              <li>A new AI-governance specialist takes the risk</li>
+              <li>No single owner of human-agent coordination</li>
+              <li><i>The role dissolves into its parts</i></li>
+            </ul>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">Evolution path</div>
+            <ul class="mini-list">
+              <li>You own the workflow architecture</li>
+              <li>You govern the human-in-the-loop patterns</li>
+              <li>You own risk at the human-AI boundary</li>
+              <li>One accountable owner — the role expands</li>
+            </ul>
+          </div>
+          <div class="annot-line">This fork is real. The argument for evolution is cost: one accountable owner beats handoffs between separate specialists.</div>
+          <div class="pageno" style="color:var(--ink)">18</div>
+        </div>
+        <aside class="notes">
+          Use this slide for the "the role will just dissolve anyway" objection. Fragmentation is real and will happen in some organisations. The argument for evolution is probabilistic — not every IM will make the governance decision in time. The structural case for evolution is handoff cost: splitting workflow architecture and human-AI risk across a tech lead and a separate governance specialist creates new coordination seams where today there is one owner. That is slower and more expensive, and organisations that fragment the role tend to rediscover this within a couple of years as coordination overhead returns in a new form. Note: prioritisation is deliberately not shown as a fragmentation outcome — that is legitimately the product manager's job, not a piece of the IM role being taken away.
+        </aside>
+      </section>
+
+      <!-- 19 · LIST — five collisions -->
+      <section class="slide" data-type="List">
+        <div class="slide-inner f-paper t-list">
+          <div class="tag">The Collision</div>
+          <div class="pad">
+            <h2 class="head display">Agents don't slot in. They collide — unless you compose them.</h2>
+            <ul>
+              <li><span class="n">01</span><span>Pull vs. push lifecycle</span></li>
+              <li><span class="n">02</span><span>Learning vs. execution orientation</span></li>
+              <li><span class="n">03</span><span>State transition mismatch</span></li>
+              <li><span class="n">04</span><span>Handoff ambiguity</span></li>
+              <li><span class="n">05</span><span>Shared context gaps</span></li>
+            </ul>
+            <p class="foot">Five failure modes · Webframp practitioner analysis</p>
+          </div>
+          <div class="pageno">19</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence: Medium — Webframp practitioner analysis, not peer-reviewed research. These five collision points are a practitioner diagnostic framework, not a citable study. The value is recognition: most audience members managing a team with AI tools will have felt at least one of these without having named it. Pull vs. push lifecycle is the most immediately recognizable — a team works in sprints (pull-based, time-boxed, team-initiated); an agent can be invoked at any moment by any trigger (operator-initiated, event-driven). That mismatch alone creates planning and accountability friction that nobody owns by default.
+        </aside>
+      </section>
+
+      <!-- 20 · CARDS — three capabilities -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The Evolved Role</div>
+          <div class="pad">
+            <h2 class="head display">Three capabilities. One survival argument.</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">01</div><div class="t">Workflow architecture</div><div class="d">Compose agent lifecycles inside the delivery system — select HITL patterns per work type, maintain the backlog agents pull from.</div></div>
+              <div class="card"><div class="k">02</div><div class="t">Agentic governance</div><div class="d">Prompt evaluation, tool usage governance, model evaluation on new releases, permission scoping, oversight gate design.</div></div>
+              <div class="card"><div class="k">03</div><div class="t">Risk at the boundary</div><div class="d">Own human-agent decision splits — design approval gates, take central AI capability into the team's operating rhythm.</div></div>
+            </div>
+          </div>
+          <div class="pageno">20</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The expanded capability list — prompt evaluation, model evaluation on new releases, agent workflow enablement — represents the centaur steering competencies, not a definitively researched skill taxonomy. These are argued as the practical skills an IM needs to govern the HITL patterns from the mechanism slide. They are acquirable through daily delivery practice, not just listed as requirements. Connecting to G-NEW-2: the centaur framing implies learnable AI literacy. A speaker should be explicit that these skills develop in practice, not through a one-time training event. An IM who governs one agent workflow this sprint knows more than a colleague who attended a workshop. The credential track in the appendix is the organised version of capability development that is already happening informally.
+        </aside>
+      </section>
+
+      <!-- 21 · CARDS — VERDICT -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Practice Changes <span class="dash">—</span> VERDICT · Srivastav &amp; Saxena 2026</div>
+          <div class="pad">
+            <h2 class="head display">Governance isn't a new ceremony. It's the old ones, upgraded.</h2>
+            <div class="grid cols-2 dense">
+              <div class="card"><div class="k">V · Validation</div><div class="t">Definition of Done</div><div class="d">Decide which agent actions need a gate before they run.</div></div>
+              <div class="card"><div class="k">E · Evidence</div><div class="t">Daily Scrum</div><div class="d">Review agent action logs as part of the deviation check.</div></div>
+              <div class="card"><div class="k">R · Runtime control</div><div class="t">Stop-the-line</div><div class="d">Define who can halt an agent mid-run, and when.</div></div>
+              <div class="card"><div class="k">D · Decisions</div><div class="t">Retrospective</div><div class="d">Inspect agent reasoning; debug the failures.</div></div>
+              <div class="card"><div class="k">I · Identity</div><div class="t">Working agreements</div><div class="d">Give every agent a named human owner.</div></div>
+              <div class="card"><div class="k">C · Cost &amp; compliance</div><div class="t">Sprint review</div><div class="d">Track agent spend and compliance next to velocity.</div></div>
+              <div class="card"><div class="k">T · Transparency</div><div class="t">Stakeholder reporting</div><div class="d">Make agent activity a dashboard line, not a black box.</div></div>
+            </div>
+          </div>
+          <div class="pageno">21</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          VERDICT is a seven-pillar runtime-governance model from practitioners Niharika Srivastav and Sanjay Saxena (2026) — a useful organising scaffold, not peer-reviewed research, so present it as an actionable checklist rather than a citable study. The mapping from each pillar to an agile cadence is this deck's own synthesis; the framework's authors did not map to ceremonies. The credibility of the pillars comes from the failures they explain — Knight Capital (no kill-switch), Replit (no validation gate), Meta (no identity check) — on the next slide. The point for the IM: none of these is a new meeting. Each is an upgrade to a ceremony already in the calendar. Source confidence: Medium — single-source practitioner framework; the incidents it maps to are independently documented (High).
+        </aside>
+      </section>
+
+      <!-- 22 · CARDS — failure modes -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The Urgency</div>
+          <div class="pad">
+            <h2 class="head display">No owner at the boundary. Here is what that looks like.</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Replit · July 2025</div><div class="d">Agent deleted production database during a code freeze. Missing infrastructure-level approval gate.</div><div class="note">Fortune · The Register · AI Incident Database #1152</div></div>
+              <div class="card"><div class="k">Meta · December 2024</div><div class="d">Agent posted sensitive user data to a public forum without authorization. 2-hour exposure. Sev 1.</div><div class="note">SecurityBrief Asia · AI Magazine</div></div>
+              <div class="card"><div class="k">Context leak pattern</div><div class="d">Data accessible in the agent's context window becomes data the agent acts on. No authorization check.</div><div class="note">Design implication: scope context windows explicitly at workflow design time</div></div>
+            </div>
+          </div>
+          <div class="pageno">22</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence note: Both documented incidents — Replit July 2025 and Meta December 2024 — occurred in engineering and technical deployment contexts, not specifically in delivery team governance contexts. The inference to delivery teams is structural: these incidents illustrate what happens when no one designs the approval gates. They are workflow design failures, not IT security failures. The agent had legitimate access in both cases. The governance failure was the absence of a designed approval gate at a meaningful decision junction. That is exactly the kind of gate the IM is responsible for in the evolved role. If a technically sophisticated audience member challenges the relevance to delivery management, the response is: the governance pattern is identical — agentic systems need explicit human-in-the-loop gates at meaningful decision points, and who designs those gates for the delivery team is the IM's accountability (G-NEW-3). See the appendix for primary source links and full incident timelines.
+        </aside>
+      </section>
+
+      <!-- 23 · CARDS — governance maturity -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Governance Maturity</div>
+          <div class="pad">
+            <h2 class="head display">AI Governance Maturity. Most teams are at Level 1–2.</h2>
+            <div class="grid cols-2 dense">
+              <div class="card"><div class="k">Level 1 · Unseen</div><div class="t">No inventory, no oversight</div><div class="d">Agents run with no organisational awareness. Most teams are here.</div></div>
+              <div class="card"><div class="k">Level 2 · Observed</div><div class="t">Visibility without control</div><div class="d">You know what's running; you can't yet govern or stop it.</div></div>
+              <div class="card hot"><div class="k">Level 3 · Controlled — your target</div><div class="t">Policies enforced, owners assigned</div><div class="d">Actions logged, gates enforced, every agent owned. This is the move.</div></div>
+              <div class="card"><div class="k">Level 4 · Autonomous</div><div class="t">Agents monitoring agents</div><div class="d">Continuous compliance, board-ready. Few are here.</div></div>
+            </div>
+            <div class="src">VERDICT governance model · Srivastav &amp; Saxena, 2026 (practitioner framework)</div>
+          </div>
+          <div class="pageno">23</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence: Medium — the VERDICT framework is a practitioner and consultant heuristic, not peer-reviewed academic research. Use it as a useful orientation tool, not a citable study. The practical value for the audience is the self-diagnosis: most enterprise organisations sit at Level 1 or 2. The move from L2 to L3 is the IM's immediate opportunity — and it is owned from inside the team. It requires assigning ownership and defining policies, which is governance work, not technical work. G-NEW-1 connection: the IM is the natural actor to move a team from L2 to L3 because the move requires governance decisions about HITL patterns, approval gate design, and escalation thresholds — all IM accountabilities. This is not a committee proposal, it is a delivery manager making a governance decision for their team.
+        </aside>
+      </section>
+
+      <!-- 24 · LIST — squad audit -->
+      <section class="slide" data-type="List">
+        <div class="slide-inner f-paper t-list">
+          <div class="tag">Action Path <span class="dash">—</span> This Week</div>
+          <div class="pad">
+            <h2 class="head display">Start with a question, not a plan.</h2>
+            <ul>
+              <li><span class="n">01</span><span>Who is using AI tools? Chatbots only, or agents?</span></li>
+              <li><span class="n">02</span><span>For what work? (code, docs, analysis, stand-up summaries, testing?)</span></li>
+              <li><span class="n">03</span><span>What HITL pattern is in play — even informally? (Who reviews? Who steers? Who monitors?)</span></li>
+              <li><span class="n">04</span><span>Where does the team sit on the maturity ladder? (Unseen / Observed / Controlled / Autonomous)</span></li>
+              <li><span class="n">05</span><span>Where do the gaps between individual adoption and team coordination show up?</span></li>
+            </ul>
+            <p class="foot">The audit takes one sprint. It tells you where to put governance before someone else decides for you.</p>
+          </div>
+          <div class="pageno">24</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The squad audit is the IM's first governance act. It does not require permission from a CoE or a committee. It is a delivery manager understanding their own team's workflow. The five questions are designed to produce a governance map: which workflows have informal HITL patterns that need to be formalised, which have no pattern at all, and which are already at Controlled level. The audit output is the input to the next slide's path. Source the maturity levels from the VERDICT framework — Unseen AI, Observed AI, Controlled AI, Autonomous Governance.
+        </aside>
+      </section>
+
+      <!-- 25 · CARDS — 12-month path -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Action Path</div>
+          <div class="pad">
+            <h2 class="head display">The 12-month path</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">This quarter</div><div class="t">Map one workflow</div><div class="d">Interpret the audit. Pick the workflow with the highest coordination risk and map it to a HITL pattern. Design one approval gate. Present the governance map to the team. This is not a committee proposal — it is an IM making a delivery decision.</div></div>
+              <div class="card"><div class="k">This year</div><div class="t">Three or four workflows governed</div><div class="d">HITL patterns visible in the Definition of Done. The squad's AI maturity is a known quantity, not an informal assumption. The IM is the conduit between the org's AI capability and the team's operating rhythm — whether or not a central CoE exists.</div></div>
+              <div class="card"><div class="k">What success looks like</div><div class="t">The role has not fragmented</div><div class="d">The IM owns the boundary. Engineers are moving fast; the governance layer is moving with them, not behind them. The 12 months did not start with a consultant — they started with a question in a sprint.</div></div>
+            </div>
+            <div class="src">Bottom-up is not a philosophy — it is a delivery practice. The governance decisions happen in the work, not in a workshop.</div>
+          </div>
+          <div class="pageno">25</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The 12-month path is deliberately framed as delivery practice, not change management. The alternative — waiting for a central CoE, hiring a consultant, forming an AI governance committee — is the Salesforce Agentforce model (8% adoption after one year of mandate-driven rollout vs. 68% adoption through champion-driven peer diffusion). The IM who acts in the work closes the squad capability gap from the inside. The one who waits for permission gets bypassed — exactly the bypass mechanism named earlier.
+        </aside>
+      </section>
+
+      <!-- 26 · CTA -->
+      <section class="slide" data-type="CTA">
+        <div class="slide-inner f-orange t-cta">
+          <div class="tag">The Move</div>
+          <div class="imperative display">Own the decisions agents can't make.</div>
+          <div class="support">The capability gap closes on its own. The governance gap is yours to close.<br>Next step — speak to Adnan after this session.</div>
+          <a class="btn">Start the squad audit — this week &nbsp;→</a>
+          <div class="pageno">26</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The closing line ties the two ladders together: agent capability keeps climbing on its own, but the governance gap only closes when someone owns it — and that someone is the IM. Forward-looking, no backward reference. The CTA is to run the squad audit this week — five questions, one sprint, a governance map as output. The presenter's next-step offer should be specific: offer to map one of their workflows to a HITL pattern in a 30-minute conversation after the session.
+        </aside>
+      </section>
+
+      <!-- 27 · TEAM -->
+      <section class="slide" data-type="Team">
+        <div class="slide-inner f-paper t-team-avatars">
+          <div class="tag">Credits</div>
+          <div class="pad">
+            <h2 class="head display">The team behind this deck</h2>
+            <div class="rows">
+              <div class="row">
+                <div class="person"><div class="av presenter"><img src="../../../../shared/assets/avatars/adnan.png" alt="Adnan Ali" onerror="this.style.display='none'">AA</div><div class="nm">Adnan Ali</div><div class="ro">Presenter</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/pax.png" alt="Pax" onerror="this.style.display='none'">PX</div><div class="nm">Pax</div><div class="ro">Research</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/rex.png" alt="Rex" onerror="this.style.display='none'">RX</div><div class="nm">Rex</div><div class="ro">Argument</div></div>
+              </div>
+              <div class="row">
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/coda.png" alt="Coda" onerror="this.style.display='none'">CD</div><div class="nm">Coda</div><div class="ro">Production</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/iris.png" alt="Iris" onerror="this.style.display='none'">IR</div><div class="nm">Iris</div><div class="ro">Design</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/aria.png" alt="Aria" onerror="this.style.display='none'">AR</div><div class="nm">Aria</div><div class="ro">Persuasion</div></div>
+              </div>
+              <div class="row">
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/vera.png" alt="Vera" onerror="this.style.display='none'">VR</div><div class="nm">Vera</div><div class="ro">Adversarial</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/larry.png" alt="Larry" onerror="this.style.display='none'">LR</div><div class="nm">Larry</div><div class="ro">Orchestration</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/nolan.png" alt="Nolan" onerror="this.style.display='none'">NL</div><div class="nm">Nolan</div><div class="ro">Team</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pageno">27</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          This deck was produced by a human-AI team using the myPKA system. Adnan drove the brief and will present. Pax researched; Rex stress-tested the argument; Vera ran the adversarial pass; Aria assessed persuasion; Coda authored the HTML; Iris consulted on visual design; Larry orchestrated the team; Nolan structured it. The team slide is not decoration — it models the centaur collaboration the deck is arguing for.
+        </aside>
+      </section>
+
+      <!-- 28 · DIVIDER — appendix -->
+      <section class="slide" data-type="Divider">
+        <div class="slide-inner f-ink t-divider">
+          <div class="tag">Appendix</div>
+          <div class="bleed-num">A</div>
+          <div class="partno">REFERENCE MATERIAL</div>
+          <div class="accent-rule"></div>
+          <h2 class="display">Appendix</h2>
+          <div class="pageno">28</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The appendix contains four reference slides for objection handling and detailed evidence. They are not part of the main presentation flow. Navigate here only if an audience question requires primary source detail.
+        </aside>
+      </section>
+
+      <!-- 29 · STAT GRID — Appendix A -->
+      <section class="slide" data-type="Stat grid">
+        <div class="slide-inner f-paper t-stat-grid">
+          <div class="tag">Appendix A</div>
+          <div class="pad">
+            <h2 class="head display">Malone et al. in full — why BCG and P&amp;G results reconcile</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="num">106</div><div class="cap">studies, 370 effect sizes</div><div class="note">Nature Human Behaviour 2024</div></div>
+              <div class="card"><div class="num">90%</div><div class="cap">decision/classification tasks — where AI degrades performance</div><div class="note">Task-type breakdown</div></div>
+              <div class="card"><div class="num">10%</div><div class="cap">generative/creative tasks — where BCG and P&amp;G results live</div><div class="note">The conditional scope</div></div>
+            </div>
+          </div>
+          <div class="pageno">29</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Use this slide when an audience member challenges the BCG/P&G results by citing Malone. The reconciliation is precise: BCG and P&G studied generative, open-ended knowledge work tasks. Malone's meta-analysis studied primarily decision and classification tasks. Both findings are correct in their respective domains. The deck's conditional framing ("for complex, generative work") is what holds the argument together — if a presenter drops that qualifier, the Malone challenge cannot be answered. Source: Malone et al., Nature Human Behaviour, 2024. DOI on request.
+        </aside>
+      </section>
+
+      <!-- 30 · STAT GRID — Appendix B -->
+      <section class="slide" data-type="Stat grid">
+        <div class="slide-inner f-paper t-stat-grid">
+          <div class="tag">Appendix B</div>
+          <div class="pad">
+            <h2 class="head display">Wave 1 dissolution — primary sources</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="num">49%</div><div class="cap">SM training enrollment at peak (2020)</div><div class="note">Wolpers enrollment data</div></div>
+              <div class="card"><div class="num">&lt;5%</div><div class="cap">SM enrollment by 2024</div><div class="note">Wolpers · same longitudinal data</div></div>
+              <div class="card"><div class="num">18%</div><div class="cap">of orgs now report dedicated Agile Coach demand</div><div class="note">Scrum Alliance · 2024</div></div>
+            </div>
+            <div class="src">Cessan: "Capital is expensive, companies now demand real returns on every role."</div>
+          </div>
+          <div class="pageno">30</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Source confidence: High for Wolpers enrollment data (longitudinal, primary-source training data); Medium-High for Cessan QE/QT mechanism analysis and Scrum Alliance demand figure. The Wolpers data is the primary source behind the Wave 1 timeline. Use this slide when an audience member questions whether the Wave 1 pattern was real or whether the narrative is being retrofitted. The enrollment collapse from 49% to under 5% in four years is unambiguous. The Cessan quote on the QE/QT mechanism provides the causal explanation.
+        </aside>
+      </section>
+
+      <!-- 31 · CARDS — Appendix C -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Appendix C</div>
+          <div class="pad">
+            <h2 class="head display">Governance failure — primary sources for the named incidents</h2>
+            <div class="grid cols-1 dense">
+              <div class="card"><div class="k">Replit · July 2025 · AI Incident Database #1152</div><div class="d">Agent deleted production database during a declared code freeze. Root cause: missing infrastructure-level approval gate. Sources: Fortune (article URL on request), The Register, AI Incident Database #1152. Safeguards implemented post-incident: mandatory human approval for destructive operations.</div></div>
+              <div class="card"><div class="k">Meta · December 2024</div><div class="d">Agent posted sensitive user data to a public forum without authorization. 2-hour exposure window. Sev 1 classification. Sources: SecurityBrief Asia, AI Magazine, PointGuard AI. Root cause: missing authorization check — agent context window contained data it was permitted to act on without a human review gate.</div></div>
+              <div class="card"><div class="k">Gartner · May 2026</div><div class="d">40% of agentic deployments predicted to be decommissioned due to uncontrolled costs or governance failures by 2027. Primary press release URL available on request.</div></div>
+            </div>
+          </div>
+          <div class="pageno">31</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Note for presenters: the $110K/month token cost figure from v1.0.0 has been moved out of the main narrative. The source (LeanOps practitioner analysis, public API pricing methodology) is available on request if a presenter wants to use it. The figure has not been independently verified and is a practitioner estimate, not a measured study. The Replit and Meta incidents are the stronger evidence for governance failure — they are named, dated, and multi-source confirmed. Both incidents occurred in engineering and technical deployment contexts, not delivery management contexts. The inference to delivery teams is structural.
+        </aside>
+      </section>
+
+      <!-- 32 · CARDS — Appendix D -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards s-appendix-d">
+          <div class="tag">Appendix D</div>
+          <div class="pad">
+            <h2 class="head display">Start with three. Seven paths in all.</h2>
+            <div class="grid cols-2 dense">
+              <div class="card hot"><div class="k">Start here · Scrum.org</div><div class="t">PSM-AI — 1-day, launched Feb 2026</div><div class="d">Maps to: HITL pattern governance and ceremony redesign</div></div>
+              <div class="card hot"><div class="k">Start here · PMI</div><div class="t">AI in Agile Delivery — 5-module, PDU credit</div><div class="d">Maps to: workflow architecture and agentic governance</div></div>
+              <div class="card hot"><div class="k">Start here · IAPP</div><div class="t">AIGP — AI governance &amp; risk professional</div><div class="d">Maps to: risk at the human-AI boundary, context leak, governance failure prevention</div></div>
+              <div class="card"><div class="k">Scrum Alliance</div><div class="t">AI for Scrum Masters</div></div>
+              <div class="card"><div class="k">PMI</div><div class="t">CPMAI — advanced AI project management</div></div>
+              <div class="card"><div class="k">CI Agile</div><div class="t">AI-Driven Agile</div></div>
+              <div class="card"><div class="k">Agile Seekers</div><div class="t">AI for Agile Leaders</div></div>
+            </div>
+            <div class="src">Full credential landscape — start with the first three</div>
+          </div>
+          <div class="pageno">32</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          No salary figures appear anywhere in the deck. The first three credentials are the curated set, each mapped directly to a capability argued earlier — PSM-AI for HITL and ceremony patterns, PMI AI in Agile Delivery for workflow architecture, AIGP for boundary-risk governance. They are the organised version of capability development that many practitioners are already doing informally; the credential is proof of capability, not its source. The remaining four cover adjacent needs — CPMAI for project-management contexts, the others for teams earlier in their adoption curve.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="prev">← Prev</button>
+  <div class="counter"><span class="now" id="now">01</span> / <span id="total">32</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
+  <button id="next">Next →</button>
+  <button id="grid">Grid</button>
+</div>
+
+<script src="../../../../shared/templates/aha-agile/engine.js"></script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aha agile — Brand Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   aha agile — BRAND GUIDE
+   A duotone editorial / Swiss-brutalist identity system.
+   The guide is rendered in the system it documents.
+   ============================================================ */
+:root{
+  --orange:#E0531E;--orange-tint:#EE8050;--paper:#E1D9C6;--paper-tint:#CFC4AC;--ink:#1A1916;--bone:#F6F3EC;--letterbox:#0E0D0B;--control:rgba(38,36,33,.62);--font-display:'Archivo',system-ui,sans-serif;--font-mono:'Space Mono',ui-monospace,monospace;--hair:1.5px solid var(--ink);
+
+   
+    
+      
+
+  
+  
+
+  --s-1:4px;--s-2:8px;--s-3:12px;--s-4:16px;--s-5:24px;--s-6:32px;--s-7:48px;--s-8:64px;--s-9:96px;--s-10:140px;
+  --r-bar:7px;--r-ctrl:22px;--r-pill:999px;
+  
+  --wrap:1080px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-mono);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.55}
+
+/* grain on tinted fields */
+.grain{position:relative}
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.45;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+.grain>*{position:relative;z-index:1}
+
+/* progress bar */
+#prog{position:fixed;top:0;left:0;height:4px;width:0;background:var(--ink);z-index:99}
+
+/* shared */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--s-7)}
+.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.96}
+.kicker{font-family:var(--font-mono);font-weight:700;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ===================== COVER ===================== */
+.cover{background:var(--orange);color:var(--ink);min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.cover .bleed{position:absolute;top:-4%;right:-6%;font-family:var(--font-display);font-weight:900;font-size:46vw;line-height:.7;letter-spacing:-.05em;color:var(--orange-tint);user-select:none;z-index:0}
+.cover .meta{position:absolute;top:var(--s-7);left:0;right:0}
+.cover .meta .wrap{display:flex;gap:var(--s-7);flex-wrap:wrap}
+.cover .meta .it .k{font-family:var(--font-mono);font-weight:700;font-size:.7rem;letter-spacing:.14em}
+.cover .meta .it .v{font-family:var(--font-mono);font-size:.66rem;opacity:.7}
+.cover h1{font-size:clamp(3.5rem,13vw,11rem)}
+.cover .sub{font-family:var(--font-mono);font-size:1rem;margin-top:var(--s-5);max-width:46ch}
+.cover .badge{position:absolute;top:50%;right:8%;transform:translateY(-50%)}
+.cover .foot{position:absolute;bottom:var(--s-7);left:0;right:0}
+.cover .foot .wrap{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.66rem;letter-spacing:.1em;opacity:.8}
+.scrollcue{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase}
+
+.badge{width:120px;height:120px;border-radius:var(--r-pill);background:var(--ink);display:flex;align-items:center;justify-content:center;border:3px solid var(--bone);box-shadow:0 14px 34px -12px rgba(0,0,0,.5)}
+.badge svg{width:64px;height:64px}
+
+/* ===================== SECTION SCAFFOLD ===================== */
+section.block{padding:var(--s-10) 0;position:relative;overflow:hidden}
+.numhead{position:relative;margin-bottom:var(--s-8)}
+.numhead .ghost{position:absolute;right:-2%;top:-46%;font-family:var(--font-display);font-weight:900;font-size:18rem;line-height:.7;color:var(--paper-tint);opacity:.55;z-index:0;user-select:none}
+.numhead .kicker{color:var(--ink);opacity:.55}
+.numhead h2{font-family:var(--font-display);font-weight:900;font-size:clamp(2.4rem,6vw,4.5rem);letter-spacing:-.03em;line-height:.9;margin-top:var(--s-3);position:relative;z-index:1}
+.lead{font-family:var(--font-mono);font-size:1rem;max-width:62ch;margin-top:var(--s-4)}
+.rule{border:none;border-top:var(--hair);opacity:.25;margin:var(--s-8) 0}
+
+/* ===================== INDEX (ink) ===================== */
+.index{background:var(--ink);color:var(--bone)}
+.index .numhead h2{color:var(--bone)}
+.index .kicker{color:var(--bone);opacity:.5}
+.index ol{list-style:none;columns:2;column-gap:var(--s-9);margin-top:var(--s-6)}
+.index li{display:flex;gap:var(--s-4);font-family:var(--font-mono);font-size:1.05rem;padding:var(--s-4) 0;border-bottom:1.5px solid rgba(246,243,236,.18);break-inside:avoid}
+.index li .n{font-weight:700;color:var(--orange-tint)}
+.index a{color:inherit;text-decoration:none;transition:color .15s}
+.index a:hover{color:var(--orange-tint)}
+
+/* ===================== COLOUR ===================== */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--s-4)}
+.swatch{border:var(--hair);background:var(--bone)}
+.swatch .chip{height:130px;position:relative}
+.swatch .chip .role{position:absolute;left:12px;bottom:10px;font-family:var(--font-mono);font-size:.62rem;letter-spacing:.06em}
+.swatch .body{padding:var(--s-4)}
+.swatch .name{font-family:var(--font-display);font-weight:900;font-size:1.3rem}
+.swatch .vals{font-family:var(--font-mono);font-size:.66rem;opacity:.65;margin-top:6px;line-height:1.7}
+.note{font-family:var(--font-mono);font-size:.8rem;background:var(--ink);color:var(--bone);padding:var(--s-4) var(--s-5);border-radius:var(--r-bar);margin-top:var(--s-6);max-width:64ch}
+.note b{color:var(--orange-tint)}
+
+/* ===================== TYPOGRAPHY (orange feature) ===================== */
+.typo{background:var(--orange);color:var(--ink)}
+.typo .numhead .ghost{color:var(--orange-tint);opacity:.6}
+.typo .numhead h2{color:var(--ink)}
+.typo .kicker{color:var(--ink)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7);margin-top:var(--s-6)}
+.pair .fam{border:2px solid var(--ink);padding:var(--s-6);background:rgba(0,0,0,.04)}
+.pair .fam .big{font-size:3.6rem;line-height:1}
+.pair .fam .archivo{font-family:var(--font-display);font-weight:900;letter-spacing:-.02em}
+.pair .fam .mono{font-family:var(--font-mono);font-weight:700}
+.pair .fam .meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.04em;margin-top:var(--s-4);opacity:.8;line-height:1.8}
+.scale{margin-top:var(--s-7);border-top:2px solid var(--ink)}
+.scale .row{display:flex;align-items:baseline;gap:var(--s-5);padding:var(--s-4) 0;border-bottom:2px solid var(--ink)}
+.scale .row .tk{font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.1em;width:120px;flex:none}
+.scale .row .dm{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ===================== VOICE ===================== */
+.voicegrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7);margin-top:var(--s-6)}
+.voicegrid .col h4{font-family:var(--font-mono);font-weight:700;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:var(--s-3)}
+.voicegrid ul{list-style:none}
+.voicegrid li{font-family:var(--font-mono);font-size:.92rem;padding:10px 0;border-bottom:var(--hair);border-color:rgba(26,25,22,.18)}
+.voicegrid li::before{content:"— ";opacity:.5}
+.samples{display:flex;flex-direction:column;gap:var(--s-4);margin-top:var(--s-7)}
+.samples .s{font-family:var(--font-display);font-weight:900;font-size:1.8rem;letter-spacing:-.02em}
+.samples .s span{font-family:var(--font-mono);font-style:italic;font-size:.8rem;font-weight:400;display:block;margin-top:4px;opacity:.6}
+
+/* ===================== MOTIFS ===================== */
+.motifs{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--s-5)}
+.motif{border:var(--hair);background:var(--bone)}
+.motif .stage{height:150px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.motif .cap{border-top:var(--hair);padding:var(--s-3) var(--s-4)}
+.motif .cap b{font-family:var(--font-display);font-weight:900;font-size:1.05rem;display:block}
+.motif .cap span{font-family:var(--font-mono);font-size:.7rem;opacity:.65}
+.m-bar{height:22px;width:120px;border-radius:var(--r-bar);background:var(--orange)}
+.m-bar.two{width:60px;background:var(--ink);margin-top:8px}
+.m-num{font-family:var(--font-display);font-weight:900;font-size:7rem;line-height:.7;letter-spacing:-.05em;color:var(--orange-tint);transform:translate(18px,10px)}
+.m-seam{position:absolute;inset:0}
+.m-seam .o{position:absolute;inset:0 50% 0 0;background:var(--orange)}
+.m-seam .p{position:absolute;inset:0 0 0 50%;background:var(--paper-tint)}
+.m-annot{text-align:center}
+.m-annot .l{font-family:var(--font-mono);font-style:italic;font-size:.85rem}
+.m-annot svg{display:block;margin:4px auto 0;width:40px;height:46px}
+.m-grain{width:120px;height:90px;background:var(--orange);border-radius:var(--r-bar);position:relative;overflow:hidden}
+.m-grain::after{content:"";position:absolute;inset:0;mix-blend-mode:multiply;opacity:.6;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ===================== LOGO / MARK ===================== */
+.logo-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--s-7);align-items:center}
+.logo-stage{background:var(--ink);border-radius:var(--r-bar);min-height:300px;display:flex;align-items:center;justify-content:center;position:relative}
+.logo-stage .badge{width:160px;height:160px}
+.logo-stage .badge svg{width:88px;height:88px}
+.clearspace{position:absolute;inset:0;margin:auto;width:240px;height:240px;border:1.5px dashed rgba(246,243,236,.3);border-radius:var(--r-pill)}
+.logo-rules li{font-family:var(--font-mono);font-size:.9rem;padding:var(--s-3) 0;border-bottom:var(--hair);border-color:rgba(26,25,22,.18);list-style:none;display:flex;gap:12px}
+.logo-rules li b{color:var(--orange)}
+
+/* ===================== DO / DON'T ===================== */
+.dd{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5)}
+.dd .card{border:var(--hair);overflow:hidden;background:var(--bone)}
+.dd .card .head{font-family:var(--font-mono);font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:var(--s-3) var(--s-4);color:var(--bone)}
+.dd .do .head{background:var(--ink)}
+.dd .dont .head{background:var(--orange);color:var(--ink)}
+.dd .demo{padding:var(--s-5);min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center}
+.dd .txt{font-family:var(--font-mono);font-size:.82rem;padding:0 var(--s-4) var(--s-4)}
+.dd .demo.bad{opacity:.95}
+
+/* ===================== TOKENS ===================== */
+.tokcols{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-8)}
+.tokrow{display:flex;align-items:center;gap:var(--s-4);font-family:var(--font-mono);font-size:.72rem;margin-bottom:var(--s-3)}
+.tokrow .lab{width:64px;font-weight:700}
+.tokrow .bx{background:var(--orange)}
+.tokrow .val{opacity:.55}
+
+/* ===================== COLOPHON ===================== */
+.colophon{background:var(--ink);color:var(--bone);padding:var(--s-9) 0 var(--s-8)}
+.colophon h3{font-family:var(--font-display);font-weight:900;font-size:clamp(2rem,6vw,3.5rem);letter-spacing:-.03em;line-height:.9}
+.colophon .meta{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;opacity:.6;margin-top:var(--s-6);line-height:2}
+
+/* responsive */
+@media(max-width:760px){
+  .pair,.voicegrid,.dd,.tokcols,.logo-grid{grid-template-columns:1fr}
+  .cover .badge{display:none}
+  .numhead .ghost{font-size:9rem;top:-30%}
+  .index ol{columns:1}
+}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<!-- ============ COVER ============ -->
+<header class="cover grain">
+  <div class="bleed">26</div>
+  <div class="meta"><div class="wrap">
+    <div class="it"><div class="k">Document —</div><div class="v">Brand Guide v1.0</div></div>
+    <div class="it"><div class="k">System —</div><div class="v">Editorial / Brutalist</div></div>
+    <div class="it"><div class="k">Maintained —</div><div class="v">aha agile</div></div>
+  </div></div>
+
+  <div class="wrap">
+    <div class="kicker" style="margin-bottom:var(--s-4)">The Identity System</div>
+    <h1 class="display">aha<br>agile</h1>
+    <p class="sub">A duotone editorial system that states things plainly and then stops. Burnt orange, warm paper, ink. Heavy grotesque against dry monospace. No shouting.</p>
+  </div>
+
+  <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+
+  <div class="foot"><div class="wrap"><span>aha agile</span><span class="scrollcue">Scroll ↓</span></div></div>
+</header>
+
+<!-- ============ INDEX ============ -->
+<section class="block index grain" id="index">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="kicker">Contents</div><h2>Inside</h2></div>
+    <ol class="reveal">
+      <li><span class="n">01</span><a href="#story">Brand story</a></li>
+      <li><span class="n">02</span><a href="#logo">Logo &amp; mark</a></li>
+      <li><span class="n">03</span><a href="#colour">Colour</a></li>
+      <li><span class="n">04</span><a href="#type">Typography</a></li>
+      <li><span class="n">05</span><a href="#voice">Voice &amp; tone</a></li>
+      <li><span class="n">06</span><a href="#motifs">Motifs</a></li>
+      <li><span class="n">07</span><a href="#dodont">Do &amp; don't</a></li>
+      <li><span class="n">08</span><a href="#tokens">Spacing &amp; tokens</a></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ 01 STORY ============ -->
+<section class="block grain" id="story">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost">01</div><div class="kicker">Brand story</div><h2>State it,<br>then stop.</h2></div>
+    <p class="lead reveal">aha agile is an editorial identity built on restraint. It treats every surface like the front page of a quiet, confident magazine: one dominant idea, set large, with everything else pushed to the margins as small monospace annotation. The mood is deadpan — dry humour delivered with a straight face.</p>
+    <p class="lead reveal" style="margin-top:var(--s-5)">Three things make it recognisable anywhere: a two-colour field split by a hard seam, oversized numerals that bleed off the edge, and a single heavy headline doing all the talking. Nothing is decorated that doesn't need to be. The white space is the design.</p>
+  </div>
+</section>
+
+<!-- ============ 02 LOGO ============ -->
+<section class="block grain" id="logo" style="background:var(--paper-tint)">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost" style="color:var(--paper)">02</div><div class="kicker">Logo &amp; mark</div><h2>The badge</h2></div>
+    <div class="logo-grid">
+      <div class="logo-stage reveal">
+        <div class="clearspace"></div>
+        <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+      </div>
+      <ul class="logo-rules reveal">
+        <li><b>→</b> An ink disc, a bone hairline ring, the spark mark. That's the whole logo.</li>
+        <li><b>→</b> Keep clear space of at least half the disc's diameter on every side (dashed guide).</li>
+        <li><b>→</b> Minimum size 40px on screen. Below that, drop the inner mark and keep the ring.</li>
+        <li><b>→</b> Place on ink or orange. On paper, keep the bone ring so the disc reads as deliberate.</li>
+        <li><b>→</b> Never recolour the disc, stretch it, or add a drop shadow heavier than the system's.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 COLOUR ============ -->
+<section class="block grain" id="colour">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost">03</div><div class="kicker">Colour</div><h2>Duotone<br>+ ink</h2></div>
+    <p class="lead reveal">Two dominant fields carry every layout; ink does all the typographic work. Tints are field-specific and decorative only — they belong to oversized numerals, never to live type.</p>
+    <div class="swatches reveal" style="margin-top:var(--s-7)">
+      <div class="swatch"><div class="chip" style="background:var(--orange)"><span class="role" style="color:var(--bone)">Field · brand</span></div><div class="body"><div class="name">Orange</div><div class="vals">HEX #E0531E<br>RGB 224 83 30</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--orange-tint)"><span class="role">Numerals on orange</span></div><div class="body"><div class="name">Orange Tint</div><div class="vals">HEX #EE8050<br>RGB 238 128 80</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--paper);border-bottom:var(--hair)"><span class="role">Field · calm</span></div><div class="body"><div class="name">Paper</div><div class="vals">HEX #E1D9C6<br>RGB 225 217 198</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--paper-tint)"><span class="role">Numerals on paper</span></div><div class="body"><div class="name">Paper Tint</div><div class="vals">HEX #CFC4AC<br>RGB 207 196 172</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--ink)"><span class="role" style="color:var(--bone)">Type · marks</span></div><div class="body"><div class="name">Ink</div><div class="vals">HEX #1A1916<br>RGB 26 25 22</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--bone);border-bottom:var(--hair)"><span class="role">Inverse type</span></div><div class="body"><div class="name">Bone</div><div class="vals">HEX #F6F3EC<br>RGB 246 243 236</div></div></div>
+    </div>
+    <div class="note reveal">Field rule — <b>orange shouts, paper reads, ink breaks.</b> Use orange for openers, statements and calls to action; paper for evidence, lists and anything text-heavy; ink sparingly, as a structural blackout. Tints stay on their own field: orange-tint only on orange, paper-tint only on paper.</div>
+  </div>
+</section>
+
+<!-- ============ 04 TYPOGRAPHY ============ -->
+<section class="block typo grain" id="type">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost">04</div><div class="kicker">Typography</div><h2>Grotesque<br>× mono</h2></div>
+    <p class="lead reveal">Two families, no exceptions. A heavy grotesque for everything loud; a typewriter monospace for everything small. The tension between them is the voice.</p>
+    <div class="pair reveal">
+      <div class="fam"><div class="big archivo">Aa</div><div class="meta"><b>ARCHIVO · 900</b><br>Display · headlines · numerals<br>Tracking −0.03em · leading 0.96 min for multi-line<br>(numerals / single lines may run tighter)<br>Use large. Never for body copy.</div></div>
+      <div class="fam"><div class="big mono">Aa</div><div class="meta"><b>SPACE MONO · 400 / 700</b><br>Labels · captions · body · values<br>Italic for asides only<br>Uppercase + tracking for labels.</div></div>
+    </div>
+    <div class="scale reveal">
+      <div class="row"><span class="tk">DISPLAY-XL</span><span class="dm" style="font-size:3.4rem">aha agile</span></div>
+      <div class="row"><span class="tk">DISPLAY-L</span><span class="dm" style="font-size:2.4rem">State it, then stop.</span></div>
+      <div class="row"><span class="tk">HEADING</span><span class="dm" style="font-size:1.6rem">A shorter definition of enough</span></div>
+      <div class="row"><span class="tk">MONO-LABEL</span><span class="dm" style="font-family:var(--font-mono);font-weight:700;font-size:.8rem;letter-spacing:.2em">DATE — &nbsp; TIME — &nbsp; LOCATION —</span></div>
+      <div class="row"><span class="tk">MONO-BODY</span><span class="dm" style="font-family:var(--font-mono);font-weight:400;font-size:.95rem;letter-spacing:0">The facts didn't change in the last hour.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 VOICE ============ -->
+<section class="block grain" id="voice">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost">05</div><div class="kicker">Voice &amp; tone</div><h2>Dry, brief,<br>unbothered.</h2></div>
+    <div class="voicegrid reveal">
+      <div class="col"><h4>We do</h4><ul>
+        <li>State one idea, then stop</li>
+        <li>Use lowercase asides as a shrug</li>
+        <li>Let understatement carry the joke</li>
+        <li>Trust the reader to fill the gap</li>
+      </ul></div>
+      <div class="col"><h4>We don't</h4><ul>
+        <li>Use exclamation marks or hype</li>
+        <li>Explain a line that should land alone</li>
+        <li>Stack three adjectives where none will do</li>
+        <li>Sound like a motivational poster</li>
+      </ul></div>
+    </div>
+    <div class="samples reveal">
+      <div class="s">Stand-ups, but shorter.<span>headline — deadpan, says the quiet part</span></div>
+      <div class="s">just a team.<span>annotation — lowercase, dry, in mono italic</span></div>
+      <div class="s">Run one hybrid sprint. Start Monday.<span>call to action — imperative, two short sentences, no plea</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 MOTIFS ============ -->
+<section class="block grain" id="motifs" style="background:var(--paper-tint)">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost" style="color:var(--paper)">06</div><div class="kicker">Motifs</div><h2>The signatures</h2></div>
+    <p class="lead reveal">Five recurring devices make any layout unmistakably part of the system. Use at least one per composition; rarely more than two.</p>
+    <div class="motifs reveal" style="margin-top:var(--s-7)">
+      <div class="motif"><div class="stage" style="background:var(--orange)"><div class="m-num">26</div></div><div class="cap"><b>Bleed numeral</b><span>oversized, tint of its field, cropped by the edge.</span></div></div>
+      <div class="motif"><div class="stage" style="background:var(--paper)"><div><div class="m-bar"></div><div class="m-bar two"></div></div></div><div class="cap"><b>Redaction bars</b><span>rounded blocks for rhythm, never meaning.</span></div></div>
+      <div class="motif"><div class="stage"><div class="m-seam"><div class="o"></div><div class="p"></div></div></div><div class="cap"><b>The seam</b><span>one hard split between two fields.</span></div></div>
+      <div class="motif"><div class="stage" style="background:var(--paper)"><div class="m-annot"><div class="l">just a team.</div><svg viewBox="0 0 40 46"><path d="M5 3C26 8 32 20 25 40" fill="none" stroke="#1A1916" stroke-width="1.8"/><path d="M18 33l7 8 7-11" fill="none" stroke="#1A1916" stroke-width="1.8"/></svg></div></div><div class="cap"><b>Annotation</b><span>italic mono + one hand-drawn arrow.</span></div></div>
+      <div class="motif"><div class="stage" style="background:var(--paper)"><div class="m-grain"></div></div><div class="cap"><b>Paper grain</b><span>subtle multiply noise on every field.</span></div></div>
+      <div class="motif"><div class="stage" style="background:var(--ink)"><div class="badge" style="width:84px;height:84px"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div></div><div class="cap"><b>The badge</b><span>ink disc as logo, avatar, or full stop.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 DO / DON'T ============ -->
+<section class="block grain" id="dodont">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost">07</div><div class="kicker">Do &amp; don't</div><h2>The line</h2></div>
+    <div class="dd reveal">
+      <div class="card do"><div class="head">Do</div><div class="demo" style="background:var(--orange)"><div class="display" style="font-size:2.2rem;text-align:left;color:var(--ink);text-transform:lowercase">aha agile</div></div><div class="txt">Set the wordmark lowercase and ink-black; let it run large.</div></div>
+      <div class="card dont"><div class="head">Don't</div><div class="demo bad" style="background:var(--orange)"><div class="display" style="font-size:1.4rem;color:var(--orange-tint);text-transform:lowercase">aha agile</div></div><div class="txt">Don't tint the wordmark or add effects — it stays ink, or bone on dark.</div></div>
+
+      <div class="card do"><div class="head">Do</div><div class="demo" style="background:var(--paper)"><span style="font-family:var(--font-mono);font-weight:700;font-size:.7rem;letter-spacing:.2em">DATE — &nbsp; TIME —</span></div><div class="txt">Keep monospace for small labels and captions only.</div></div>
+      <div class="card dont"><div class="head">Don't</div><div class="demo bad" style="background:var(--paper)"><span style="font-family:var(--font-display);font-weight:900;font-size:.8rem">DATE — TIME — LOCATION — STUDIO</span></div><div class="txt">Don't set tiny labels in the heavy display face — it muddies the contrast.</div></div>
+
+      <div class="card do"><div class="head">Do</div><div class="demo" style="background:var(--paper);gap:10px"><div style="height:18px;width:90px;border-radius:7px;background:var(--orange)"></div></div><div class="txt">One field-tint accent block. Restraint reads as confidence.</div></div>
+      <div class="card dont"><div class="head">Don't</div><div class="demo bad" style="background:var(--paper);gap:6px;flex-wrap:wrap"><div style="height:14px;width:60px;border-radius:7px;background:var(--orange)"></div><div style="height:14px;width:40px;border-radius:7px;background:var(--ink)"></div><div style="height:14px;width:70px;border-radius:7px;background:var(--orange-tint)"></div><div style="height:14px;width:30px;border-radius:7px;background:var(--paper-tint)"></div></div><div class="txt">Don't scatter a confetti of bars — the rhythm collapses into noise.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 TOKENS ============ -->
+<section class="block grain" id="tokens" style="background:var(--paper-tint)">
+  <div class="wrap">
+    <div class="numhead reveal"><div class="ghost" style="color:var(--paper)">08</div><div class="kicker">Spacing &amp; tokens</div><h2>The grid</h2></div>
+    <p class="lead reveal">An 8-point rhythm and three radii. Fields and panels are hard-edged; only bars, badges and controls round off.</p>
+    <div class="tokcols reveal" style="margin-top:var(--s-7)">
+      <div>
+        <div class="tokrow"><span class="lab">s-2</span><span class="bx" style="width:8px;height:18px"></span><span class="val">8px</span></div>
+        <div class="tokrow"><span class="lab">s-4</span><span class="bx" style="width:16px;height:18px"></span><span class="val">16px</span></div>
+        <div class="tokrow"><span class="lab">s-5</span><span class="bx" style="width:24px;height:18px"></span><span class="val">24px</span></div>
+        <div class="tokrow"><span class="lab">s-7</span><span class="bx" style="width:48px;height:18px"></span><span class="val">48px</span></div>
+        <div class="tokrow"><span class="lab">s-9</span><span class="bx" style="width:96px;height:18px"></span><span class="val">96px</span></div>
+      </div>
+      <div>
+        <div class="tokrow"><span class="lab">r-bar</span><span class="bx" style="width:60px;height:28px;border-radius:7px"></span><span class="val">7px · bars</span></div>
+        <div class="tokrow"><span class="lab">r-ctrl</span><span class="bx" style="width:44px;height:44px;border-radius:22px"></span><span class="val">22px · controls</span></div>
+        <div class="tokrow"><span class="lab">r-pill</span><span class="bx" style="width:44px;height:44px;border-radius:999px"></span><span class="val">999px · badge</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COLOPHON ============ -->
+<footer class="colophon grain">
+  <div class="wrap">
+    <div class="reveal"><div class="kicker" style="opacity:.5;margin-bottom:var(--s-4)">Colophon</div>
+    <h3 class="display">aha agile.<br>Stop here.</h3></div>
+    <div class="meta reveal">
+      Typefaces — Archivo (900) &amp; Space Mono · Google Fonts<br>
+      Palette — Orange #E0531E · Paper #E1D9C6 · Ink #1A1916 · Bone #F6F3EC<br>
+      System — duotone editorial / Swiss-brutalist · Brand Guide v1.0<br>
+      Made by aha agile.
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // scroll progress
+  const prog=document.getElementById('prog');
+  function onScroll(){
+    const h=document.documentElement;
+    const sc=(h.scrollTop||document.body.scrollTop);
+    const max=(h.scrollHeight-h.clientHeight)||1;
+    prog.style.width=(sc/max*100)+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // reveal on scroll
+  const els=[...document.querySelectorAll('.reveal')];
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    els.forEach(e=>io.observe(e));
+  }else{els.forEach(e=>e.classList.add('in'));}
+})();
+</script>
+</body>
+</html>

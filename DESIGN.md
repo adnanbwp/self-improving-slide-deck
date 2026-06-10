@@ -1,5 +1,10 @@
 # Design System
 
+> **Superseded for slide decks (2026-06-10).** All decks are now built on the aha agile
+> templating system at `shared/templates/aha-agile/` (brand source of truth:
+> `shared/aha-agile-brand/DESIGN.md`). The architecture below applies only when patching
+> legacy pre-v2 deck versions (Reveal.js / per-deck theme CSS).
+
 ## CSS Architecture
 
 Each deck owns its full theme. The deck's `theme/<slug>.css` file is the single CSS entry point:

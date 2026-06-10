@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aha agile — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   aha agile — DESIGN SYSTEM
+   A duotone editorial / Swiss-brutalist poster system.
+   Every visual token lives here as a CSS variable.
+   ============================================================ */
+
+:root{
+  --orange:#E0531E;--orange-tint:#EE8050;--paper:#E1D9C6;--paper-tint:#CFC4AC;--ink:#1A1916;--bone:#F6F3EC;--letterbox:#0E0D0B;--control:rgba(38,36,33,.62);--font-display:'Archivo',system-ui,sans-serif;--font-mono:'Space Mono',ui-monospace,monospace;--hair:1.5px solid var(--ink);
+
+  /* ---- Core palette (duotone + ink) ---- */
+     /* primary field / brand */
+     /* oversized numerals on orange */
+     /* secondary field — warm cream */
+     /* oversized numerals on paper */
+     /* type, suit, hard marks */
+     /* badge / inverse text */
+   /* glass icon buttons */
+
+  /* ---- Type families ---- */
+     /* heavy grotesque */
+   /* labels & captions */
+
+  /* ---- Type scale ---- */
+  --t-mega:  clamp(8rem, 23vw, 17rem);   /* bleeding numerals */
+  --t-xl:    clamp(2.6rem, 8.5vw, 5.6rem);/* poster headline */
+  --t-lg:    2rem;
+  --t-md:    1.25rem;
+  --t-base:  1rem;
+  --t-sm:    .8rem;
+  --t-xs:    .68rem;   /* metadata labels */
+
+  /* ---- Spacing scale (8pt-ish) ---- */
+  --s-1: 4px;  --s-2: 8px;  --s-3: 12px; --s-4: 16px;
+  --s-5: 24px; --s-6: 32px; --s-7: 48px; --s-8: 64px; --s-9: 96px;
+
+  /* ---- Radii ---- */
+  --r-bar: 7px;     /* redaction bars */
+  --r-ctrl: 22px;   /* icon buttons */
+  --r-pill: 999px;
+
+  /* ---- Lines ---- */
+  
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-mono);
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+
+/* paper grain overlay used across panels */
+.grain::after{
+  content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   1.  THE POSTER  (the system in one composition)
+   ============================================================ */
+.poster-wrap{padding:var(--s-6) var(--s-5);display:flex;justify-content:center;background:var(--ink)}
+.poster{
+  position:relative;width:min(560px,100%);aspect-ratio:485/648;overflow:hidden;
+  background:var(--orange);box-shadow:0 40px 80px -30px rgba(0,0,0,.7);
+}
+/* duotone split */
+.poster__paper{position:absolute;left:0;right:0;bottom:0;height:42%;background:var(--paper)}
+
+/* bleeding numerals */
+.poster__num{
+  position:absolute;top:2%;right:-6%;font-family:var(--font-display);font-weight:900;
+  font-size:var(--t-mega);line-height:.78;letter-spacing:-.04em;color:var(--orange-tint);
+  user-select:none;white-space:nowrap;
+}
+.poster__num span:nth-child(n+3){color:var(--paper-tint)} /* lower digits read on cream */
+
+/* metadata header */
+.poster__meta{
+  position:absolute;top:var(--s-4);left:var(--s-5);right:var(--s-5);
+  display:flex;gap:var(--s-5);font-family:var(--font-mono);color:var(--ink);z-index:3;
+}
+.meta-item .k{font-size:var(--t-xs);font-weight:700}
+.meta-item .v{font-size:9px;opacity:.75}
+
+/* headline block */
+.poster__head{position:absolute;left:var(--s-6);top:34%;z-index:3}
+.poster__head h1{
+  font-family:var(--font-display);font-weight:900;font-size:var(--t-xl);
+  line-height:.96;letter-spacing:-.03em;color:var(--ink);
+}
+.poster__head .sub{margin-top:var(--s-3);font-size:var(--t-sm);color:var(--ink)}
+
+/* annotation */
+.annot{position:absolute;top:21%;right:26%;z-index:4;text-align:center}
+.annot .label{font-size:var(--t-xs);font-style:italic;color:var(--ink)}
+.annot svg{display:block;margin:2px auto 0;width:34px;height:40px}
+
+/* the suited figure (CSS-built, no photo) */
+.figure{position:absolute;bottom:6%;right:14%;z-index:2;width:120px;display:flex;flex-direction:column;align-items:center}
+.figure__badge{
+  width:62px;height:62px;border-radius:var(--r-pill);background:var(--ink);
+  display:flex;align-items:center;justify-content:center;border:2px solid var(--bone);
+  box-shadow:0 8px 20px -8px rgba(0,0,0,.6)
+}
+.figure__badge svg{width:34px;height:34px}
+.figure__body{
+  margin-top:-6px;width:96px;height:150px;background:var(--ink);
+  border-radius:46px 46px 14px 14px;position:relative
+}
+.figure__body::before{ /* lapel/shirt notch */
+  content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;
+  border-top:30px solid var(--bone)
+}
+.figure__body::after{ /* tie */
+  content:"";position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:7px;height:30px;background:var(--orange)
+}
+
+/* redaction bars */
+.bar{position:absolute;height:18px;border-radius:var(--r-bar);z-index:1}
+.bar--a{top:48%;left:54%;width:120px;background:var(--orange-tint)}
+.bar--b{bottom:30%;left:42%;width:90px;background:var(--orange)}
+.bar--c{bottom:25%;left:60%;width:54px;background:var(--paper-tint)}
+
+/* footer + controls */
+.poster__foot{position:absolute;bottom:var(--s-4);left:0;right:0;text-align:center;
+  font-size:var(--t-xs);z-index:3;color:var(--ink)}
+.controls{position:absolute;right:var(--s-4);bottom:var(--s-7);display:flex;flex-direction:column;gap:var(--s-3);z-index:5}
+.ctrl{width:44px;height:44px;border-radius:var(--r-ctrl);background:var(--control);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);
+  transition:transform .2s ease,background .2s ease}
+.ctrl:hover{transform:scale(1.06);background:rgba(38,36,33,.8)}
+.ctrl svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:2}
+
+/* ============================================================
+   2.  DOCS LAYOUT
+   ============================================================ */
+.docs{max-width:1040px;margin:0 auto;padding:var(--s-9) var(--s-5)}
+.docs section{margin-bottom:var(--s-9)}
+.kicker{font-size:var(--t-xs);letter-spacing:.22em;text-transform:uppercase;font-weight:700;opacity:.55}
+.docs h2{font-family:var(--font-display);font-weight:900;font-size:var(--t-lg);letter-spacing:-.02em;margin:var(--s-2) 0 var(--s-5);text-transform:uppercase}
+.lead{max-width:62ch;font-size:var(--t-sm);margin-bottom:var(--s-5)}
+.rule{height:var(--hair);border:none;height:0;border-top:var(--hair);opacity:.25;margin:var(--s-6) 0}
+
+/* colour grid */
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:var(--s-4)}
+.swatch{border:var(--hair)}
+.swatch .chip{height:90px}
+.swatch .body{padding:var(--s-3);font-size:var(--t-xs)}
+.swatch .name{font-weight:700;display:block}
+.swatch .hex{opacity:.6;text-transform:uppercase}
+
+/* type specimens */
+.spec{border-top:var(--hair);padding:var(--s-5) 0}
+.spec .tag{font-size:var(--t-xs);opacity:.55;display:flex;gap:var(--s-4);flex-wrap:wrap;margin-bottom:var(--s-3)}
+.spec .demo{font-family:var(--font-display);font-weight:900;letter-spacing:-.02em;line-height:.96}
+
+/* component cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s-5)}
+.card{border:var(--hair);background:var(--bone);position:relative}
+.card .stage{padding:var(--s-6);display:flex;align-items:center;justify-content:center;min-height:150px;position:relative;overflow:hidden}
+.card .cap{border-top:var(--hair);padding:var(--s-3) var(--s-4);font-size:var(--t-xs)}
+.card .cap b{display:block;font-weight:700}
+.card .cap span{opacity:.6}
+
+/* mini examples reused inside cards */
+.demo-meta{display:flex;gap:var(--s-4)}
+.demo-bar{height:18px;width:90px;border-radius:var(--r-bar);background:var(--orange)}
+.demo-badge{width:58px;height:58px;border-radius:var(--r-pill);background:var(--ink);
+  display:flex;align-items:center;justify-content:center;border:2px solid var(--bone)}
+.demo-badge svg{width:30px;height:30px}
+.demo-annot{text-align:center}
+.demo-annot .label{font-size:var(--t-xs);font-style:italic}
+.demo-annot svg{width:30px;height:36px;display:block;margin:2px auto 0}
+.demo-ctrl{width:44px;height:44px;border-radius:var(--r-ctrl);background:var(--control);display:flex;align-items:center;justify-content:center}
+.demo-ctrl svg{width:20px;height:20px;stroke:var(--bone);fill:none;stroke-width:2}
+
+/* spacing + radius rows */
+.tokrow{display:flex;align-items:center;gap:var(--s-4);font-size:var(--t-xs);margin-bottom:var(--s-3)}
+.tokrow .bx{background:var(--orange)}
+.tokrow .lab{width:70px;font-weight:700}
+.tokrow .val{opacity:.55}
+
+.footer{background:var(--ink);color:var(--bone);text-align:center;padding:var(--s-7) var(--s-5);font-size:var(--t-xs);letter-spacing:.04em}
+.footer b{font-family:var(--font-display);font-weight:900;letter-spacing:-.01em}
+</style>
+</head>
+<body>
+
+<!-- ============ 1. THE POSTER ============ -->
+<div class="poster-wrap">
+  <div class="poster grain">
+    <div class="poster__paper"></div>
+
+    <div class="poster__num"><span>2</span><span>0</span><span>2</span><span>6</span></div>
+
+    <div class="poster__meta">
+      <div class="meta-item"><div class="k">Date -</div><div class="v">31 / 12 / 26</div></div>
+      <div class="meta-item"><div class="k">Time -</div><div class="v">11:36</div></div>
+      <div class="meta-item"><div class="k">Location -</div><div class="v">Melbourne</div></div>
+      <div class="meta-item"><div class="k">Studio -</div><div class="v">aha agile</div></div>
+    </div>
+
+    <div class="annot">
+      <div class="label">ai + human.</div>
+      <svg viewBox="0 0 34 40"><path d="M4 2 C 22 6, 30 16, 24 34" fill="none" stroke="#1A1916" stroke-width="1.6"/><path d="M18 28 L24 35 L29 26" fill="none" stroke="#1A1916" stroke-width="1.6"/></svg>
+    </div>
+
+    <div class="poster__head">
+      <h1>aha<br>agile</h1>
+      <div class="sub">AI forward. Human first.</div>
+    </div>
+
+    <div class="bar bar--a"></div>
+    <div class="bar bar--b"></div>
+    <div class="bar bar--c"></div>
+
+    <div class="figure">
+      <div class="figure__badge">
+        <svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg>
+      </div>
+      <div class="figure__body"></div>
+    </div>
+
+    <div class="controls">
+      <div class="ctrl" title="Expand"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></div>
+      <div class="ctrl" title="Refresh"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+    </div>
+
+    <div class="poster__foot">aha agile — design system</div>
+  </div>
+</div>
+
+<!-- ============ 2. DOCS ============ -->
+<main class="docs">
+
+  <section>
+    <div class="kicker">Design System</div>
+    <h2>aha&nbsp;agile</h2>
+    <p class="lead">A duotone editorial / Swiss-brutalist poster system. Two fields — burnt
+    orange and warm cream — divided by a hard horizontal seam. Oversized numerals bleed off
+    the edge, monospace metadata sits in the margins, and a single heavy grotesque headline
+    anchors the composition. Sharp, dry, deadpan.</p>
+  </section>
+
+  <!-- COLOUR -->
+  <section>
+    <div class="kicker">01 — Colour</div>
+    <h2>Duotone + Ink</h2>
+    <p class="lead">Two dominant fields carry the whole system; ink does all the typographic
+    work. Tints are field-specific — never mix an orange tint onto the cream field.</p>
+    <div class="swatches">
+      <div class="swatch"><div class="chip" style="background:var(--orange)"></div><div class="body"><span class="name">Orange</span><span class="hex">#E0531E</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--orange-tint)"></div><div class="body"><span class="name">Orange Tint</span><span class="hex">#EE8050</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--paper)"></div><div class="body"><span class="name">Paper</span><span class="hex">#E1D9C6</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--paper-tint)"></div><div class="body"><span class="name">Paper Tint</span><span class="hex">#CFC4AC</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--ink)"></div><div class="body"><span class="name">Ink</span><span class="hex">#1A1916</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--bone);border-bottom:var(--hair)"></div><div class="body"><span class="name">Bone</span><span class="hex">#F6F3EC</span></div></div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section>
+    <div class="kicker">02 — Typography</div>
+    <h2>Grotesque × Mono</h2>
+    <p class="lead">Two families only. <b>Archivo</b> at black weight (900) for display and
+    numerals — tight tracking, near-solid leading. Floor: multi-line mixed-case display
+    text needs leading ≥ 0.96 (Archivo's descender + cap height ≈ 0.92em — anything
+    tighter collides); only single lines and numerals may run tighter. <b>Space Mono</b> for every label, caption
+    and value — small, with the typewriter texture that gives the system its archival voice.</p>
+
+    <div class="spec">
+      <div class="tag"><span>Archivo / 900</span><span>Mega · clamp 8–17rem</span><span>tracking −0.04em</span></div>
+      <div class="demo" style="font-size:var(--t-mega);color:var(--orange)">26</div>
+    </div>
+    <div class="spec">
+      <div class="tag"><span>Archivo / 900</span><span>Headline · clamp 2.6–5.6rem</span></div>
+      <div class="demo" style="font-size:var(--t-xl)">aha agile</div>
+    </div>
+    <div class="spec">
+      <div class="tag"><span>Space Mono / 700 · italic</span><span>Caption · 0.8rem</span></div>
+      <div class="demo" style="font-family:var(--font-mono);font-weight:700;font-style:italic;font-size:var(--t-sm)">ai + human.</div>
+    </div>
+    <div class="spec">
+      <div class="tag"><span>Space Mono / 700</span><span>Label · 0.68rem</span></div>
+      <div class="demo" style="font-family:var(--font-mono);font-weight:700;font-size:var(--t-xs)">DATE — &nbsp; TIME — &nbsp; LOCATION — &nbsp; STUDIO —</div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section>
+    <div class="kicker">03 — Components</div>
+    <h2>Parts</h2>
+    <div class="cards">
+
+      <div class="card">
+        <div class="stage" style="background:var(--orange)">
+          <div class="demo-meta">
+            <div class="meta-item"><div class="k" style="font-weight:700;font-size:var(--t-xs)">Date -</div><div class="v" style="font-size:9px;opacity:.75">31/12/26</div></div>
+            <div class="meta-item"><div class="k" style="font-weight:700;font-size:var(--t-xs)">Time -</div><div class="v" style="font-size:9px;opacity:.75">11:36</div></div>
+          </div>
+        </div>
+        <div class="cap"><b>Metadata label</b><span>key “—” over a small mono value. Top margin only.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" style="background:var(--paper)">
+          <div class="demo-annot">
+            <div class="label">ai + human.</div>
+            <svg viewBox="0 0 30 36"><path d="M4 2 C 20 6, 26 14, 20 30" fill="none" stroke="#1A1916" stroke-width="1.5"/><path d="M15 25 L20 31 L25 23" fill="none" stroke="#1A1916" stroke-width="1.5"/></svg>
+          </div>
+        </div>
+        <div class="cap"><b>Annotation</b><span>italic mono + hand-drawn arrow. Points at one subject.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" style="background:var(--paper);gap:14px">
+          <div class="demo-bar"></div>
+          <div class="demo-bar" style="width:54px;background:var(--orange-tint)"></div>
+        </div>
+        <div class="cap"><b>Redaction bar</b><span>rounded blocks, 7px radius. Rhythm, not meaning.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" style="background:var(--orange)">
+          <div class="demo-badge">
+            <svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg>
+          </div>
+        </div>
+        <div class="cap"><b>Badge</b><span>ink circle, bone hairline ring, single line-icon mark.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" style="background:var(--paper);gap:12px">
+          <div class="demo-ctrl"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg></div>
+          <div class="demo-ctrl"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+        </div>
+        <div class="cap"><b>Glass control</b><span>22px radius, translucent ink, bone icons. Hover scales 1.06.</span></div>
+      </div>
+
+      <div class="card">
+        <div class="stage" style="background:var(--orange);padding:0;align-items:flex-end;justify-content:flex-end">
+          <div style="font-family:var(--font-display);font-weight:900;font-size:5rem;line-height:.8;letter-spacing:-.04em;color:var(--orange-tint);transform:translate(12px,18px)">26</div>
+        </div>
+        <div class="cap"><b>Bleed numeral</b><span>tint of its own field, cropped by the canvas edge.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TOKENS -->
+  <section>
+    <div class="kicker">04 — Tokens</div>
+    <h2>Spacing &amp; Radius</h2>
+    <p class="lead">An 8-point spacing rhythm and three radii. Panels and fields are hard-edged
+    (0); only bars, badges and controls round off.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s-7)">
+      <div>
+        <div class="tokrow"><span class="lab">s-2</span><span class="bx" style="width:8px;height:18px"></span><span class="val">8px</span></div>
+        <div class="tokrow"><span class="lab">s-4</span><span class="bx" style="width:16px;height:18px"></span><span class="val">16px</span></div>
+        <div class="tokrow"><span class="lab">s-5</span><span class="bx" style="width:24px;height:18px"></span><span class="val">24px</span></div>
+        <div class="tokrow"><span class="lab">s-6</span><span class="bx" style="width:32px;height:18px"></span><span class="val">32px</span></div>
+        <div class="tokrow"><span class="lab">s-7</span><span class="bx" style="width:48px;height:18px"></span><span class="val">48px</span></div>
+        <div class="tokrow"><span class="lab">s-9</span><span class="bx" style="width:96px;height:18px"></span><span class="val">96px</span></div>
+      </div>
+      <div>
+        <div class="tokrow"><span class="lab">r-bar</span><span class="bx" style="width:60px;height:28px;border-radius:7px"></span><span class="val">7px · bars</span></div>
+        <div class="tokrow"><span class="lab">r-ctrl</span><span class="bx" style="width:44px;height:44px;border-radius:22px"></span><span class="val">22px · controls</span></div>
+        <div class="tokrow"><span class="lab">r-pill</span><span class="bx" style="width:44px;height:44px;border-radius:999px"></span><span class="val">999px · badge</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+  <p style="font-size:var(--t-xs);opacity:.5">Recreated as a reusable system from the source poster. The suited figure is rendered in CSS rather than a photograph so the file stays self-contained.</p>
+
+</main>
+
+<footer class="footer">
+  <b>aha agile</b> — duotone editorial system · Archivo + Space Mono
+</footer>
+
+</body>
+</html>

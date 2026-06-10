@@ -1,5 +1,10 @@
 # Design Library Index
 
+> **Status (2026-06-10): reference only.** The brand default for every deck is the aha agile
+> templating system at `shared/templates/aha-agile/`. This library is consulted only when
+> Adnan explicitly requests an off-brand deck (WS-006 off-brand exception) or as pattern
+> inspiration for new `t-*` layout proposals.
+
 Source repo: `_source/` — full clone of `https://github.com/zarazhangrui/beautiful-html-templates` (34 templates)
 
 Annotated entries: 8. Minimum for WS-006: 3. To add a new entry: create `<slug>/README.md` and `<slug>/sample.html`, then add a row here.

@@ -1,0 +1,50 @@
+/* ============================================================
+   AHA AGILE — DECK ENGINE  ·  DO NOT MODIFY PER DECK
+   Fixed 1280×720 stage scaled to the viewport, single active
+   slide, grid overview mode, auto-fading controls.
+   Pairs with engine.js. Deck-specific style belongs in the
+   deck's own <style> block, never here.
+   ============================================================ */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);overflow:hidden}
+
+/* ---- viewport / stage / scaling ---- */
+.viewport{position:fixed;inset:0;background:var(--letterbox);display:grid;place-items:center;overflow:hidden}
+.stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.deck{position:absolute;inset:0}
+.slide{position:absolute;inset:0}
+.slide:not(.active){display:none}
+.slide-inner{width:1280px;height:720px;position:relative;overflow:hidden;font-size:16px;line-height:1.5}
+
+/* speaker notes travel with the slide but never render */
+.slide .notes{display:none}
+
+/* ---- deck controls (live in the letterbox / overlay, never on a field) ---- */
+.controls{position:fixed;left:0;right:0;bottom:18px;display:flex;align-items:center;justify-content:center;gap:18px;z-index:50;
+  font-family:var(--font-mono);color:var(--bone);opacity:0;pointer-events:none;transition:opacity .25s ease}
+body.chrome .controls{opacity:1;pointer-events:auto}
+.controls button{font-family:var(--font-mono);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--control);color:var(--bone);border:1.5px solid rgba(246,243,236,.3);border-radius:var(--r-ctrl);
+  padding:9px 16px;cursor:pointer;transition:background .15s ease,transform .15s ease}
+.controls button:hover{background:rgba(246,243,236,.12);transform:translateY(-1px)}
+.counter{font-size:13px;letter-spacing:.14em;min-width:90px;text-align:center;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.counter .now{font-weight:700;color:var(--orange-tint)}
+.hint{position:fixed;top:18px;left:22px;z-index:50;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;
+  color:rgba(246,243,236,.45);opacity:0;transition:opacity .25s ease;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+body.chrome .hint{opacity:1}
+
+/* ---- overview / grid mode ---- */
+body.grid{overflow:auto}
+body.grid .viewport{position:static;display:block;height:auto;padding:80px 40px 120px;place-items:start}
+body.grid .stage{transform:none!important;width:100%;height:auto}
+body.grid .deck{position:static;display:grid;grid-template-columns:repeat(auto-fill,330px);justify-content:center;gap:26px}
+body.grid .slide{position:relative;inset:auto;display:block!important;width:330px;aspect-ratio:16/9;overflow:hidden;
+  border:2px solid #2c2a27;border-radius:6px;cursor:pointer;transition:border-color .15s ease,transform .15s ease}
+body.grid .slide:hover{border-color:var(--orange);transform:translateY(-3px)}
+body.grid .slide-inner{position:absolute;top:0;left:0;transform:scale(.2578);transform-origin:top left}
+body.grid .controls,body.grid .hint{position:fixed;opacity:1;pointer-events:auto}
+.gridtitle{display:none}
+body.grid .gridtitle{display:block;font-family:var(--font-display);font-weight:900;color:var(--bone);font-size:28px;letter-spacing:-.02em;
+  padding:0 0 4px;position:fixed;top:54px;left:40px;z-index:40}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DECK_TITLE — aha agile</title>
+
+<!--
+  AHA AGILE DECK SKELETON
+  Copy this file to decks/<slug>/versions/v<N>/canonical.html and replace
+  the placeholder slides. All paths below are relative to that location
+  (shared/ lives four levels up). Full instructions and the slide-type
+  catalogue: shared/templates/aha-agile/README.md
+-->
+
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../shared/aha-agile-brand/aha-agile-favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/tokens.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/engine.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/layouts.css">
+
+<style>
+/* Deck-specific overrides only. Never restyle engine.css selectors. */
+</style>
+</head>
+<body>
+
+<div class="hint">← → navigate &nbsp;·&nbsp; G grid &nbsp;·&nbsp; F fullscreen</div>
+<div class="gridtitle">DECK_TITLE</div>
+
+<div class="viewport">
+  <div class="stage">
+    <div class="deck" id="deck">
+
+      <!-- 01 · TITLE -->
+      <section class="slide active" data-type="Title">
+        <div class="slide-inner f-orange t-title">
+          <div class="tag">DECK_LABEL</div>
+          <div class="bleed-num">26</div>
+          <div class="topiclabel">TOPIC_LABEL</div>
+          <h1 class="display">DECK<br>TITLE</h1>
+          <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+          <div class="meta">
+            <div class="kv"><b>Presenter</b><br>PRESENTER_NAME</div>
+            <div class="kv"><b>Date</b><br>YYYY</div>
+          </div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+      <!-- 02 · STATEMENT -->
+      <section class="slide" data-type="Statement">
+        <div class="slide-inner f-orange t-statement">
+          <div class="tag">SECTION_KICKER</div>
+          <div class="claim display">One short claim. State it, then stop.</div>
+          <div class="pageno">02</div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+      <!-- 03 · CONTENT (workhorse) -->
+      <section class="slide" data-type="Content">
+        <div class="slide-inner f-paper t-content">
+          <div class="tag">SECTION_KICKER</div>
+          <div class="pad">
+            <h2 class="head display">A sentence-length headline that carries the argument</h2>
+            <div class="body">
+              <p>Body paragraph in Space Mono. Keep it short — two to four sentences per block, max five blocks.</p>
+            </div>
+            <div class="src">Source — citation here</div>
+          </div>
+          <div class="pageno">03</div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+      <!-- 04 · STAT GRID -->
+      <section class="slide" data-type="Stat grid">
+        <div class="slide-inner f-paper t-stat-grid">
+          <div class="tag">SECTION_KICKER</div>
+          <div class="pad">
+            <h2 class="head display">Headline over the numbers</h2>
+            <div class="grid cols-3">
+              <div class="card"><div class="num">64%</div><div class="cap">caption for the first number</div></div>
+              <div class="card"><div class="num">2×</div><div class="cap">caption for the second number</div></div>
+              <div class="card"><div class="num">12</div><div class="cap">caption for the third number</div></div>
+            </div>
+            <div class="src">Source — citation here</div>
+          </div>
+          <div class="pageno">04</div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+      <!-- 05 · END -->
+      <section class="slide" data-type="End">
+        <div class="slide-inner f-ink t-end">
+          <div class="tag">CLOSE</div>
+          <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+          <div class="closing display">Closing imperative.</div>
+          <div class="contact">
+            <div><b>PRESENTER_NAME</b> &nbsp;·&nbsp; aha agile</div>
+            <div>ahaagile.com.au</div>
+          </div>
+          <div class="pageno">05</div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="prev">← Prev</button>
+  <div class="counter"><span class="now" id="now">01</span> / <span id="total">05</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
+  <button id="next">Next →</button>
+  <button id="grid">Grid</button>
+</div>
+
+<script src="../../../../shared/templates/aha-agile/engine.js"></script>
+</body>
+</html>

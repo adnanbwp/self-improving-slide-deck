@@ -131,6 +131,10 @@ Off on day one. Re-engages if [[Team/agent-index]] shrinks below 3 specialists.
 
 Cue rules route personal inputs to Penn. Business workstreams are handled by future specialists hired through Nolan, captured as Workstreams in Team Knowledge.
 
+### 10. Deck brand default
+
+Every slide deck is built on the aha agile templating system at `shared/templates/aha-agile/` (brand source of truth: `shared/aha-agile-brand/`). New decks start from its `deck-skeleton.html`; legacy decks are converted per its README's conversion playbook on their next improvement cycle (major version bump). Design selection runs per [[WS-006-slide-plan-design-selection]] — the design library is used only when Adnan explicitly requests an off-brand deck.
+
 ## Session-Log Triggers (LLM-agnostic)
 
 Any LLM working in this myPKA MUST honor these natural-language triggers and write a corresponding entry to `Team Knowledge/session-logs/YYYY/MM/YYYY-MM-DD-HH-MM_<agent>_<topic-slug>.md` following the `_template.md` schema.

@@ -1,0 +1,40 @@
+/* ============================================================
+   LAST DAY — DESIGN TOKENS
+   Single source of truth for the duotone editorial system.
+   Linked by: design-system reference, deck template, brand guide.
+   Change a value here once and every file updates.
+   ============================================================ */
+
+:root{
+
+  /* ---- BRAND COLOUR (the things you rebrand) ---- */
+  --orange:        #E0531E;   /* primary field · brand · "shouts"  */
+  --orange-tint:   #EE8050;   /* oversized numerals ON orange only  */
+  --paper:         #E1D9C6;   /* secondary field · warm cream · "reads" */
+  --paper-tint:    #CFC4AC;   /* oversized numerals ON paper only   */
+  --ink:           #1A1916;   /* all type, marks, the suit · "breaks" */
+  --bone:          #F6F3EC;   /* inverse type, badge ring, icons    */
+
+  /* ---- SURFACE / UI ---- */
+  --letterbox:     #0E0D0B;             /* deck stage backdrop      */
+  --control:       rgba(38,36,33,.62);  /* translucent glass buttons */
+
+  /* ---- TYPE (the other thing you rebrand) ---- */
+  --font-display:  'Archivo', system-ui, sans-serif;     /* heavy grotesque, weight 900 */
+  --font-mono:     'Space Mono', ui-monospace, monospace; /* labels, captions, body      */
+
+  /* ---- LINES ---- */
+  --hair:          1.5px solid var(--ink);
+
+  /* ---- SPACING · canonical 4-point scale ----
+     NOTE: the deck template is drawn in fixed 1280×720 "slide pixels"
+     and intentionally overrides --s-* locally to a larger scale.
+     That override is correct — leave it. These are the document defaults. */
+  --s-1: 4px;  --s-2: 8px;   --s-3: 12px; --s-4: 16px;  --s-5: 24px;
+  --s-6: 32px; --s-7: 48px;  --s-8: 64px; --s-9: 96px;  --s-10: 140px;
+
+  /* ---- RADII ---- */
+  --r-bar:  7px;     /* redaction bars            */
+  --r-ctrl: 22px;    /* icon / glass controls     */
+  --r-pill: 999px;   /* badge & circular marks    */
+}

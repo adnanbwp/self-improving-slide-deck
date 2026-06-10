@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>aha agile — Deck Template (21 layouts · 16:9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   aha agile — DECK TEMPLATE  ·  16:9  ·  21 slide types
+   Duotone editorial / Swiss-brutalist system.
+   All visual decisions live as CSS variables in :root.
+   ============================================================ */
+:root{
+  --orange:#E0531E;--orange-tint:#EE8050;--paper:#E1D9C6;--paper-tint:#CFC4AC;--ink:#1A1916;--bone:#F6F3EC;--letterbox:#0E0D0B;--control:rgba(38,36,33,.62);--font-display:'Archivo',system-ui,sans-serif;--font-mono:'Space Mono',ui-monospace,monospace;--hair:1.5px solid var(--ink);
+
+   
+    
+      
+  
+
+  
+  
+
+  /* deck unit scale (designed at 1280×720) */
+  --s-1:8px; --s-2:16px; --s-3:24px; --s-4:32px; --s-5:48px; --s-6:64px; --s-7:96px; --s-8:128px;
+  --r-bar:9px; --r-ctrl:26px; --r-pill:999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);overflow:hidden}
+
+/* ---- viewport / stage / scaling ---- */
+.viewport{position:fixed;inset:0;background:var(--letterbox);display:grid;place-items:center;overflow:hidden}
+.stage{width:1280px;height:720px;position:relative;transform-origin:center center;flex:none}
+.deck{position:absolute;inset:0}
+.slide{position:absolute;inset:0}
+.slide:not(.active){display:none}
+.slide-inner{width:1280px;height:720px;position:relative;overflow:hidden;font-size:16px;line-height:1.5}
+
+/* paper grain on every field */
+.slide-inner::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.45;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+
+/* ---- FIELDS ---- */
+.f-orange{background:var(--orange);color:var(--ink)}
+.f-paper{background:var(--paper);color:var(--ink)}
+.f-ink{background:var(--ink);color:var(--bone)}
+
+/* ---- shared slide chrome (the system's voice) ---- */
+.tag{position:absolute;top:var(--s-4);left:var(--s-5);font-family:var(--font-mono);font-weight:700;
+  font-size:13px;letter-spacing:.18em;text-transform:uppercase;z-index:5}
+.tag .dash{opacity:.5}
+.pageno{position:absolute;bottom:var(--s-4);right:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
+/* .slug renders the aha agile logo (mask + currentColor adapts to any field).
+   Keep the inner text "aha agile" as the accessibility/fallback label. */
+.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);z-index:5;width:59px;height:17px;opacity:.7;
+  background:currentColor;font-size:0;overflow:hidden;
+  -webkit-mask:url("aha-agile-logo-mono.svg") left center/contain no-repeat;
+  mask:url("aha-agile-logo-mono.svg") left center/contain no-repeat}
+
+/* recurring motifs */
+.bleed-num{position:absolute;font-family:var(--font-display);font-weight:900;line-height:.74;letter-spacing:-.05em;
+  user-select:none;white-space:nowrap;z-index:0}
+.badge{width:84px;height:84px;border-radius:var(--r-pill);background:var(--ink);display:flex;align-items:center;justify-content:center;border:3px solid var(--bone)}
+.badge svg{width:46px;height:46px}
+.bar{height:24px;border-radius:var(--r-bar)}
+.accent-rule{height:6px;width:120px;background:var(--ink);border-radius:var(--r-bar)}
+.f-ink .accent-rule,.f-orange .accent-rule{background:currentColor}
+
+/* type helpers */
+.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.96}
+.eyebrow{font-family:var(--font-mono);font-weight:700;font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
+.kv{font-family:var(--font-mono);font-size:14px}
+
+/* image placeholder — brutalist redaction style */
+.imgblock{position:relative;background:var(--ink);overflow:hidden}
+.imgblock::before{content:"";position:absolute;inset:0;opacity:.18;
+  background-image:repeating-linear-gradient(45deg,var(--bone) 0 2px,transparent 2px 22px)}
+.imgblock .imtag{position:absolute;bottom:14px;left:16px;font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;color:var(--bone);opacity:.7}
+
+/* annotation */
+.annot{position:absolute;text-align:center;z-index:5}
+.annot .l{font-family:var(--font-mono);font-style:italic;font-size:16px}
+.annot svg{display:block;margin:4px auto 0;width:46px;height:54px}
+
+/* =========================================================
+   PER-TYPE LAYOUTS
+   ========================================================= */
+.pad{position:absolute;inset:0;padding:var(--s-6) var(--s-7)}
+
+/* 00 Title */
+.t00 .topiclabel{position:absolute;top:140px;left:var(--s-7);font-size:18px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.t00 h1{position:absolute;top:200px;left:var(--s-7);font-size:170px}
+.t00 .meta{position:absolute;bottom:var(--s-6);left:var(--s-7);display:flex;gap:var(--s-6)}
+.t00 .badge{position:absolute;top:150px;right:160px}
+.t00 .bleed-num{font-size:520px;color:var(--orange-tint);right:-60px;top:120px}
+
+/* 01 Statement */
+.t01 .claim{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);max-width:980px;font-size:96px}
+
+/* 02 Stat */
+.t02 .big{position:absolute;left:var(--s-7);top:46%;transform:translateY(-50%);font-size:340px;color:var(--ink)}
+.t02 .lab{position:absolute;left:var(--s-7);bottom:120px;font-family:var(--font-mono);font-weight:700;font-size:22px;letter-spacing:.1em;text-transform:uppercase;max-width:760px}
+
+/* 03 Evidence */
+.t03 .big{font-size:240px}
+.t03 .ctx{max-width:760px;font-size:22px;margin-top:var(--s-2)}
+.t03 .src{font-family:var(--font-mono);font-size:14px;letter-spacing:.06em;opacity:.65;margin-top:var(--s-2)}
+.t03 .col{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%)}
+
+/* 04 Quote */
+.t04 .q{position:absolute;left:var(--s-7);right:var(--s-7);top:46%;transform:translateY(-50%);font-family:var(--font-mono);font-style:italic;font-size:48px;line-height:1.3;max-width:1000px}
+.t04 .by{position:absolute;left:var(--s-7);bottom:120px;font-family:var(--font-mono);font-size:16px;letter-spacing:.06em}
+.t04 .by b{font-weight:700}
+
+/* 05 Comparison (split on the seam) */
+.t05{display:flex}
+.t05 .half{flex:1;padding:var(--s-7);display:flex;flex-direction:column;justify-content:center}
+.t05 .lab{font-family:var(--font-mono);font-weight:700;font-size:16px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.t05 .val{font-family:var(--font-display);font-weight:900;font-size:120px;line-height:.96;margin-top:var(--s-2)}
+.t05 .desc{font-size:18px;margin-top:var(--s-3);max-width:360px}
+
+/* 06 List */
+.t06 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:64px;max-width:900px}
+.t06 ul{position:absolute;left:var(--s-7);right:var(--s-7);bottom:120px;list-style:none;display:flex;flex-direction:column;gap:var(--s-2)}
+.t06 li{display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--font-mono);font-size:24px;border-top:2px solid var(--ink);padding-top:14px}
+.t06 li .n{font-weight:700;font-size:16px;letter-spacing:.1em;opacity:.55;min-width:42px}
+
+/* 07 Image + Claim */
+.t07 .imgblock{position:absolute;inset:0}
+.t07 .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.96;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+
+/* 08 Question / Hook */
+.t08 .q{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-50%);font-size:104px;max-width:1080px}
+
+/* 09 CTA */
+.t09 .imperative{position:absolute;left:var(--s-7);top:42%;transform:translateY(-50%);font-size:108px;max-width:980px}
+.t09 .btn{position:absolute;left:var(--s-7);bottom:130px;display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:var(--bone);
+  font-family:var(--font-mono);font-weight:700;font-size:20px;letter-spacing:.04em;padding:18px 30px;border-radius:var(--r-ctrl)}
+
+/* 10 Section Divider (ink break) */
+.t10 .partno{position:absolute;left:var(--s-7);top:var(--s-6);font-family:var(--font-mono);font-weight:700;font-size:20px;letter-spacing:.3em;opacity:.6}
+.t10 .accent-rule{position:absolute;left:var(--s-7);top:46%;background:var(--orange)}
+.t10 h2{position:absolute;left:var(--s-7);top:calc(46% + 30px);font-size:120px}
+.t10 .bleed-num{font-size:560px;color:rgba(246,243,236,.06);right:-40px;top:60px}
+
+/* 11 Chart */
+.t11 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px;max-width:820px}
+.t11 .chart{position:absolute;left:var(--s-7);right:var(--s-7);bottom:120px;height:360px;display:flex;align-items:flex-end;gap:var(--s-4);border-bottom:3px solid var(--ink)}
+.t11 .colb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.t11 .colb .b{width:100%;border-radius:var(--r-bar) var(--r-bar) 0 0;background:var(--orange)}
+.t11 .colb:nth-child(even) .b{background:var(--ink)}
+.t11 .colb .x{margin-top:12px;font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;opacity:.7}
+.t11 .colb .v{margin-bottom:8px;font-family:var(--font-mono);font-weight:700;font-size:14px}
+
+/* 12 Timeline */
+.t12 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t12 .line{position:absolute;left:var(--s-7);right:var(--s-7);top:54%;height:4px;background:var(--ink)}
+.t12 .ev{position:absolute;top:54%;transform:translate(-50%,0);text-align:center;width:200px}
+.t12 .ev .dot{width:20px;height:20px;border-radius:var(--r-pill);background:var(--orange);border:4px solid var(--paper);margin:-12px auto 0}
+.t12 .ev .d{font-family:var(--font-mono);font-weight:700;font-size:18px;margin-top:14px}
+.t12 .ev .lab{font-family:var(--font-mono);font-size:14px;opacity:.7;margin-top:6px}
+
+/* 13 Split */
+.t13{display:flex}
+.t13 .text{flex:1;padding:var(--s-7);display:flex;flex-direction:column;justify-content:center}
+.t13 .text h3{font-family:var(--font-display);font-weight:900;font-size:60px;letter-spacing:-.03em;line-height:.96}
+.t13 .text p{font-size:20px;margin-top:var(--s-3);max-width:420px}
+.t13 .imgblock{flex:1}
+
+/* 14 Process / Steps */
+.t14 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t14 .steps{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:var(--s-2)}
+.t14 .step{flex:1;text-align:center}
+.t14 .step .num{width:84px;height:84px;border-radius:var(--r-pill);background:var(--ink);color:var(--bone);
+  font-family:var(--font-display);font-weight:900;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.t14 .step .lab{font-family:var(--font-mono);font-size:16px;margin-top:16px;line-height:1.35}
+.t14 .arrow{color:var(--orange);font-size:40px;font-weight:700;flex:none}
+
+/* 15 Table of Contents */
+.t15 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:40px}
+.t15 ol{position:absolute;left:var(--s-7);right:var(--s-7);top:200px;list-style:none;columns:2;column-gap:var(--s-7)}
+.t15 li{display:flex;gap:var(--s-3);font-family:var(--font-mono);font-size:22px;padding:14px 0;border-bottom:2px solid var(--ink);break-inside:avoid}
+.t15 li .n{font-weight:700;opacity:.55}
+
+/* 16 About / Vision */
+.t16 .eyebrow{position:absolute;left:var(--s-7);top:var(--s-6)}
+.t16 .vision{position:absolute;left:var(--s-7);right:var(--s-7);top:200px;font-size:64px;max-width:1040px;line-height:.96}
+.t16 .narr{position:absolute;left:var(--s-7);right:var(--s-7);bottom:110px;font-family:var(--font-mono);font-size:18px;max-width:760px;line-height:1.6}
+
+/* 17 Team / People */
+.t17 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t17 .row{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-44%);display:flex;gap:var(--s-5);justify-content:flex-start}
+.t17 .person{text-align:center;width:200px}
+.t17 .person .badge{width:120px;height:120px;margin:0 auto}
+.t17 .person .badge svg{width:60px;height:60px}
+.t17 .person .nm{font-family:var(--font-display);font-weight:900;font-size:24px;margin-top:18px}
+.t17 .person .ro{font-family:var(--font-mono);font-size:14px;opacity:.7;margin-top:4px}
+
+/* 18 Services / Offerings */
+.t18 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t18 .grid{position:absolute;left:var(--s-7);right:var(--s-7);bottom:90px;top:200px;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+.t18 .svc{border:2.5px solid var(--ink);border-radius:var(--r-bar);padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;justify-content:center}
+.t18 .svc svg{width:40px;height:40px;margin-bottom:14px}
+.t18 .svc .nm{font-family:var(--font-display);font-weight:900;font-size:26px}
+.t18 .svc .ds{font-family:var(--font-mono);font-size:15px;opacity:.75;margin-top:6px}
+
+/* 19 Gallery */
+.t19 .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:40px}
+.t19 .grid{position:absolute;left:var(--s-7);right:var(--s-7);bottom:90px;top:190px;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-2)}
+.t19 .imgblock{border-radius:var(--r-bar)}
+
+/* 20 About Me */
+.t20 .photo{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);width:300px;height:380px;border-radius:18px}
+.t20 .info{position:absolute;left:460px;right:var(--s-7);top:50%;transform:translateY(-50%)}
+.t20 .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.96}
+.t20 .info .ti{font-family:var(--font-mono);font-weight:700;font-size:18px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px;opacity:.75}
+.t20 .info .bio{font-family:var(--font-mono);font-size:18px;line-height:1.6;margin-top:var(--s-3);max-width:560px}
+.t20 .info .tags{display:flex;gap:12px;margin-top:var(--s-3);flex-wrap:wrap}
+.t20 .info .tags span{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;border:2px solid var(--ink);border-radius:var(--r-pill);padding:6px 16px}
+
+/* =========================================================
+   DECK CONTROLS (live in the dark letterbox, never on a field)
+   ========================================================= */
+.controls{position:fixed;left:0;right:0;bottom:18px;display:flex;align-items:center;justify-content:center;gap:18px;z-index:50;
+  font-family:var(--font-mono);color:var(--bone)}
+.controls button{font-family:var(--font-mono);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  background:transparent;color:var(--bone);border:1.5px solid rgba(246,243,236,.3);border-radius:var(--r-ctrl);
+  padding:9px 16px;cursor:pointer;transition:background .15s ease,transform .15s ease}
+.controls button:hover{background:rgba(246,243,236,.12);transform:translateY(-1px)}
+.counter{font-size:13px;letter-spacing:.14em;min-width:120px;text-align:center}
+.counter .now{font-weight:700;color:var(--orange-tint)}
+.hint{position:fixed;top:18px;left:22px;z-index:50;font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;color:rgba(246,243,236,.45)}
+
+/* overview / grid mode */
+body.grid{overflow:auto}
+body.grid .viewport{position:static;display:block;height:auto;padding:80px 40px 120px;place-items:start}
+body.grid .stage{transform:none!important;width:100%;height:auto}
+body.grid .deck{position:static;display:grid;grid-template-columns:repeat(auto-fill,330px);justify-content:center;gap:26px}
+body.grid .slide{position:relative;inset:auto;display:block!important;width:330px;aspect-ratio:16/9;overflow:hidden;
+  border:2px solid #2c2a27;border-radius:6px;cursor:pointer;transition:border-color .15s ease,transform .15s ease}
+body.grid .slide:hover{border-color:var(--orange);transform:translateY(-3px)}
+body.grid .slide-inner{position:absolute;top:0;left:0;transform:scale(.2578);transform-origin:top left}
+body.grid .controls,body.grid .hint{position:fixed}
+.gridtitle{display:none}
+body.grid .gridtitle{display:block;font-family:var(--font-display);font-weight:900;color:var(--bone);font-size:28px;letter-spacing:-.02em;
+  padding:0 0 4px;position:fixed;top:54px;left:40px;z-index:40}
+</style>
+</head>
+<body>
+
+<div class="hint">← → navigate &nbsp;·&nbsp; G grid &nbsp;·&nbsp; F fullscreen</div>
+<div class="gridtitle">aha agile — 21 layouts</div>
+
+<div class="viewport">
+  <div class="stage">
+    <div class="deck" id="deck">
+
+      <!-- 00 TITLE -->
+      <section class="slide active" data-type="00 Title">
+        <div class="slide-inner f-orange t00">
+          <div class="tag">00 <span class="dash">—</span> Title</div>
+          <div class="bleed-num">26</div>
+          <div class="topiclabel">AI + Human Teams</div>
+          <h1 class="display">aha<br>agile</h1>
+          <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+          <div class="meta">
+            <div class="kv"><b>Presenter</b><br>aha agile</div>
+            <div class="kv"><b>Date</b><br>2026</div>
+          </div>
+          <div class="slug">aha agile</div>
+        </div>
+      </section>
+
+      <!-- 01 STATEMENT -->
+      <section class="slide" data-type="01 Statement">
+        <div class="slide-inner f-orange t01">
+          <div class="tag">01 <span class="dash">—</span> Statement</div>
+          <div class="claim display">Adding AI to a broken process just breaks it faster.</div>
+          <div class="pageno">02</div>
+        </div>
+      </section>
+
+      <!-- 02 STAT -->
+      <section class="slide" data-type="02 Stat">
+        <div class="slide-inner f-paper t02">
+          <div class="tag">02 <span class="dash">—</span> Stat</div>
+          <div class="big display">47%</div>
+          <div class="lab">of knowledge work is just coordination</div>
+          <div class="pageno">03</div>
+        </div>
+      </section>
+
+      <!-- 03 EVIDENCE -->
+      <section class="slide" data-type="03 Evidence">
+        <div class="slide-inner f-paper t03">
+          <div class="tag">03 <span class="dash">—</span> Evidence</div>
+          <div class="col">
+            <div class="big display">2×</div>
+            <div class="ctx">Hybrid teams ship roughly twice as fast once AI takes the busywork.</div>
+            <div class="src">Source — your data here</div>
+          </div>
+          <div class="pageno">04</div>
+        </div>
+      </section>
+
+      <!-- 04 QUOTE -->
+      <section class="slide" data-type="04 Quote">
+        <div class="slide-inner f-paper t04">
+          <div class="tag">04 <span class="dash">—</span> Quote</div>
+          <div class="q">“Process should serve the team — not the other way round.”</div>
+          <div class="by"><b>A. Coach</b> &nbsp;·&nbsp; Agile Practitioner</div>
+          <div class="pageno">05</div>
+        </div>
+      </section>
+
+      <!-- 05 COMPARISON -->
+      <section class="slide" data-type="05 Comparison">
+        <div class="slide-inner t05">
+          <div class="tag" style="color:var(--ink)">05 <span class="dash">—</span> Comparison</div>
+          <div class="half f-orange">
+            <div class="lab">Before</div><div class="val display">9</div>
+            <div class="desc">tools open, no flow.</div>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">After</div><div class="val display">1</div>
+            <div class="desc">one cadence that ships.</div>
+          </div>
+          <div class="pageno" style="color:var(--ink)">06</div>
+        </div>
+      </section>
+
+      <!-- 06 LIST -->
+      <section class="slide" data-type="06 List">
+        <div class="slide-inner f-paper t06">
+          <div class="tag">06 <span class="dash">—</span> List</div>
+          <div class="head display">What hybrid teams do differently</div>
+          <ul>
+            <li><span class="n">01</span><span>Let AI draft, humans decide</span></li>
+            <li><span class="n">02</span><span>Shorter loops, faster feedback</span></li>
+            <li><span class="n">03</span><span>Coordination treated as real work</span></li>
+            <li><span class="n">04</span><span>Coaching, not managing</span></li>
+          </ul>
+          <div class="pageno">07</div>
+        </div>
+      </section>
+
+      <!-- 07 IMAGE + CLAIM -->
+      <section class="slide" data-type="07 Image + Claim">
+        <div class="slide-inner t07">
+          <div class="imgblock"><span class="imtag">IMAGE — full bleed</span></div>
+          <div class="tag" style="color:var(--bone)">07 <span class="dash">—</span> Image + Claim</div>
+          <div class="claim">AI is a teammate, not a tool.</div>
+          <div class="pageno" style="color:var(--bone)">08</div>
+        </div>
+      </section>
+
+      <!-- 08 QUESTION / HOOK -->
+      <section class="slide" data-type="08 Question / Hook">
+        <div class="slide-inner f-orange t08">
+          <div class="tag">08 <span class="dash">—</span> Question / Hook</div>
+          <div class="q display">Where is your team actually losing time?</div>
+          <div class="annot" style="top:120px;right:140px">
+            <div class="l">no pressure.</div>
+            <svg viewBox="0 0 46 54"><path d="M6 4C30 10 38 24 30 46" fill="none" stroke="#1A1916" stroke-width="2"/><path d="M22 38l8 9 8-12" fill="none" stroke="#1A1916" stroke-width="2"/></svg>
+          </div>
+          <div class="pageno">09</div>
+        </div>
+      </section>
+
+      <!-- 09 CTA -->
+      <section class="slide" data-type="09 CTA">
+        <div class="slide-inner f-orange t09">
+          <div class="tag">09 <span class="dash">—</span> CTA</div>
+          <div class="imperative display">Run one hybrid sprint. Start Monday.</div>
+          <a class="btn">ahaagile.com.au &nbsp;→</a>
+          <div class="pageno">10</div>
+        </div>
+      </section>
+
+      <!-- 10 SECTION DIVIDER -->
+      <section class="slide" data-type="10 Section Divider">
+        <div class="slide-inner f-ink t10">
+          <div class="tag">10 <span class="dash">—</span> Section Divider</div>
+          <div class="bleed-num">02</div>
+          <div class="partno">PART TWO</div>
+          <div class="accent-rule"></div>
+          <h2 class="display">The Method</h2>
+          <div class="pageno">11</div>
+        </div>
+      </section>
+
+      <!-- 11 CHART -->
+      <section class="slide" data-type="11 Chart / Graph">
+        <div class="slide-inner f-paper t11">
+          <div class="tag">11 <span class="dash">—</span> Chart / Graph</div>
+          <div class="head display">Cycle time, by quarter</div>
+          <div class="chart">
+            <div class="colb"><span class="v">92</span><span class="b" style="height:90%"></span><span class="x">Q1</span></div>
+            <div class="colb"><span class="v">61</span><span class="b" style="height:60%"></span><span class="x">Q2</span></div>
+            <div class="colb"><span class="v">38</span><span class="b" style="height:37%"></span><span class="x">Q3</span></div>
+            <div class="colb"><span class="v">74</span><span class="b" style="height:72%"></span><span class="x">Q4</span></div>
+          </div>
+          <div class="pageno">12</div>
+        </div>
+      </section>
+
+      <!-- 12 TIMELINE -->
+      <section class="slide" data-type="12 Timeline">
+        <div class="slide-inner f-paper t12">
+          <div class="tag">12 <span class="dash">—</span> Timeline</div>
+          <div class="head display">A team's first quarter</div>
+          <div class="line"></div>
+          <div class="ev" style="left:16%"><div class="dot"></div><div class="d">WK1</div><div class="lab">Audit</div></div>
+          <div class="ev" style="left:40%"><div class="dot"></div><div class="d">WK4</div><div class="lab">Pilot</div></div>
+          <div class="ev" style="left:64%"><div class="dot"></div><div class="d">WK8</div><div class="lab">Scale</div></div>
+          <div class="ev" style="left:86%"><div class="dot"></div><div class="d">WK12</div><div class="lab">Embedded</div></div>
+          <div class="pageno">13</div>
+        </div>
+      </section>
+
+      <!-- 13 SPLIT -->
+      <section class="slide" data-type="13 Split (text + image)">
+        <div class="slide-inner t13">
+          <div class="text f-paper">
+            <div class="tag" style="color:var(--ink)">13 <span class="dash">—</span> Split</div>
+            <h3>AI does the busywork. Humans do the judgement.</h3>
+            <p>Hybrid teams don't replace people. They free them from the coordination grind so the thinking gets full attention.</p>
+          </div>
+          <div class="imgblock"><span class="imtag">IMAGE — half</span></div>
+        </div>
+      </section>
+
+      <!-- 14 PROCESS / STEPS -->
+      <section class="slide" data-type="14 Process / Steps">
+        <div class="slide-inner f-paper t14">
+          <div class="tag">14 <span class="dash">—</span> Process / Steps</div>
+          <div class="head display">How we work</div>
+          <div class="steps">
+            <div class="step"><div class="num">1</div><div class="lab">Audit<br>the flow</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">2</div><div class="lab">Pair with<br>AI</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">3</div><div class="lab">Coach the<br>team</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">4</div><div class="lab">Embed the<br>habit</div></div>
+          </div>
+          <div class="pageno">15</div>
+        </div>
+      </section>
+
+      <!-- 15 TABLE OF CONTENTS -->
+      <section class="slide" data-type="15 Table of Contents">
+        <div class="slide-inner f-paper t15">
+          <div class="tag">15 <span class="dash">—</span> Table of Contents</div>
+          <div class="head display">What we'll cover</div>
+          <ol>
+            <li><span class="n">01</span> Where teams lose time</li>
+            <li><span class="n">02</span> The hybrid method</li>
+            <li><span class="n">03</span> What changes</li>
+            <li><span class="n">04</span> The proof</li>
+            <li><span class="n">05</span> Getting started</li>
+            <li><span class="n">06</span> Your move</li>
+          </ol>
+          <div class="pageno">16</div>
+        </div>
+      </section>
+
+      <!-- 16 ABOUT / VISION -->
+      <section class="slide" data-type="16 About / Vision">
+        <div class="slide-inner f-orange t16">
+          <div class="tag">16 <span class="dash">—</span> About / Vision</div>
+          <div class="eyebrow">Our belief</div>
+          <div class="vision display">Teams work best when AI does the busywork and humans do the thinking.</div>
+          <div class="narr">aha agile helps teams adopt hybrid AI + human ways of working — practical, calm, and built to outlast the hype.</div>
+          <div class="pageno">17</div>
+        </div>
+      </section>
+
+      <!-- 17 TEAM / PEOPLE -->
+      <section class="slide" data-type="17 Team / People">
+        <div class="slide-inner f-paper t17">
+          <div class="tag">17 <span class="dash">—</span> Team / People</div>
+          <div class="head display">The team</div>
+          <div class="row">
+            <div class="person"><div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F3EC" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M5 20c1-4 5-5 7-5s6 1 7 5"/></svg></div><div class="nm">A. Coach</div><div class="ro">Lead Coach</div></div>
+            <div class="person"><div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F3EC" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M5 20c1-4 5-5 7-5s6 1 7 5"/></svg></div><div class="nm">B. Facilitator</div><div class="ro">Delivery</div></div>
+            <div class="person"><div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="#F6F3EC" stroke-width="1.4"><circle cx="12" cy="9" r="4"/><path d="M5 20c1-4 5-5 7-5s6 1 7 5"/></svg></div><div class="nm">C. Analyst</div><div class="ro">AI Enablement</div></div>
+          </div>
+          <div class="pageno">18</div>
+        </div>
+      </section>
+
+      <!-- 18 SERVICES / OFFERINGS -->
+      <section class="slide" data-type="18 Services / Offerings">
+        <div class="slide-inner f-paper t18">
+          <div class="tag">18 <span class="dash">—</span> Services / Offerings</div>
+          <div class="head display">What we offer</div>
+          <div class="grid">
+            <div class="svc"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1916" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h10"/></svg><div class="nm">Team Audits</div><div class="ds">Find where flow breaks down.</div></div>
+            <div class="svc"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1916" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><div class="nm">Hybrid Sprints</div><div class="ds">AI + human delivery cadences.</div></div>
+            <div class="svc"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1916" stroke-width="1.5"><path d="M4 19V5l8 4 8-4v14"/></svg><div class="nm">AI Enablement</div><div class="ds">Tooling teams will actually use.</div></div>
+            <div class="svc"><svg viewBox="0 0 24 24" fill="none" stroke="#1A1916" stroke-width="1.5"><path d="M12 3v18M3 12h18"/></svg><div class="nm">Coaching</div><div class="ds">Embed the habits for good.</div></div>
+          </div>
+          <div class="pageno">19</div>
+        </div>
+      </section>
+
+      <!-- 19 GALLERY -->
+      <section class="slide" data-type="19 Gallery / Work Samples">
+        <div class="slide-inner f-paper t19">
+          <div class="tag">19 <span class="dash">—</span> Gallery</div>
+          <div class="head display">Case snapshots</div>
+          <div class="grid">
+            <div class="imgblock"><span class="imtag">01</span></div>
+            <div class="imgblock"><span class="imtag">02</span></div>
+            <div class="imgblock"><span class="imtag">03</span></div>
+            <div class="imgblock"><span class="imtag">04</span></div>
+            <div class="imgblock"><span class="imtag">05</span></div>
+            <div class="imgblock"><span class="imtag">06</span></div>
+          </div>
+          <div class="pageno">20</div>
+        </div>
+      </section>
+
+      <!-- 20 ABOUT ME -->
+      <section class="slide" data-type="20 About Me">
+        <div class="slide-inner f-paper t20">
+          <div class="tag">20 <span class="dash">—</span> About Me</div>
+          <div class="imgblock photo"><span class="imtag">PHOTO</span></div>
+          <div class="info">
+            <div class="nm">Your Name</div>
+            <div class="ti">Founder · aha agile</div>
+            <div class="bio">I help teams blend AI and human ways of working — without the theatre. Two decades in delivery, now coaching hybrid teams to ship calmly.</div>
+            <div class="tags"><span>agile</span><span>coaching</span><span>AI</span><span>facilitation</span></div>
+          </div>
+          <div class="pageno">21</div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="prev">← Prev</button>
+  <div class="counter"><span class="now" id="now">01</span> / <span id="total">21</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
+  <button id="next">Next →</button>
+  <button id="grid">Grid</button>
+</div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const stage=document.querySelector('.stage');
+  const nowEl=document.getElementById('now');
+  const tnameEl=document.getElementById('tname');
+  let i=0;
+
+  function pad(n){return String(n+1).padStart(2,'0');}
+  function show(n){
+    i=(n+slides.length)%slides.length;
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    nowEl.textContent=pad(i);
+    tnameEl.textContent='· '+slides[i].dataset.type.replace(/^\d+\s/,'');
+  }
+  function fit(){
+    if(document.body.classList.contains('grid')) return;
+    const m=0.94;
+    const s=Math.min(window.innerWidth/1280, window.innerHeight/720)*m;
+    stage.style.transform='scale('+s+')';
+  }
+  document.getElementById('next').onclick=()=>show(i+1);
+  document.getElementById('prev').onclick=()=>show(i-1);
+  document.getElementById('grid').onclick=toggleGrid;
+
+  function toggleGrid(){
+    document.body.classList.toggle('grid');
+    if(document.body.classList.contains('grid')){stage.style.transform='none';}
+    else{fit();show(i);}
+  }
+  // click a thumbnail in grid mode to open it
+  slides.forEach((s,k)=>s.addEventListener('click',()=>{
+    if(document.body.classList.contains('grid')){document.body.classList.remove('grid');fit();show(k);}
+  }));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();show(i+1);}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();show(i-1);}
+    else if(e.key==='Home'){show(0);}
+    else if(e.key==='End'){show(slides.length-1);}
+    else if(e.key.toLowerCase()==='g'){toggleGrid();}
+    else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+  });
+  window.addEventListener('resize',fit);
+  fit();show(0);
+})();
+</script>
+</body>
+</html>
