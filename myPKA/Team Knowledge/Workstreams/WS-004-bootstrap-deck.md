@@ -128,7 +128,9 @@ WS-006 exits with an approved slide plan, a chosen template recorded in `pov.md`
 
 Larry briefs Coda:
 
-> "Produce `decks/<slug>/versions/v1.0.0/canonical.html` and audience variants `<audiences>`. Approved slide plan: `decks/<slug>/reports/YYYY-MM-DD-slide-plan-v1.md`. Chosen template: read `design_template` from `decks/<slug>/pov.md` and use `shared/design-library/<template>/sample.html` and `README.md` as your visual reference. Raw source: `shared/design-library/_source/`. Write each slide against its row in the slide plan — type, purpose, and content_summary are the brief for that slide. Honour all Coda tips from the design proposal. After producing HTML, run the humanizer skill on all slide text and speaker notes."
+> "Produce `decks/<slug>/versions/v1.0.0/canonical.html` and audience variants `<audiences>`. Approved slide plan: `decks/<slug>/reports/YYYY-MM-DD-slide-plan-v1.md`. Template system: copy `shared/templates/aha-agile/deck-skeleton.html` as your starting point and build every slide from the `t-*` layout catalogue in `shared/templates/aha-agile/README.md` — its content budgets and field rules (orange shouts / paper reads / ink breaks) are binding. Use the layout and field assigned per slide in the design proposal. Write each slide against its row in the slide plan — type, purpose, and content_summary are the brief for that slide. Honour all Coda tips from the design proposal. After producing HTML, run the humanizer skill on all slide text and speaker notes."
+>
+> (Off-brand decks only — when `design_template` in `pov.md` is not `aha-agile`: use `shared/design-library/<template>/sample.html` and `README.md` as the visual reference, raw source at `shared/design-library/_source/`.)
 
 Coda output: `versions/v1.0.0/canonical.html` + `versions/v1.0.0/<audience>.html` × N.
 

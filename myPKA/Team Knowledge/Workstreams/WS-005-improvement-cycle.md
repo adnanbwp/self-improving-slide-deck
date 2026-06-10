@@ -91,7 +91,7 @@ WS-006 applies carry-forward logic: Coda updates only rows where new evidence wa
 
 Larry briefs Coda:
 
-> "Update `decks/<slug>/versions/<current_version>/` to produce `decks/<slug>/versions/<next_version>/`. Approved slide plan: `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`. Chosen template: read `design_template` from `decks/<slug>/pov.md` and use `shared/design-library/<template>/sample.html` and `README.md` as your visual reference. Raw source: `shared/design-library/_source/`. Write each slide against its row in the slide plan. Update only what the new evidence warrants — do not rewrite slides that carry forward unchanged. Honour all Coda tips from the design proposal. After producing HTML, run the humanizer skill on all modified slide text and speaker notes."
+> "Update `decks/<slug>/versions/<current_version>/` to produce `decks/<slug>/versions/<next_version>/`. Approved slide plan: `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`. Template system: the deck is on the aha agile system (`shared/templates/aha-agile/`) — build slides from the `t-*` layout catalogue in its README; content budgets and field rules are binding. If `<current_version>` pre-dates the aha agile system (Reveal.js or custom-engine deck), convert it per the conversion playbook in `shared/templates/aha-agile/README.md` as part of this cycle and bump the major version. Write each slide against its row in the slide plan. Update only what the new evidence warrants — do not rewrite slides that carry forward unchanged. Honour all Coda tips from the design proposal. After producing HTML, run the humanizer skill on all modified slide text and speaker notes."
 
 Coda output: `versions/<next_version>/canonical.html` + all active audience variants.
 

@@ -2,7 +2,18 @@
 
 A closing credits slide crediting the human presenter and the AI specialist team. Use as the final slide in any deck.
 
-## Visual spec
+## Visual spec — aha agile decks (brand default from 2026-06-10)
+
+Use the `t-team-avatars` layout from `shared/templates/aha-agile/layouts.css` — no per-deck CSS needed:
+
+- **Field:** `f-paper` on the `.slide-inner`
+- **Header:** `.tag` = `Credits`; `h2.head.display` = `The team behind this deck`
+- **Layout:** `.pad` > `.rows` > `.row` > `.person` (`.av` + `.nm` + `.ro`), row split per the table below
+- **Avatar:** 92px circle (`.av`), ink ring, initials fallback behind the `<img>`
+- **Adnan's card:** add `.presenter` to his `.av` for the orange ring
+- **Reference implementations:** `decks/hybrid-delivery/versions/v2.0.0/canonical.html` slide 27 (9 members, 3-3-3) and `decks/ai-and-kids/versions/v2.0.0/canonical.html` slide 20 (12 members, 4-4-4)
+
+## Visual spec — legacy Signal decks (pre-v2 maintenance only)
 
 - **Background:** cream (no `.dark` class on `<section>`)
 - **Header:** `.kicker` + `<hr class="rule">` — text is always `The team behind this deck`

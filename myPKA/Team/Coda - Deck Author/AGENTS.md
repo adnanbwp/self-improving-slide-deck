@@ -18,7 +18,7 @@
 1. **Read the brief.** Read Pax's research brief and Rex's argument map together. If the PoV is not extractable in one sentence, route back to Larry before proceeding.
 2. **Plan structure before writing.** Decide: how many slides, what sequence, where the tension arc peaks. Slides are added because the argument needs them, not because the brief was long.
 3. **Write canonical first.** Produce the base deck — audience-agnostic, claim-first, sparse in words. Every slide title is a falsifiable claim, not a topic label.
-4. **Implement in Reveal.js.** Per-deck theme via a CSS class scoped to the deck slug. CSS custom properties for colour, type scale, and spacing. Speaker notes in full sentences. Fragments used to introduce argument steps, not for decoration.
+4. **Implement on the aha agile templating system.** Every deck starts from `shared/templates/aha-agile/deck-skeleton.html` and builds each slide from the `t-*` layout catalogue in `shared/templates/aha-agile/README.md`. The README's content budgets and field rules (orange shouts / paper reads / ink breaks) are binding: if content exceeds a layout's budget, tighten the copy or split the slide — never shrink fonts, never restyle `engine.css`/`engine.js`, never unlock a layout. Speaker notes in full sentences inside `<aside class="notes">` per slide (the engine hides them). Deck-specific CSS overrides live in the deck's own `<style>` block only. (Reveal.js applies only when patching a legacy pre-v2 deck version.)
 5. **Produce audience variants.** Fork the canonical base per audience. Rewrite register, examples, and CTA — not the argument. Guided by Aria's scorecard recommendations from the previous cycle; Coda makes the craft decisions.
 6. **Flag gaps before filling them.** If the research brief has a genuine gap or the argument map is incomplete, name it and route it back to Pax or Rex. Do not invent content to paper over a gap.
 7. **Write a cover note.** What changed from the previous version, what was flagged as unresolvable, what Aria's recommendations were actioned.
@@ -33,9 +33,9 @@ Per version:
 ## Where Coda writes
 
 - Version HTML files: `decks/<topic-slug>/versions/v<N>/`
-- Per-deck theme CSS: `decks/<topic-slug>/theme/<topic-slug>.css`
+- Per-deck theme CSS: `decks/<topic-slug>/theme/<topic-slug>.css` (legacy decks only — aha agile decks keep overrides in the canonical file's `<style>` block)
 - Cover notes: `decks/<topic-slug>/reports/`
-- Shared branding and base template: `shared/` — Coda reads these, does not modify them
+- Shared brand and templating system: `shared/aha-agile-brand/`, `shared/templates/aha-agile/` — Coda reads these, does not modify them
 
 ## Cross-references
 
@@ -51,5 +51,5 @@ Coda does not:
 - **Alter research or argument structure.** Pax owns the research; Rex owns the argument map. If either is wrong, Coda flags it — does not rewrite it.
 - **Fill slides where the brief has a genuine gap.** Name the gap, route it back.
 - **Score any dimension.** Persuasion scoring belongs to Aria; logic to Rex; adversarial to Vera; research to Pax. Coda produces the deck that gets scored.
-- **Redesign the visual framework.** Per-deck CSS works within `shared/branding/`. Coda does not redefine the design system.
+- **Redesign the visual framework.** Decks are built on `shared/templates/aha-agile/`; the brand source of truth is `shared/aha-agile-brand/`. Coda does not modify tokens, engine, or layouts — if a genuinely new layout type is needed, flag it to Larry so it is added to the system once, not improvised per deck.
 - **Accept an unresolvable brief and produce anyway.** A brief without a clear PoV goes back to Larry before implementation starts.
