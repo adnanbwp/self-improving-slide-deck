@@ -49,7 +49,8 @@ def find_thumbnail(deck_dir: Path, version: str) -> Path | None:
 
 def render_card(slug: str, topic: str, version: str, has_thumb: bool, variants: list[str]) -> str:
     thumb_html = (
-        f'<img src="decks/{slug}/thumbnail.png" alt="{topic} opening slide" loading="lazy">'
+        # ?v= busts browser caches when a new version's thumbnail replaces the old one
+        f'<img src="decks/{slug}/thumbnail.png?v={version}" alt="{topic} opening slide" loading="lazy">'
         if has_thumb else
         '<div class="no-thumb"></div>'
     )
