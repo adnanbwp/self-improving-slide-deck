@@ -24,7 +24,10 @@
 
 <style>
 /* Deck-specific overrides only. */
-.t-title .subtitle{position:absolute;left:var(--s-7);top:548px;font-family:var(--font-mono);font-size:18px;max-width:620px;line-height:1.55}
+.t-title .subtitle{position:absolute;left:var(--s-7);top:560px;font-family:var(--font-mono);font-size:18px;max-width:620px;line-height:1.55}
+/* Appendix D runs at the 7-card budget ceiling; tighten the dense grid so the src line clears the footer logo */
+.s-appendix-d .grid.dense{gap:16px}
+.s-appendix-d .grid.dense .card{padding:11px 22px}
 </style>
 </head>
 <body>
@@ -730,7 +733,7 @@
 
       <!-- 32 · CARDS — Appendix D -->
       <section class="slide" data-type="Cards">
-        <div class="slide-inner f-paper t-cards">
+        <div class="slide-inner f-paper t-cards s-appendix-d">
           <div class="tag">Appendix D</div>
           <div class="pad">
             <h2 class="head display">Start with three. Seven paths in all.</h2>

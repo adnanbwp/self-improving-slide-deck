@@ -33,7 +33,13 @@
   font-size:13px;letter-spacing:.18em;text-transform:uppercase;z-index:5}
 .tag .dash{opacity:.5}
 .pageno{position:absolute;bottom:var(--s-4);right:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
-.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
+/* .slug renders the aha agile logo (mask + currentColor adapts to any field:
+   ink on orange/paper, bone on ink). Keep the inner text "aha agile" — it is
+   the accessibility/fallback label, hidden visually by font-size:0. */
+.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);z-index:5;width:59px;height:17px;opacity:.7;
+  background:currentColor;font-size:0;overflow:hidden;
+  -webkit-mask:url("../../aha-agile-brand/aha-agile-logo-mono.svg") left center/contain no-repeat;
+  mask:url("../../aha-agile-brand/aha-agile-logo-mono.svg") left center/contain no-repeat}
 
 /* ---- RECURRING MOTIFS ---- */
 .bleed-num{position:absolute;font-family:var(--font-display);font-weight:900;line-height:.74;letter-spacing:-.05em;
@@ -44,8 +50,12 @@
 .accent-rule{height:6px;width:120px;background:var(--ink);border-radius:var(--r-bar)}
 .f-ink .accent-rule,.f-orange .accent-rule{background:currentColor}
 
-/* type helpers */
-.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.86}
+/* type helpers
+   Leading floor: Archivo Black descender (.20em) + cap height (.72em) ≈ .92em,
+   so multi-line mixed-case display text needs line-height ≥ .96 or descenders
+   collide with the caps below. Tighter leading (.74–.9) is reserved for
+   single-line settings and numerals (.bleed-num, .t-stat .big, card .num). */
+.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.96}
 .eyebrow{font-family:var(--font-mono);font-weight:700;font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
 .kv{font-family:var(--font-mono);font-size:14px}
 .footnote{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;opacity:.6}
@@ -102,7 +112,7 @@
 .t-compare{display:flex}
 .t-compare .half{flex:1;padding:var(--s-6) var(--s-6) var(--s-7);display:flex;flex-direction:column;justify-content:center}
 .t-compare .half .lab{font-family:var(--font-mono);font-weight:700;font-size:16px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
-.t-compare .half .val{font-family:var(--font-display);font-weight:900;font-size:110px;line-height:.9;margin-top:var(--s-2)}
+.t-compare .half .val{font-family:var(--font-display);font-weight:900;font-size:110px;line-height:.96;margin-top:var(--s-2)}
 .t-compare .half .desc{font-size:18px;margin-top:var(--s-3);max-width:420px}
 .t-compare .half .mini-list{list-style:none;margin-top:var(--s-3);max-width:440px}
 .t-compare .half .mini-list li{font-family:var(--font-mono);font-size:15.5px;line-height:1.45;border-top:1.5px solid currentColor;padding:10px 0 10px}
@@ -126,7 +136,7 @@
 
 /* t07 · IMAGE + CLAIM */
 .t-image-claim .imgblock{position:absolute;inset:0}
-.t-image-claim .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:64px;letter-spacing:-.03em;line-height:.92;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.55)}
+.t-image-claim .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:64px;letter-spacing:-.03em;line-height:.96;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.55)}
 
 /* t08 · QUESTION / HOOK */
 .t-question .q{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-50%);font-size:92px;max-width:1080px}
@@ -163,7 +173,7 @@
 /* t13 · SPLIT (text + image) */
 .t-split{display:flex}
 .t-split .text{flex:1;padding:var(--s-7) var(--s-6);display:flex;flex-direction:column;justify-content:center}
-.t-split .text h3{font-family:var(--font-display);font-weight:900;font-size:54px;letter-spacing:-.03em;line-height:.9}
+.t-split .text h3{font-family:var(--font-display);font-weight:900;font-size:54px;letter-spacing:-.03em;line-height:.96}
 .t-split .text p{font-size:19px;margin-top:var(--s-3);max-width:460px}
 .t-split .imgblock{flex:1}
 
@@ -214,7 +224,7 @@
 /* t20 · ABOUT ME */
 .t-about-me .photo{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);width:300px;height:380px;border-radius:18px}
 .t-about-me .info{position:absolute;left:460px;right:var(--s-7);top:50%;transform:translateY(-50%)}
-.t-about-me .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.9}
+.t-about-me .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.96}
 .t-about-me .info .ti{font-family:var(--font-mono);font-weight:700;font-size:18px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px;opacity:.75}
 .t-about-me .info .bio{font-family:var(--font-mono);font-size:18px;line-height:1.6;margin-top:var(--s-3);max-width:620px}
 .t-about-me .info .tags{display:flex;gap:12px;margin-top:var(--s-3);flex-wrap:wrap}

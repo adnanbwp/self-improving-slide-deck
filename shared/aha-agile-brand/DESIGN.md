@@ -59,13 +59,13 @@ typography:
     fontFamily: Archivo
     fontSize: 90px
     fontWeight: '900'
-    lineHeight: '0.84'
+    lineHeight: '0.96'
     letterSpacing: -0.04em
   headline-lg-mobile:
     fontFamily: Archivo
     fontSize: 56px
     fontWeight: '900'
-    lineHeight: '0.88'
+    lineHeight: '0.96'
     letterSpacing: -0.03em
   section-h2:
     fontFamily: Archivo
@@ -115,7 +115,7 @@ The palette is built on a "Field Locking" logic, now optimized for a high-impact
 
 Typography is the primary engine of the design system, characterized by the tension between a heavy, tight-leading Grotesque and a dry, technical Monospace.
 
-- **Archivo (Black/900)**: Reserved for headlines and oversized background numerals. It must be used large. Leading should be extremely tight to create a "blocky" text effect. In dark mode, these blocks often appear as high-contrast "knock-out" text.
+- **Archivo (Black/900)**: Reserved for headlines and oversized background numerals. It must be used large. Leading should be tight to create a "blocky" text effect, but never below the collision floor: Archivo Black's descender (~0.20em) plus cap height (~0.72em) totals ~0.92em, so **multi-line mixed-case display text requires line-height ≥ 0.96** or descenders physically overlap the line below. Ultra-tight leading (0.74–0.9, e.g. `mega-display` at 0.78) is reserved for single-line settings and numerals, which have no descenders to clash. In dark mode, these blocks often appear as high-contrast "knock-out" text.
 - **Space Mono**: Used for all reading copy, labels, and metadata. 
 - **Formatting**: Use all-caps with high tracking for labels and kickers. Use italics for annotations and "asides" only. Avoid using Archivo for any body text.
 
@@ -147,6 +147,16 @@ Controlled roundedness is used only for specific functional motifs:
 - **Redaction Bars**: 7px radius.
 - **UI Controls**: 22px radius.
 - **The Badge/Pills**: Full pill-shape (999px).
+
+## Logo
+
+Three outlined-path SVG lockups live alongside this file (no font dependency — Archivo Black is converted to paths, with the Pair sparkle mark). ViewBox 1035×300.
+
+- `aha-agile-logo.svg` — primary, ink (`#1A1916`) fill, for paper/orange/light fields.
+- `aha-agile-logo-reversed.svg` — bone (`#F6F3EC`) fill, for ink/dark fields.
+- `aha-agile-logo-mono.svg` — single-tone, intended for CSS `mask` + `currentColor` so one asset adapts to any field.
+
+**Slide footers**: every deck slide carries the logo bottom-left via the `.slug` element. The CSS renders `aha-agile-logo-mono.svg` as a mask filled with `currentColor`; the element keeps the text "aha agile" inside as the accessibility/fallback label. Never render the brand name as plain footer text.
 
 ## Components
 

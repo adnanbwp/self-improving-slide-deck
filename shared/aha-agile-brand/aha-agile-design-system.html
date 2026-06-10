@@ -99,7 +99,7 @@ body{
 .poster__head{position:absolute;left:var(--s-6);top:34%;z-index:3}
 .poster__head h1{
   font-family:var(--font-display);font-weight:900;font-size:var(--t-xl);
-  line-height:.84;letter-spacing:-.03em;color:var(--ink);
+  line-height:.96;letter-spacing:-.03em;color:var(--ink);
 }
 .poster__head .sub{margin-top:var(--s-3);font-size:var(--t-sm);color:var(--ink)}
 
@@ -167,7 +167,7 @@ body{
 /* type specimens */
 .spec{border-top:var(--hair);padding:var(--s-5) 0}
 .spec .tag{font-size:var(--t-xs);opacity:.55;display:flex;gap:var(--s-4);flex-wrap:wrap;margin-bottom:var(--s-3)}
-.spec .demo{font-family:var(--font-display);font-weight:900;letter-spacing:-.02em;line-height:.92}
+.spec .demo{font-family:var(--font-display);font-weight:900;letter-spacing:-.02em;line-height:.96}
 
 /* component cards */
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s-5)}
@@ -278,7 +278,9 @@ body{
     <div class="kicker">02 — Typography</div>
     <h2>Grotesque × Mono</h2>
     <p class="lead">Two families only. <b>Archivo</b> at black weight (900) for display and
-    numerals — tight tracking, near-solid leading. <b>Space Mono</b> for every label, caption
+    numerals — tight tracking, near-solid leading. Floor: multi-line mixed-case display
+    text needs leading ≥ 0.96 (Archivo's descender + cap height ≈ 0.92em — anything
+    tighter collides); only single lines and numerals may run tighter. <b>Space Mono</b> for every label, caption
     and value — small, with the typewriter texture that gives the system its archival voice.</p>
 
     <div class="spec">

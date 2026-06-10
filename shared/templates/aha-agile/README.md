@@ -23,8 +23,22 @@ this system is derived from).
 1. `cp shared/templates/aha-agile/deck-skeleton.html decks/<slug>/versions/v1.0.0/canonical.html`
 2. Replace placeholder slides using the catalogue below. One `<section class="slide">` per slide;
    inside it exactly one `<div class="slide-inner f-<field> t-<type>">`.
-3. Keep the chrome on every slide: `.tag` (kicker, all-caps), `.pageno`, `.slug` (deck or brand slug).
+3. Keep the chrome on every slide: `.tag` (kicker, all-caps), `.pageno`, `.slug`.
+   `.slug` renders the **aha agile logo** (`shared/aha-agile-brand/aha-agile-logo-mono.svg`
+   via CSS mask + `currentColor`, so it inks correctly on any field). Always write it as
+   `<div class="slug">aha agile</div>` — the text is the accessibility/fallback label and
+   is hidden visually. Never restyle `.slug` back to plain text.
 4. The first slide carries `class="slide active"`.
+
+## Display type leading (collision floor)
+
+Archivo Black's descender (~0.20em) + cap height (~0.72em) ≈ **0.92em**, so any
+multi-line mixed-case display text set tighter than that physically overlaps the
+line below. The system therefore uses **line-height ≥ 0.96 for all multi-line
+display text** (`.display` and the per-type display rules). Ultra-tight leading
+(0.74–0.9) is reserved for single-line settings and numerals — `.bleed-num`,
+`.t-stat .big`, stat-card `.num` — which have no descender/cap collision.
+Deck-level overrides must respect the same floor.
 
 ## The three fields
 

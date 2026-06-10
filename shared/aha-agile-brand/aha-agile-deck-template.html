@@ -53,7 +53,12 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
   font-size:13px;letter-spacing:.18em;text-transform:uppercase;z-index:5}
 .tag .dash{opacity:.5}
 .pageno{position:absolute;bottom:var(--s-4);right:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
-.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
+/* .slug renders the aha agile logo (mask + currentColor adapts to any field).
+   Keep the inner text "aha agile" as the accessibility/fallback label. */
+.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);z-index:5;width:59px;height:17px;opacity:.7;
+  background:currentColor;font-size:0;overflow:hidden;
+  -webkit-mask:url("aha-agile-logo-mono.svg") left center/contain no-repeat;
+  mask:url("aha-agile-logo-mono.svg") left center/contain no-repeat}
 
 /* recurring motifs */
 .bleed-num{position:absolute;font-family:var(--font-display);font-weight:900;line-height:.74;letter-spacing:-.05em;
@@ -65,7 +70,7 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
 .f-ink .accent-rule,.f-orange .accent-rule{background:currentColor}
 
 /* type helpers */
-.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.86}
+.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.96}
 .eyebrow{font-family:var(--font-mono);font-weight:700;font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
 .kv{font-family:var(--font-mono);font-size:14px}
 
@@ -114,7 +119,7 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
 .t05{display:flex}
 .t05 .half{flex:1;padding:var(--s-7);display:flex;flex-direction:column;justify-content:center}
 .t05 .lab{font-family:var(--font-mono);font-weight:700;font-size:16px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
-.t05 .val{font-family:var(--font-display);font-weight:900;font-size:120px;line-height:.9;margin-top:var(--s-2)}
+.t05 .val{font-family:var(--font-display);font-weight:900;font-size:120px;line-height:.96;margin-top:var(--s-2)}
 .t05 .desc{font-size:18px;margin-top:var(--s-3);max-width:360px}
 
 /* 06 List */
@@ -125,7 +130,7 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
 
 /* 07 Image + Claim */
 .t07 .imgblock{position:absolute;inset:0}
-.t07 .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.92;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.4)}
+.t07 .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.96;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.4)}
 
 /* 08 Question / Hook */
 .t08 .q{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-50%);font-size:104px;max-width:1080px}
@@ -161,7 +166,7 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
 /* 13 Split */
 .t13{display:flex}
 .t13 .text{flex:1;padding:var(--s-7);display:flex;flex-direction:column;justify-content:center}
-.t13 .text h3{font-family:var(--font-display);font-weight:900;font-size:60px;letter-spacing:-.03em;line-height:.9}
+.t13 .text h3{font-family:var(--font-display);font-weight:900;font-size:60px;letter-spacing:-.03em;line-height:.96}
 .t13 .text p{font-size:20px;margin-top:var(--s-3);max-width:420px}
 .t13 .imgblock{flex:1}
 
@@ -210,7 +215,7 @@ body{font-family:var(--font-mono);background:var(--letterbox);color:var(--bone);
 /* 20 About Me */
 .t20 .photo{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);width:300px;height:380px;border-radius:18px}
 .t20 .info{position:absolute;left:460px;right:var(--s-7);top:50%;transform:translateY(-50%)}
-.t20 .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.9}
+.t20 .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.96}
 .t20 .info .ti{font-family:var(--font-mono);font-weight:700;font-size:18px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px;opacity:.75}
 .t20 .info .bio{font-family:var(--font-mono);font-size:18px;line-height:1.6;margin-top:var(--s-3);max-width:560px}
 .t20 .info .tags{display:flex;gap:12px;margin-top:var(--s-3);flex-wrap:wrap}
