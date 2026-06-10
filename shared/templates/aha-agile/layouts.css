@@ -1,0 +1,310 @@
+/* ============================================================
+   AHA AGILE — SLIDE LAYOUTS
+   Duotone editorial / Swiss-brutalist system.
+
+   Lineage: shared/aha-agile-brand/aha-agile-deck-template.html
+   (21 guideline layouts t00–t20, renamed semantically here)
+   plus five production extensions (.t-content, .t-stat-grid,
+   .t-sources, .t-team-avatars, .t-end) added for the slide
+   vocabulary of real decks.
+
+   Layout philosophy:
+   · Poster types (statement, stat, quote, question, divider,
+     cta, title) position absolutely — content is one short
+     statement, drawn like a print poster.
+   · Workhorse types (content, list, stat-grid, sources) flow
+     inside .pad — content length varies, so they must not
+     overflow a fixed 720px stage. Keep them within the
+     documented item budgets in README.md.
+   ============================================================ */
+
+/* ---- FIELDS (every .slide-inner gets exactly one) ---- */
+.f-orange{background:var(--orange);color:var(--ink)}
+.f-paper{background:var(--paper);color:var(--ink)}
+.f-ink{background:var(--ink);color:var(--bone)}
+
+/* paper grain on every field */
+.slide-inner::after{content:"";position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;opacity:.45;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E")}
+
+/* ---- SHARED SLIDE CHROME (the system's voice) ----
+   .tag carries the deck's kicker / section label, all-caps mono. */
+.tag{position:absolute;top:var(--s-4);left:var(--s-5);font-family:var(--font-mono);font-weight:700;
+  font-size:13px;letter-spacing:.18em;text-transform:uppercase;z-index:5}
+.tag .dash{opacity:.5}
+.pageno{position:absolute;bottom:var(--s-4);right:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
+.slug{position:absolute;bottom:var(--s-4);left:var(--s-5);font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;opacity:.6;z-index:5}
+
+/* ---- RECURRING MOTIFS ---- */
+.bleed-num{position:absolute;font-family:var(--font-display);font-weight:900;line-height:.74;letter-spacing:-.05em;
+  user-select:none;white-space:nowrap;z-index:0}
+.badge{width:84px;height:84px;border-radius:var(--r-pill);background:var(--ink);display:flex;align-items:center;justify-content:center;border:3px solid var(--bone)}
+.badge svg,.badge img{width:46px;height:46px}
+.bar{height:24px;border-radius:var(--r-bar)}
+.accent-rule{height:6px;width:120px;background:var(--ink);border-radius:var(--r-bar)}
+.f-ink .accent-rule,.f-orange .accent-rule{background:currentColor}
+
+/* type helpers */
+.display{font-family:var(--font-display);font-weight:900;letter-spacing:-.03em;line-height:.86}
+.eyebrow{font-family:var(--font-mono);font-weight:700;font-size:14px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
+.kv{font-family:var(--font-mono);font-size:14px}
+.footnote{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;opacity:.6}
+
+/* image block — brutalist redaction style; drop an <img> in for real art */
+.imgblock{position:relative;background:var(--ink);overflow:hidden}
+.imgblock::before{content:"";position:absolute;inset:0;opacity:.18;
+  background-image:repeating-linear-gradient(45deg,var(--bone) 0 2px,transparent 2px 22px)}
+.imgblock img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.imgblock .imtag{position:absolute;bottom:14px;left:16px;font-family:var(--font-mono);font-size:12px;letter-spacing:.18em;color:var(--bone);opacity:.7}
+
+/* annotation (hand-drawn editorial markup) */
+.annot{position:absolute;text-align:center;z-index:5}
+.annot .l{font-family:var(--font-mono);font-style:italic;font-size:16px}
+.annot svg{display:block;margin:4px auto 0;width:46px;height:54px}
+
+/* =========================================================
+   CANONICAL LAYOUTS (template lineage t00–t20)
+   ========================================================= */
+.pad{position:absolute;inset:0;padding:var(--s-6) var(--s-7)}
+
+/* t00 · TITLE */
+.t-title .topiclabel{position:absolute;top:140px;left:var(--s-7);font-size:18px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+.t-title h1{position:absolute;top:200px;left:var(--s-7);font-size:120px;max-width:900px}
+.t-title h1.brandmark{font-size:170px}
+.t-title .meta{position:absolute;bottom:var(--s-6);left:var(--s-7);display:flex;gap:var(--s-6)}
+.t-title .badge{position:absolute;top:150px;right:160px}
+.t-title .bleed-num{font-size:520px;color:var(--orange-tint);right:-60px;top:120px}
+.f-paper.t-title .bleed-num{color:var(--paper-tint)}
+
+/* t01 · STATEMENT */
+.t-statement .claim{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);max-width:1080px;font-size:84px}
+.t-statement .claim.short{font-size:96px;max-width:980px}
+.t-statement .support{position:absolute;left:var(--s-7);bottom:120px;font-family:var(--font-mono);font-size:17px;line-height:1.55;max-width:720px}
+
+/* t02 · STAT */
+.t-stat .big{position:absolute;left:var(--s-7);top:46%;transform:translateY(-50%);font-size:340px;color:var(--ink)}
+.f-ink.t-stat .big,.t-stat .big.inverse{color:var(--bone)}
+.t-stat .lab{position:absolute;left:var(--s-7);bottom:120px;font-family:var(--font-mono);font-weight:700;font-size:22px;letter-spacing:.1em;text-transform:uppercase;max-width:760px}
+
+/* t03 · EVIDENCE */
+.t-evidence .head{font-size:34px;max-width:920px;margin-bottom:var(--s-3)}
+.t-evidence .big{font-size:240px}
+.t-evidence .ctx{max-width:760px;font-size:22px;margin-top:var(--s-2)}
+.t-evidence .src{font-family:var(--font-mono);font-size:14px;letter-spacing:.06em;opacity:.65;margin-top:var(--s-2)}
+.t-evidence .col{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%)}
+
+/* t04 · QUOTE */
+.t-quote .q{position:absolute;left:var(--s-7);right:var(--s-7);top:46%;transform:translateY(-50%);font-family:var(--font-mono);font-style:italic;font-size:42px;line-height:1.3;max-width:1000px}
+.t-quote .by{position:absolute;left:var(--s-7);bottom:120px;font-family:var(--font-mono);font-size:16px;letter-spacing:.06em}
+.t-quote .by b{font-weight:700}
+
+/* t05 · COMPARISON (split on the seam) */
+.t-compare{display:flex}
+.t-compare .half{flex:1;padding:var(--s-6) var(--s-6) var(--s-7);display:flex;flex-direction:column;justify-content:center}
+.t-compare .half .lab{font-family:var(--font-mono);font-weight:700;font-size:16px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.t-compare .half .val{font-family:var(--font-display);font-weight:900;font-size:110px;line-height:.9;margin-top:var(--s-2)}
+.t-compare .half .desc{font-size:18px;margin-top:var(--s-3);max-width:420px}
+.t-compare .half .mini-list{list-style:none;margin-top:var(--s-3);max-width:440px}
+.t-compare .half .mini-list li{font-family:var(--font-mono);font-size:15.5px;line-height:1.45;border-top:1.5px solid currentColor;padding:10px 0 10px}
+.t-compare .half .note{font-family:var(--font-mono);font-size:12.5px;opacity:.6;margin-top:var(--s-2)}
+.t-compare .seam-head{position:absolute;top:var(--s-6);left:var(--s-7);right:var(--s-7);z-index:4;font-size:38px;color:var(--ink)}
+.t-compare.has-head .half{justify-content:flex-start;padding-top:210px}
+.t-compare .annot-line{position:absolute;left:var(--s-7);right:var(--s-7);bottom:100px;z-index:4;text-align:center;
+  font-family:var(--font-mono);font-style:italic;font-size:16.5px;color:var(--ink)}
+.t-compare.has-annot .half{padding-bottom:170px}
+
+/* t06 · LIST (≤6 items; use .sub sparingly) */
+.t-list .pad{display:flex;flex-direction:column}
+.t-list .head{font-size:54px;max-width:1000px}
+.t-list .lead{font-family:var(--font-mono);font-size:17px;line-height:1.55;max-width:840px;margin-top:var(--s-3)}
+.t-list ul{list-style:none;margin-top:auto;display:flex;flex-direction:column;gap:12px}
+.t-list li{display:flex;align-items:baseline;gap:var(--s-3);font-family:var(--font-mono);font-size:20px;border-top:2px solid currentColor;padding-top:12px}
+.t-list li .n{font-weight:700;font-size:15px;letter-spacing:.1em;opacity:.55;min-width:42px}
+.t-list.labels li .n{min-width:185px;text-transform:uppercase;letter-spacing:.08em}
+.t-list li .sub{display:block;font-size:14.5px;opacity:.7;margin-top:4px;font-style:italic}
+.t-list .foot{font-family:var(--font-mono);font-style:italic;font-size:14px;opacity:.75;margin-top:var(--s-3)}
+
+/* t07 · IMAGE + CLAIM */
+.t-image-claim .imgblock{position:absolute;inset:0}
+.t-image-claim .claim{position:absolute;left:var(--s-6);bottom:var(--s-6);right:var(--s-6);font-family:var(--font-display);font-weight:900;font-size:64px;letter-spacing:-.03em;line-height:.92;color:var(--bone);z-index:3;text-shadow:0 4px 30px rgba(0,0,0,.55)}
+
+/* t08 · QUESTION / HOOK */
+.t-question .q{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-50%);font-size:92px;max-width:1080px}
+
+/* t09 · CTA */
+.t-cta .imperative{position:absolute;left:var(--s-7);top:38%;transform:translateY(-50%);font-size:96px;max-width:1020px}
+.t-cta .support{position:absolute;left:var(--s-7);bottom:230px;font-family:var(--font-mono);font-size:17px;line-height:1.6;max-width:760px}
+.t-cta .btn{position:absolute;left:var(--s-7);bottom:130px;display:inline-flex;align-items:center;gap:14px;background:var(--ink);color:var(--bone);
+  font-family:var(--font-mono);font-weight:700;font-size:20px;letter-spacing:.04em;padding:18px 30px;border-radius:var(--r-ctrl);text-decoration:none}
+
+/* t10 · SECTION DIVIDER (ink break) */
+.t-divider .partno{position:absolute;left:var(--s-7);top:var(--s-6);font-family:var(--font-mono);font-weight:700;font-size:20px;letter-spacing:.3em;opacity:.6}
+.t-divider .accent-rule{position:absolute;left:var(--s-7);top:46%;background:var(--orange)}
+.t-divider h2{position:absolute;left:var(--s-7);top:calc(46% + 30px);font-size:104px;max-width:1080px}
+.t-divider .bleed-num{font-size:560px;color:rgba(246,243,236,.06);right:-40px;top:60px}
+
+/* t11 · CHART (CSS bar chart) */
+.t-chart .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px;max-width:820px}
+.t-chart .chart{position:absolute;left:var(--s-7);right:var(--s-7);bottom:120px;height:360px;display:flex;align-items:flex-end;gap:var(--s-4);border-bottom:3px solid var(--ink)}
+.t-chart .colb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.t-chart .colb .b{width:100%;border-radius:var(--r-bar) var(--r-bar) 0 0;background:var(--orange)}
+.t-chart .colb:nth-child(even) .b{background:var(--ink)}
+.t-chart .colb .x{margin-top:12px;font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;opacity:.7}
+.t-chart .colb .v{margin-bottom:8px;font-family:var(--font-mono);font-weight:700;font-size:14px}
+
+/* t12 · TIMELINE */
+.t-timeline .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t-timeline .line{position:absolute;left:var(--s-7);right:var(--s-7);top:54%;height:4px;background:var(--ink)}
+.t-timeline .ev{position:absolute;top:54%;transform:translate(-50%,0);text-align:center;width:200px}
+.t-timeline .ev .dot{width:20px;height:20px;border-radius:var(--r-pill);background:var(--orange);border:4px solid var(--paper);margin:-12px auto 0}
+.t-timeline .ev .d{font-family:var(--font-mono);font-weight:700;font-size:18px;margin-top:14px}
+.t-timeline .ev .lab{font-family:var(--font-mono);font-size:14px;opacity:.7;margin-top:6px}
+
+/* t13 · SPLIT (text + image) */
+.t-split{display:flex}
+.t-split .text{flex:1;padding:var(--s-7) var(--s-6);display:flex;flex-direction:column;justify-content:center}
+.t-split .text h3{font-family:var(--font-display);font-weight:900;font-size:54px;letter-spacing:-.03em;line-height:.9}
+.t-split .text p{font-size:19px;margin-top:var(--s-3);max-width:460px}
+.t-split .imgblock{flex:1}
+
+/* t14 · PROCESS / STEPS */
+.t-process .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t-process .steps{position:absolute;left:var(--s-7);right:var(--s-7);top:52%;transform:translateY(-50%);display:flex;align-items:flex-start;gap:var(--s-2)}
+.t-process .step{flex:1;text-align:center}
+.t-process .step .num{width:84px;height:84px;border-radius:var(--r-pill);background:var(--ink);color:var(--bone);
+  font-family:var(--font-display);font-weight:900;font-size:38px;display:flex;align-items:center;justify-content:center;margin:0 auto}
+.t-process .step .lab{font-family:var(--font-mono);font-size:16px;margin-top:16px;line-height:1.35}
+.t-process .step .sub{font-family:var(--font-mono);font-size:13px;opacity:.65;margin-top:6px;line-height:1.4}
+.t-process .arrow{color:var(--orange);font-size:40px;font-weight:700;flex:none;margin-top:22px}
+.f-orange.t-process .arrow{color:var(--ink)}
+
+/* t15 · TABLE OF CONTENTS */
+.t-toc .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:40px}
+.t-toc ol{position:absolute;left:var(--s-7);right:var(--s-7);top:200px;list-style:none;columns:2;column-gap:var(--s-7)}
+.t-toc li{display:flex;gap:var(--s-3);font-family:var(--font-mono);font-size:22px;padding:14px 0;border-bottom:2px solid var(--ink);break-inside:avoid}
+.t-toc li .n{font-weight:700;opacity:.55}
+
+/* t16 · ABOUT / VISION */
+.t-vision .eyebrow{position:absolute;left:var(--s-7);top:var(--s-6)}
+.t-vision .vision{position:absolute;left:var(--s-7);right:var(--s-7);top:190px;font-size:60px;max-width:1060px;line-height:.96}
+.t-vision .narr{position:absolute;left:var(--s-7);right:var(--s-7);bottom:110px;font-family:var(--font-mono);font-size:18px;max-width:780px;line-height:1.6}
+
+/* t17 · TEAM / PEOPLE (badge icons — for avatar photos use .t-team-avatars) */
+.t-team .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t-team .row{position:absolute;left:var(--s-7);right:var(--s-7);top:50%;transform:translateY(-44%);display:flex;gap:var(--s-5);justify-content:flex-start}
+.t-team .person{text-align:center;width:200px}
+.t-team .person .badge{width:120px;height:120px;margin:0 auto}
+.t-team .person .badge svg{width:60px;height:60px}
+.t-team .person .nm{font-family:var(--font-display);font-weight:900;font-size:24px;margin-top:18px}
+.t-team .person .ro{font-family:var(--font-mono);font-size:14px;opacity:.7;margin-top:4px}
+
+/* t18 · SERVICES / OFFERINGS */
+.t-services .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:44px}
+.t-services .grid{position:absolute;left:var(--s-7);right:var(--s-7);bottom:90px;top:200px;display:grid;grid-template-columns:1fr 1fr;gap:var(--s-3)}
+.t-services .svc{border:2.5px solid var(--ink);border-radius:var(--r-bar);padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;justify-content:center}
+.t-services .svc svg{width:40px;height:40px;margin-bottom:14px}
+.t-services .svc .nm{font-family:var(--font-display);font-weight:900;font-size:26px}
+.t-services .svc .ds{font-family:var(--font-mono);font-size:15px;opacity:.75;margin-top:6px}
+
+/* t19 · GALLERY */
+.t-gallery .head{position:absolute;left:var(--s-7);top:var(--s-6);font-size:40px}
+.t-gallery .grid{position:absolute;left:var(--s-7);right:var(--s-7);bottom:90px;top:190px;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-2)}
+.t-gallery .imgblock{border-radius:var(--r-bar)}
+
+/* t20 · ABOUT ME */
+.t-about-me .photo{position:absolute;left:var(--s-7);top:50%;transform:translateY(-50%);width:300px;height:380px;border-radius:18px}
+.t-about-me .info{position:absolute;left:460px;right:var(--s-7);top:50%;transform:translateY(-50%)}
+.t-about-me .info .nm{font-family:var(--font-display);font-weight:900;font-size:72px;letter-spacing:-.03em;line-height:.9}
+.t-about-me .info .ti{font-family:var(--font-mono);font-weight:700;font-size:18px;letter-spacing:.1em;text-transform:uppercase;margin-top:10px;opacity:.75}
+.t-about-me .info .bio{font-family:var(--font-mono);font-size:18px;line-height:1.6;margin-top:var(--s-3);max-width:620px}
+.t-about-me .info .tags{display:flex;gap:12px;margin-top:var(--s-3);flex-wrap:wrap}
+.t-about-me .info .tags span{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;border:2px solid currentColor;border-radius:var(--r-pill);padding:6px 16px}
+
+/* =========================================================
+   PRODUCTION EXTENSIONS
+   ========================================================= */
+
+/* tx1 · CONTENT — the workhorse: kicker in .tag, headline,
+   flowing body, optional aside column. Headline ≤2 lines at
+   46px; body ≤5 short paragraphs or use .t-list instead. */
+.t-content .pad{display:flex;flex-direction:column;padding-top:110px;gap:var(--s-4)}
+.t-content .head{font-size:46px;max-width:1020px}
+.t-content .body{font-family:var(--font-mono);font-size:18px;line-height:1.6;max-width:780px;display:flex;flex-direction:column;gap:var(--s-3)}
+.t-content .body .em{font-weight:700}
+.t-content .src{margin-top:auto;font-family:var(--font-mono);font-size:12.5px;opacity:.6;max-width:900px}
+.t-content .cols{display:grid;grid-template-columns:1fr 300px;gap:var(--s-6);align-items:start}
+.t-content .aside{border-left:var(--hair);padding-left:var(--s-3);font-family:var(--font-mono);font-style:italic;font-size:15px;line-height:1.55;opacity:.85}
+.f-ink.t-content .aside{border-left-color:var(--bone)}
+
+/* tx2 · STAT GRID — headline + row/grid of bordered stat cards.
+   2–4 cards; .num ≤4 characters at 72px, .num.long for longer. */
+.t-stat-grid .pad,.t-cards .pad{display:flex;flex-direction:column;padding-top:110px;gap:var(--s-4)}
+.t-stat-grid .head,.t-cards .head{font-size:44px;max-width:1020px}
+.t-stat-grid .lead,.t-cards .lead{font-family:var(--font-mono);font-size:17px;line-height:1.55;max-width:840px}
+.t-stat-grid .grid,.t-cards .grid{display:grid;gap:var(--s-3);margin-top:var(--s-2)}
+.grid.cols-1{grid-template-columns:1fr}
+.grid.cols-2{grid-template-columns:1fr 1fr}
+.grid.cols-3{grid-template-columns:1fr 1fr 1fr}
+.grid.cols-4{grid-template-columns:1fr 1fr 1fr 1fr}
+.t-stat-grid .card,.t-cards .card{border:2.5px solid currentColor;border-radius:var(--r-bar);padding:var(--s-3) var(--s-4);display:flex;flex-direction:column;gap:8px}
+.t-stat-grid .grid.dense .card,.t-cards .grid.dense .card{padding:14px 22px;gap:5px}
+.t-stat-grid .card .num{font-family:var(--font-display);font-weight:900;font-size:72px;line-height:.9;letter-spacing:-.03em}
+.t-stat-grid .card .num.long{font-size:44px}
+.t-stat-grid .card .cap{font-family:var(--font-mono);font-size:14.5px;line-height:1.45;opacity:.85}
+.t-stat-grid .card .note,.t-cards .card .note{font-family:var(--font-mono);font-size:11.5px;line-height:1.4;opacity:.55;margin-top:auto;padding-top:6px}
+.t-stat-grid .src,.t-cards .src{margin-top:auto;font-family:var(--font-mono);font-size:12.5px;opacity:.6;max-width:1000px}
+
+/* tx2b · TEXT CARDS — same frame as the stat grid, prose cells:
+   .k kicker label, .t display title, .d mono body. 3–7 cards;
+   use .grid.dense beyond 4. Highlight one card with .hot. */
+.t-cards .card .k{font-family:var(--font-mono);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.t-cards .card .t{font-family:var(--font-display);font-weight:900;font-size:23px;line-height:1;letter-spacing:-.02em}
+.t-cards .grid.dense .card .t{font-size:19px}
+.t-cards .card .d{font-family:var(--font-mono);font-size:14px;line-height:1.5;opacity:.85}
+.t-cards .grid.dense .card .d{font-size:13px}
+.t-cards .card.hot{border-color:var(--orange);border-width:3px}
+.t-cards .card.hot .k{color:var(--orange);opacity:1}
+/* single-column text cards run as label-left rows to stay inside the stage */
+.t-cards .grid.cols-1 .card{flex-direction:row;align-items:baseline;gap:var(--s-3)}
+.t-cards .grid.cols-1 .card .k{min-width:250px;flex:none}
+.t-cards .grid.cols-1 .card .d{flex:1}
+
+/* tx2c · FIGURE — headline + framed diagram panel on bone.
+   For diagrams/screenshots that need legibility, not full-bleed art. */
+.t-figure .pad{display:flex;flex-direction:column;padding-top:110px;gap:var(--s-3)}
+.t-figure .head{font-size:38px;max-width:1020px}
+.t-figure .fig{flex:1;position:relative;border:var(--hair);border-radius:var(--r-bar);background:var(--bone);overflow:hidden;margin-bottom:var(--s-3)}
+.t-figure .fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:14px}
+.f-ink.t-figure .fig{border-color:var(--bone)}
+
+/* tx3 · SOURCES / REFERENCES — two-column numbered citations.
+   ≤12 entries, one line each where possible. */
+.t-sources .pad{display:flex;flex-direction:column;padding-top:110px}
+.t-sources .head{font-size:40px}
+.t-sources ol{list-style:none;columns:2;column-gap:var(--s-6);margin-top:var(--s-4)}
+.t-sources li{display:flex;gap:12px;font-family:var(--font-mono);font-size:13px;line-height:1.5;padding:9px 0;border-bottom:1.5px solid rgba(26,25,22,.3);break-inside:avoid}
+.f-ink.t-sources li{border-bottom-color:rgba(246,243,236,.25)}
+.t-sources li .n{font-weight:700;opacity:.55;min-width:24px}
+
+/* tx4 · TEAM AVATARS — closing credits with photo avatars.
+   Rows per shared/slide-types/team.md (stagger table).
+   Avatar PNGs from shared/assets/avatars/<slug>.png with
+   initials fallback; presenter gets the orange ring. */
+.t-team-avatars .pad{display:flex;flex-direction:column;padding-top:110px}
+.t-team-avatars .head{font-size:44px;text-align:center}
+.t-team-avatars .rows{margin:auto 0;display:flex;flex-direction:column;gap:var(--s-3);padding-bottom:var(--s-3)}
+.t-team-avatars .row{display:flex;justify-content:center;gap:var(--s-5)}
+.t-team-avatars .person{text-align:center;width:140px}
+.t-team-avatars .av{position:relative;width:92px;height:92px;margin:0 auto;border-radius:var(--r-pill);background:var(--ink);
+  border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;overflow:hidden;
+  font-family:var(--font-mono);font-weight:700;font-size:24px;color:var(--bone)}
+.t-team-avatars .av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t-team-avatars .av.presenter{border-color:var(--orange);border-width:4px}
+.t-team-avatars .nm{font-family:var(--font-display);font-weight:900;font-size:17px;margin-top:10px}
+.t-team-avatars .ro{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.7;margin-top:3px}
+
+/* tx5 · END / CLOSE — final slide: closing statement + contact. */
+.t-end .closing{position:absolute;left:var(--s-7);top:42%;transform:translateY(-50%);font-size:88px;max-width:1000px}
+.t-end .contact{position:absolute;left:var(--s-7);bottom:130px;display:flex;gap:var(--s-6);font-family:var(--font-mono);font-size:16px}
+.t-end .contact b{font-weight:700}
+.t-end .badge{position:absolute;top:var(--s-6);right:var(--s-7)}
