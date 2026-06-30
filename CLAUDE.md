@@ -19,6 +19,10 @@ Behavior, routing, taxonomy, and naming rules all live in `myPKA/AGENTS.md`. Rea
 
 The myPKA system lives in the `myPKA/` subfolder. All folder paths mentioned in `myPKA/AGENTS.md` are relative to `myPKA/` (e.g. `Team/`, `PKM/`, `Team Knowledge/`, `Deliverables/`, `Team Inbox/`).
 
+## Research-steeped output (mandatory)
+
+Decks and talks produced here must be **grounded in research, not model memory**. Before building a deck on a topic, use the `storm-research` skill to produce or refresh grounded, cited research in the wiki KB, and base the deck's claims and examples on it (cite sources). Don't ship a research-thin deck; if a claim can't be grounded, cut it or flag the gap.
+
 ## Tool-specific notes
 
 Specialists are bound as host subagents in `.claude/agents/<slug>.md`. Larry dispatches them via Claude Code's `Agent` tool with `subagent_type: <slug>`. Multiple specialists run in parallel when called from a single message.
