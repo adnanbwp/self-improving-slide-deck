@@ -1,7 +1,7 @@
 # WS-004 — Bootstrap Deck (First Production)
 
 - **Type:** Workstream — multi-agent composition. Produces a deck's v1.0.0 from scratch.
-- **Owners:** Larry (orchestration), Pax (research), Rex (argument), Coda (production), Vera (adversarial), Aria (persuasion)
+- **Owners:** Larry (orchestration), Pax (research), Rex (argument), Aria (narrative spine + persuasion), Coda (production), Vera (adversarial)
 - **References:** [[docs/deck-folder-spec]], [[docs/engine-decisions]], [[docs/superpowers/specs/2026-05-25-engine-design]], [[GL-001-file-naming-conventions]], [[myPKA/Team Knowledge/Templates/decisions-template]], [[WS-006-slide-plan-design-selection]]
 - **Trigger:** Once per deck topic, initiated by Larry + Adnan when a new spiky PoV is ready to research and produce.
 
@@ -9,7 +9,7 @@
 
 ## Purpose
 
-Produce v1.0.0 of a new deck: lock the PoV, research it, map the argument, gate on quality, produce audience-specific HTML slides, score them on four dimensions, and submit a PR for Adnan's review.
+Produce v1.0.0 of a new deck: lock the PoV, research it, map the argument, shape the narrative, gate on quality, produce audience-specific HTML slides, score them on five dimensions, and submit a PR for Adnan's review.
 
 This workstream runs once per topic. From v1.1.0 onwards, improvement cycles run via [[WS-005-improvement-cycle]].
 
@@ -38,8 +38,10 @@ This workstream runs once per topic. From v1.1.0 onwards, improvement cycles run
 | Argument map | `decks/<slug>/reports/YYYY-MM-DD-argument-map-v1.md` |
 | Canonical deck | `decks/<slug>/versions/v1.0.0/canonical.html` |
 | Audience variants | `decks/<slug>/versions/v1.0.0/<audience>.html` × N |
+| Narrative spine | `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-v1.md` (produced in WS-006) |
 | Argument scorecard | `decks/<slug>/scorecards/v1.0.0-argument.md` |
 | Adversarial scorecard | `decks/<slug>/scorecards/v1.0.0-adversarial.md` |
+| Narrative scorecard | `decks/<slug>/scorecards/v1.0.0-narrative.md` |
 | Persuasion scorecards | `decks/<slug>/scorecards/v1.0.0-persuasion-<audience>.md` × N |
 | GitHub PR | — |
 
@@ -157,7 +159,9 @@ Larry briefs all three specialists in the same message:
 
 **Vera brief:** "Adversarial pass on the PoV in `decks/<slug>/pov.md` and the deck at `decks/<slug>/versions/v1.0.0/canonical.html`. Mount the strongest available counter-arguments. Evaluate how well the deck responds. File scorecard at `decks/<slug>/scorecards/v1.0.0-adversarial.md`."
 
-**Aria brief (one per audience):** "Score the persuasion quality of `decks/<slug>/versions/v1.0.0/<audience>.html` for a `<audience>` audience. Evaluate: emotional resonance, narrative clarity, and CTA strength for this specific audience. File scorecard at `decks/<slug>/scorecards/v1.0.0-persuasion-<audience>.md`."
+**Aria narrative brief (canonical, once):** "Run `/tactics` in Critique mode against `decks/<slug>/versions/v1.0.0/canonical.html`, with the deck's objective and the narrative spine at `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-v1.md`. Run every check (hook · one arc · movie moment · rule of three · leave it out · concreteness · payoff · trust) — PASS/FAIL with a concrete fix each. File scorecard at `decks/<slug>/scorecards/v1.0.0-narrative.md`. Any narrative FAIL that would require dropping a Rex/Vera-required warrant: flag it, don't act on it."
+
+**Aria persuasion brief (one per audience):** "Score the persuasion quality of `decks/<slug>/versions/v1.0.0/<audience>.html` for a `<audience>` audience. Evaluate: emotional resonance, audience fit, and CTA strength for this specific audience. File scorecard at `decks/<slug>/scorecards/v1.0.0-persuasion-<audience>.md`."
 
 ### Step 8 — PR Compilation (Larry)
 
