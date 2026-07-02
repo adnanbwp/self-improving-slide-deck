@@ -1,7 +1,7 @@
 # WS-005 — Improvement Cycle
 
 - **Type:** Workstream — recurring multi-agent composition. Runs on every active deck whenever a trigger fires.
-- **Owners:** Larry (orchestration), Pax (research sweep), Rex (argument re-audit), Vera (adversarial re-pass), Aria (persuasion re-score), Coda (deck update)
+- **Owners:** Larry (orchestration), Pax (research sweep), Rex (argument re-audit), Vera (adversarial re-pass), Aria (narrative + persuasion re-score), Coda (deck update)
 - **References:** [[docs/deck-folder-spec]], [[docs/superpowers/specs/2026-05-25-engine-design]], [[WS-004-bootstrap-deck]], [[WS-006-slide-plan-design-selection]]
 - **Trigger:** Weekly cron (default), Adnan manual request, or external process signal (future). Skips decks with `status: archived` or `status: overturned`.
 
@@ -64,7 +64,9 @@ Larry briefs all three in the same message, with links to Pax's new research and
 
 **Vera brief:** "Re-run adversarial pass on `decks/<slug>/versions/<current_version>/canonical.html` incorporating any new counter-evidence from Pax's research brief. Has the deck's resilience improved or weakened? Updated adversarial score. File at `decks/<slug>/scorecards/<next_version>-adversarial.md`."
 
-**Aria brief (one per active audience):** "Re-score persuasion for `decks/<slug>/versions/<current_version>/<audience>.html` for a `<audience>` audience. Note any changes in emotional resonance, narrative clarity, or CTA strength relative to the prior persuasion scorecard. File at `decks/<slug>/scorecards/<next_version>-persuasion-<audience>.md`."
+**Aria narrative brief (canonical, once):** "Run `/tactics` in Critique mode against `decks/<slug>/versions/<current_version>/canonical.html`, with the deck's objective and the prior narrative spine. Note any change in narrative craft (hook, arc, movie moment, economy, payoff) relative to the prior narrative scorecard. File at `decks/<slug>/scorecards/<next_version>-narrative.md`."
+
+**Aria persuasion brief (one per active audience):** "Re-score persuasion for `decks/<slug>/versions/<current_version>/<audience>.html` for a `<audience>` audience. Note any changes in emotional resonance, audience fit, or CTA strength relative to the prior persuasion scorecard. File at `decks/<slug>/scorecards/<next_version>-persuasion-<audience>.md`."
 
 ### Step 4 — Score Delta Check (Larry)
 
@@ -84,6 +86,7 @@ Larry runs [[WS-006-slide-plan-design-selection]] with inputs:
 - `pov_path`: `decks/<slug>/pov.md`
 - `audiences`: active audiences from `pov.md`
 - `prior_slide_plan`: `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN-1.md`
+- `prior_narrative_spine`: `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-vN-1.md`
 
 WS-006 applies carry-forward logic: Coda updates only rows where new evidence warrants a change. Design template carries forward from `pov.md` unless Adnan requests a redesign. If the delta has zero `type` and zero `purpose` changes, Larry may proceed without explicit approval. Proceed to Step 5a.
 
@@ -107,7 +110,7 @@ Coda runs the humanizer skill on all modified text content in the updated HTML f
 
 Larry compiles a GitHub PR following the PR format in [[docs/superpowers/specs/2026-05-25-engine-design]].
 
-Score delta table compares `<current_version>` → `<next_version>` across all four dimensions.
+Score delta table compares `<current_version>` → `<next_version>` across all five dimensions.
 
 ### Step 8 — Review and Merge (Adnan)
 

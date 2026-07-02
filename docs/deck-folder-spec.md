@@ -42,10 +42,12 @@ decks/
     scorecards/
       v1.0.0-research.md
       v1.0.0-argument.md
+      v1.0.0-narrative.md
       v1.0.0-adversarial.md
       v1.0.0-persuasion-parents.md
       v1.0.0-persuasion-teachers.md
     reports/                — specialist deliverables for this deck
+      YYYY-MM-DD-narrative-spine-v1.md
       YYYY-MM-DD-logic-audit-v1.md
       YYYY-MM-DD-adversarial-v1.md
       YYYY-MM-DD-persuasion-parents-v1.md
@@ -104,6 +106,7 @@ Scorecards are keyed by version and (where applicable) audience:
 |---|---|---|
 | Research | `v<N>-research.md` | No — Pax scores the research base |
 | Argument | `v<N>-argument.md` | No — Rex audits the canonical argument |
+| Narrative | `v<N>-narrative.md` | No — Aria critiques the canonical story (arc is deck-wide) |
 | Adversarial | `v<N>-adversarial.md` | No — Vera attacks the PoV itself |
 | Persuasion | `v<N>-persuasion-<audience-slug>.md` | Yes — one per audience variant |
 

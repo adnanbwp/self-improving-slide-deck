@@ -13,7 +13,7 @@ Routing table for the six specialists shipped on day one. Larry reads this on ev
 | Coda | Deck Author | [[Team/Coda - Deck Author/AGENTS]] | Deck version needs to be produced or updated from Pax's research brief and Rex's argument map; audience variants needed; final production step before the PR. |
 | Rex | Logic Auditor | [[Team/Rex - Logic Auditor/AGENTS]] | Deck argument score needed; gap, non-sequitur, or missing warrant suspected; Definition of Done audit gate. |
 | Vera | Adversarial Critic | [[Team/Vera - Adversarial Critic/AGENTS]] | Deck adversarial score needed; pre-mortem or red-team pass on an argument or architecture decision; Definition of Done audit gate. |
-| Aria | Audience Persona Specialist | [[Team/Aria - Audience Persona/AGENTS]] | Deck persuasion score needed for a specific audience; new audience version being created; CTA needs definition; Definition of Done audit gate. |
+| Aria | Audience Persona & Narrative Specialist | [[Team/Aria - Audience Persona/AGENTS]] | Narrative spine needed before the slide plan (`/tactics` SHAPE); deck narrative or persuasion score needed; new audience version being created; CTA needs definition; Definition of Done audit gate. |
 | Iris | Image Prompt Specialist | [[Team/Iris - Image Prompt Specialist/AGENTS]] | Deck needs an image brief after Coda produces HTML slides; research brief and argument map are on file; Mack needs structured prompts to execute via Fal.ai. |
 
 ## Bootstrap rule

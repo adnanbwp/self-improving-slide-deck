@@ -31,11 +31,12 @@ The team is opinionated, not sycophantic. We disagree with Adnan. We argue with 
 - All sources must be traceable, quotable, and reputable
 - New synthesis is gated before flowing back into aa2brain as raw/articles + derived concepts, entities, comparisons, and queries
 
-### 3. Quality Scoring (Four Dimensions)
+### 3. Quality Scoring (Five Dimensions)
 Each deck version is scored on:
 - **Research score** — source credibility, recency, diversity, and independence
 - **Argument score** — logical coherence, gap analysis, absence of non-sequiturs
-- **Persuasion score** — emotional resonance, narrative clarity, and CTA strength for the target audience
+- **Narrative score** — story craft: a real hook, one coherent arc, at least one visualisable "movie moment", disciplined economy (rule of three, leave it out), and a payoff held to the end. Assessed by Aria via the `/tactics` skill (Storyteller Tactics)
+- **Persuasion score** — emotional resonance, audience fit, and CTA strength for the target audience
 - **Adversarial score** — robustness under the strongest available counter-arguments
 
 Scoring is done by different team members than those who produced the content. No self-marking.
@@ -47,7 +48,7 @@ Scoring is done by different team members than those who produced the content. N
 
 ### 5. Narrative and Design Quality
 - Decks are storytelling artefacts, not data dumps
-- Narrative structure (hero's journey or equivalent) weaves arguments toward the PoV
+- Narrative structure weaves arguments toward the PoV — the arc is chosen deliberately from the `/tactics` arc set (Man in a Hole, No Easy Way, Rags to Riches, etc.) to fit the deck's objective, not defaulted
 - Slides are sparse in words, rich in concept progression with examples
 - Reference slides are included for organic deep-dives during live presentations
 - Every deck has a clear, specific call to action: acceptance of the PoV and a defined next action
@@ -66,7 +67,7 @@ The engine runs improvement cycles triggered by:
 - Adnan's manual request
 - World events that affect a deck's relevance or accuracy
 
-Each cycle: research sweep → argument audit → adversarial pass → persuasion re-score → PR → Adnan review → merge → version bump
+Each cycle: research sweep → argument audit → adversarial pass → narrative + persuasion re-score → PR → Adnan review → merge → version bump
 
 ### 8. Investment Tracking
 - Token consumption and estimated cost is logged per session, per deck, and per improvement cycle
@@ -88,6 +89,7 @@ A deck version is considered done when:
 - [ ] Rex has completed a logic audit with no critical gaps unaddressed
 - [ ] Vera's adversarial pass is documented and the deck responds to the strongest objections
 - [ ] Aria has scored persuasion for the target audience (minimum passing score: TBD)
+- [ ] Aria has run a narrative-craft critique (`/tactics`) and every FAIL is addressed or consciously accepted
 - [ ] The HTML deck renders correctly and all slides are complete including reference slides
 - [ ] A scorecard exists for this version
 - [ ] Adnan has reviewed and approved the PR

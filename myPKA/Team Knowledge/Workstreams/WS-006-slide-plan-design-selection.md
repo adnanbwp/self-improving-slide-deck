@@ -1,7 +1,7 @@
 # WS-006 — Slide Plan & Design Selection
 
 - **Type:** Workstream — called by WS-004 (Step 5) and WS-005 (Step 5) before Coda writes any HTML
-- **Owners:** Coda (Pass 1), Larry (review gates), Iris (design proposal), Adnan (approvals)
+- **Owners:** Aria (narrative spine), Coda (Pass 1), Larry (review gates), Iris (design proposal), Adnan (approvals)
 - **References:** [[docs/superpowers/specs/2026-05-26-slide-plan-design-selection-design]], [[shared/slide-vocabulary]], [[shared/design-library/INDEX]], [[GL-001-file-naming-conventions]]
 - **Trigger:** Called from WS-004 Step 5 and WS-005 Step 5. Never triggered standalone.
 
@@ -9,8 +9,9 @@
 
 ## Purpose
 
-Resolve three decisions before Coda writes a single slide:
-1. What is the purpose and narrative role of each slide?
+Resolve four decisions before Coda writes a single slide:
+0. What story is the argument told through — which arc, hook, and beats? (the **narrative spine**, Aria via `/tactics` SHAPE)
+1. What is the purpose and narrative role of each slide? (each slide maps to a beat in the spine)
 2. What type of slide best conveys that message?
 3. How does each slide map onto the brand templating system's layouts?
 
@@ -30,6 +31,7 @@ Exits with an approved slide plan, `design_template: aha-agile` recorded in `pov
 | `pov_path` | `decks/<slug>/pov.md` |
 | `audiences` | List of audience variants |
 | `prior_slide_plan` | Path to prior version's slide plan (WS-005 only; omit for WS-004) |
+| `prior_narrative_spine` | Path to prior version's narrative spine (WS-005 only; omit for WS-004) |
 
 ---
 
@@ -37,6 +39,7 @@ Exits with an approved slide plan, `design_template: aha-agile` recorded in `pov
 
 | Artifact | Path |
 |---|---|
+| Narrative spine | `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-vN.md` |
 | Slide plan | `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md` |
 | Design proposal | `decks/<slug>/reports/YYYY-MM-DD-design-proposal-vN.md` |
 | Chosen template | Recorded in `decks/<slug>/pov.md` under `design_template` |
@@ -47,6 +50,8 @@ Exits with an approved slide plan, `design_template: aha-agile` recorded in `pov
 
 When called from an improvement cycle, Coda Pass 1 starts from the prior slide plan and updates only rows where new evidence warrants a change. A slide warrants an update when the new research: (a) contradicts its `content_summary`, (b) introduces stronger evidence for its `purpose`, or (c) changes the narrative reason for its position in the argument.
 
+The narrative spine carries forward from the prior version — Aria keeps the same arc and hook unless new evidence or a PoV change breaks it, or the prior version's narrative scorecard flagged an arc-level FAIL. A changed arc reorders the slide plan and is not a carry-forward delta.
+
 The design template carries forward from `pov.md` unless Adnan explicitly requests a redesign, in which case Step 3 (Iris proposal) runs in full.
 
 **Ceremony reduction:** If Coda's delta produces zero `type` changes and zero `purpose` changes, Larry may surface the slide plan as FYI and proceed without requiring explicit approval unless Adnan requests a review.
@@ -55,11 +60,23 @@ The design template carries forward from `pov.md` unless Adnan explicitly reques
 
 ## Choreography
 
+### Step 0 — Narrative Spine (Aria, `/tactics` SHAPE)
+
+Larry briefs Aria:
+
+> "Shape the narrative spine for the `<topic>` deck. Read the PoV at `<pov_path>`, the argument map at `<argument_map>`, and the research brief at `<research_brief>`. Run the `/tactics` skill in Shape mode with the deck's objective (PoV + engagement level + audience). Return the family + recipe, ONE chosen arc, a hook approach with an example opening line, and the beat scaffold. File it at `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-vN.md`."
+>
+> For WS-005 calls, add: "The prior spine is at `<prior_narrative_spine>`. Keep the same arc unless the new evidence or a PoV change breaks it; if you change the arc, say why."
+
+Aria output: narrative spine filed at the specified path. This is structural guidance for Coda, not slide content — producing it does not make Aria a self-marker at the narrative scoring gate.
+
+**Hard gate:** WS-006 does not proceed to Step 1 until the arc and hook are chosen. Larry may surface the spine to Adnan as FYI; the arc choice is Aria's to make from the objective.
+
 ### Step 1 — Slide Plan (Coda Pass 1)
 
 Larry briefs Coda:
 
-> "Produce a slide plan — no HTML — for the `<topic>` deck. Read the argument map at `<argument_map>` and the research brief at `<research_brief>`. For each slide, produce a row with: slide number, purpose (one sentence), narrative_reason (why this slide sits here in the argument flow), type (one of the 21 types from `shared/slide-vocabulary.md` — use `UNCLASSIFIED` if no type fits, with a one-sentence explanation), and content_summary (one-line summary of actual content). File the plan at `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`."
+> "Produce a slide plan — no HTML — for the `<topic>` deck. Read the narrative spine at `decks/<slug>/reports/YYYY-MM-DD-narrative-spine-vN.md`, the argument map at `<argument_map>`, and the research brief at `<research_brief>`. Order the deck along the spine's beats. For each slide, produce a row with: slide number, purpose (one sentence), narrative_reason (**which beat of the spine this slide serves and why it sits here**), type (one of the 21 types from `shared/slide-vocabulary.md` — use `UNCLASSIFIED` if no type fits, with a one-sentence explanation), and content_summary (one-line summary of actual content). File the plan at `decks/<slug>/reports/YYYY-MM-DD-slide-plan-vN.md`."
 >
 > For WS-005 calls, add: "Start from the prior slide plan at `<prior_slide_plan>`. Update only rows where new evidence warrants a change per the carry-forward rule in WS-006."
 
