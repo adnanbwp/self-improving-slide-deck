@@ -5,5 +5,5 @@ myPKA/PKM/
 .env
 decks/ai-and-kids/screenshots/
 screenshots/
-Zone.Identifier
+*:Zone.Identifier
 .worktrees/
