@@ -35,6 +35,8 @@
 .botnote{position:absolute;left:210px;right:150px;bottom:26px;font-family:var(--font-mono);
   font-size:12.5px;line-height:1.4;opacity:.62;z-index:5;text-align:center}
 .t-process .botnote{left:var(--s-7);right:var(--s-7);bottom:56px;text-align:left}
+.t-statement.stmt-stack .claim{top:140px;transform:none;font-size:62px;max-width:1130px}
+.t-statement.stmt-stack .support{top:360px;bottom:auto;max-width:1050px}
 
 /* READINESS MAP — built as an inline grid inside a t-figure .fig panel.
    Rows are the governance ladder, columns the build axis. Slide 4 shows the
@@ -377,7 +379,7 @@
 
       <!-- 13 · STATEMENT — why runtime, not pre-deployment review (re-deepen) -->
       <section class="slide" data-type="Statement">
-        <div class="slide-inner f-ink t-statement">
+        <div class="slide-inner f-ink t-statement stmt-stack">
           <div class="tag">Back to the Hole</div>
           <div class="claim display">Agents act faster than any review. They don't ask permission.</div>
           <div class="support">They don't follow your org chart. They don't wait for the Tuesday meeting. A pre-deployment review checks the plan once, at the door. The agent is already running the plan — so the controls have to be enforced continuously while it runs, not reviewed once before it ships.</div>
