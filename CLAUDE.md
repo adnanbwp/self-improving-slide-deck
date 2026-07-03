@@ -21,7 +21,7 @@ The myPKA system lives in the `myPKA/` subfolder. All folder paths mentioned in 
 
 ## Research-steeped output (mandatory)
 
-Decks and talks produced here must be **grounded in research, not model memory**. Before building a deck on a topic, use the `storm-research` skill to produce or refresh grounded, cited research in the wiki KB, and base the deck's claims and examples on it (cite sources). Don't ship a research-thin deck; if a claim can't be grounded, cut it or flag the gap.
+Decks must be **grounded in cited wiki-KB research, never model memory** — full workflow in `~/projects/sops/SOP-10-research-steeped-content.md`. Run `storm-research` before building a deck; cite sources; cut or flag what can't be grounded.
 
 ## Tool-specific notes
 
