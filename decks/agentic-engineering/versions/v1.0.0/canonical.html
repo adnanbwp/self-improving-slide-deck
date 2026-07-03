@@ -34,6 +34,7 @@
 /* A bottom caveat/guard line that clears the slug (left) and pageno (right) */
 .botnote{position:absolute;left:210px;right:150px;bottom:26px;font-family:var(--font-mono);
   font-size:12.5px;line-height:1.4;opacity:.62;z-index:5;text-align:center}
+.t-process .botnote{left:var(--s-7);right:var(--s-7);bottom:56px;text-align:left}
 
 /* READINESS MAP — built as an inline grid inside a t-figure .fig panel.
    Rows are the governance ladder, columns the build axis. Slide 4 shows the
@@ -449,7 +450,7 @@
             <div class="arrow">→</div>
             <div class="step"><div class="num">4</div><div class="lab">SELF-GOVERN</div><div class="sub">It holds the line. The horizon.</div></div>
           </div>
-          <div class="botnote">The climb is sequential: each rung needs the one below it. Frontier caveat: inter-agent delegation risk is the live edge these four rungs only partly reach (OWASP 2026; EU AI Act Recitals 99–100).</div>
+          <div class="botnote">The climb is sequential — each rung needs the one below it. You cannot skip a rung.</div>
           <div class="pageno">16</div>
           <div class="slug">aha agile</div>
         </div>
@@ -584,13 +585,41 @@
         </aside>
       </section>
 
+      <!-- 22 · TEAM — credits -->
+      <section class="slide" data-type="Team">
+        <div class="slide-inner f-paper t-team-avatars">
+          <div class="tag">Credits</div>
+          <div class="pad">
+            <h2 class="head display">The team behind this deck</h2>
+            <div class="rows">
+              <div class="row">
+                <div class="person"><div class="av presenter"><img src="../../../../shared/assets/avatars/adnan.png" alt="Adnan Ali" onerror="this.style.display='none'">AA</div><div class="nm">Adnan Ali</div><div class="ro">Director</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/larry.png" alt="Larry" onerror="this.style.display='none'">LR</div><div class="nm">Larry</div><div class="ro">Orchestration</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/aria.png" alt="Aria" onerror="this.style.display='none'">AR</div><div class="nm">Aria</div><div class="ro">Narrative</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/pax.png" alt="Pax" onerror="this.style.display='none'">PX</div><div class="nm">Pax</div><div class="ro">Research</div></div>
+              </div>
+              <div class="row">
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/coda.png" alt="Coda" onerror="this.style.display='none'">CD</div><div class="nm">Coda</div><div class="ro">Production</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/rex.png" alt="Rex" onerror="this.style.display='none'">RX</div><div class="nm">Rex</div><div class="ro">Argument</div></div>
+                <div class="person"><div class="av"><img src="../../../../shared/assets/avatars/vera.png" alt="Vera" onerror="this.style.display='none'">VR</div><div class="nm">Vera</div><div class="ro">Adversarial</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="pageno">22</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          This base deck was produced by a human-AI team using the myPKA system. Adnan set the brief and directs; Larry orchestrated; Aria shaped the narrative with Storyteller Tactics; Pax ran the corroboration research; Coda authored the HTML and the portable build; Rex audited the logic; Vera ran the adversarial pass and caught the two blockers. The credits slide is not decoration — it models the both-axes collaboration the deck argues for.
+        </aside>
+      </section>
+
     </div>
   </div>
 </div>
 
 <div class="controls">
   <button id="prev">← Prev</button>
-  <div class="counter"><span class="now" id="now">01</span> / <span id="total">21</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
+  <div class="counter"><span class="now" id="now">01</span> / <span id="total">22</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
   <button id="next">Next →</button>
   <button id="grid">Grid</button>
 </div>
