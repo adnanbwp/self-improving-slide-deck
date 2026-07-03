@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Both Axes: From Vibe Coding to Deployed Agentic Engineering — aha agile</title>
+
+<!--
+  Deployed at decks/agentic-engineering/versions/v1.0.0/canonical.html
+  shared/ lives four levels up: ../../../../shared/
+  Base deck, v1.0.0. Built from shared/templates/aha-agile/deck-skeleton.html.
+  Spec: docs/superpowers/specs/2026-07-03-agentic-engineering-base-deck-design.md
+  Narrative spine: decks/agentic-engineering/narrative-spine.md
+  Research brief: decks/agentic-engineering/research/2026-07-03-research-brief-v1.md
+  Two recurring motifs: the readiness map (slides 4 frame -> 17 filled) and the
+  IC/Team/Org three-lens matrix (slides 5, 6, 8, 9, 11, 12, 18).
+-->
+
+<link rel="icon" type="image/png" sizes="32x32" href="../../../../shared/aha-agile-brand/aha-agile-favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/tokens.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/engine.css">
+<link rel="stylesheet" href="../../../../shared/templates/aha-agile/layouts.css">
+
+<style>
+/* Deck-specific overrides only. Never restyle engine.css selectors. */
+
+/* Title subtitle line (same pattern as ai-and-kids) */
+.t-title .subtitle{position:absolute;left:var(--s-7);top:560px;font-family:var(--font-mono);font-size:18px;max-width:760px;line-height:1.55}
+
+/* A bottom caveat/guard line that clears the slug (left) and pageno (right) */
+.botnote{position:absolute;left:210px;right:150px;bottom:26px;font-family:var(--font-mono);
+  font-size:12.5px;line-height:1.4;opacity:.62;z-index:5;text-align:center}
+
+/* READINESS MAP — built as an inline grid inside a t-figure .fig panel.
+   Rows are the governance ladder, columns the build axis. Slide 4 shows the
+   frame (only the trap revealed); slide 17 shows every cell filled. */
+.rmap{position:absolute;inset:16px 22px;display:flex;flex-direction:column;gap:8px;font-family:var(--font-mono);color:var(--ink)}
+.rmap-horizon{border:2px dashed rgba(26,25,22,.35);border-radius:6px;padding:7px 14px;font-size:12px;
+  letter-spacing:.08em;text-transform:uppercase;opacity:.6;text-align:center;flex:none}
+.rmap-grid{flex:1;display:grid;grid-template-columns:132px 1fr 1fr 1fr;grid-template-rows:auto 1fr 1fr 1fr;gap:7px}
+.rmap-corner{display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;
+  line-height:1.3;letter-spacing:.06em;opacity:.55}
+.rmap-colh{display:flex;align-items:flex-end;justify-content:center;font-size:12.5px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;opacity:.85;padding-bottom:4px}
+.rmap-rowh{display:flex;flex-direction:column;justify-content:center;font-size:12.5px;font-weight:700;letter-spacing:.03em}
+.rmap-rowh small{font-weight:400;font-size:10.5px;letter-spacing:.02em;opacity:.6;margin-top:2px}
+.rmap .cell{border:1.5px solid rgba(26,25,22,.22);border-radius:6px;display:flex;align-items:center;
+  justify-content:center;text-align:center;padding:6px;font-size:12px;line-height:1.3;color:rgba(26,25,22,.6)}
+.rmap .cell.empty{border-style:dashed;color:rgba(26,25,22,.28)}
+.rmap .cell.q{font-style:italic;color:rgba(224,83,30,.85);border-color:rgba(224,83,30,.5);border-style:dashed}
+.rmap .cell.target{border:3px solid var(--orange);color:var(--ink);font-weight:700;background:rgba(224,83,30,.10)}
+.rmap .cell.bomb{border:3px solid var(--ink);background:var(--ink);color:var(--bone);font-weight:700;letter-spacing:.02em}
+
+/* Code panel for the concrete Day-1 artifact (slide 7) */
+.codepanel{position:absolute;inset:20px 30px;font-family:var(--font-mono);font-size:14.5px;line-height:1.55;
+  white-space:pre;overflow:hidden;color:var(--ink);margin:0}
+.codepanel .c{opacity:.5}
+.codepanel .kk{font-weight:700}
+
+/* A slide-level overlay note for the day-layers (governance overlay).
+   Sits where t-cards .src would, but we reserve .src for citations. */
+.t-cards .overlay{font-family:var(--font-mono);font-weight:700;font-size:12.5px;letter-spacing:.08em;
+  text-transform:uppercase;opacity:.7;border-top:2px solid currentColor;padding-top:10px;margin-top:6px}
+.t-cards .overlay b{color:var(--orange)}
+
+/* One-time honesty flag under the first day-overlay (slide 6). */
+.t-cards .synthnote{font-family:var(--font-mono);font-size:11px;line-height:1.4;opacity:.55;margin-top:8px}
+</style>
+</head>
+<body>
+
+<div class="hint">← → navigate &nbsp;·&nbsp; G grid &nbsp;·&nbsp; F fullscreen</div>
+<div class="gridtitle">Both Axes — Agentic Engineering</div>
+
+<div class="viewport">
+  <div class="stage">
+    <div class="deck" id="deck">
+
+      <!-- 01 · TITLE -->
+      <section class="slide active" data-type="Title">
+        <div class="slide-inner f-orange t-title">
+          <div class="tag">Agentic Engineering</div>
+          <div class="bleed-num">2</div>
+          <div class="topiclabel">From vibe coding to deployed work</div>
+          <h1 class="display">The axis<br>the dial<br>can't see.</h1>
+          <div class="subtitle">Vibe to structured to agentic earns you a great output. It does not earn you a deployment.</div>
+          <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
+          <div class="meta">
+            <div class="kv"><b>Presenter</b><br>Adnan Ali</div>
+            <div class="kv"><b>Version</b><br>v1.0.0</div>
+          </div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Open here and let the title sit. The topic line names the journey everyone already talks about. The big line plants the irony that the whole deck turns on: there is a second axis, and the build dial you have been climbing cannot see it. Do not explain it yet. The subtitle does the rest of the setup.
+        </aside>
+      </section>
+
+      <!-- 02 · CONTENT — grant the build dial its fair win -->
+      <section class="slide" data-type="Content">
+        <div class="slide-inner f-paper t-content">
+          <div class="tag">The Build Dial</div>
+          <div class="pad">
+            <h2 class="head display">The dial is real: verification climbs out of your head and into artifacts</h2>
+            <div class="body">
+              <p>Vibe, then structured, then agentic. Detailed prompts become tests, tests become evals with rubrics, evals become specs and CI gates. Each rung moves "is this right?" out of your head and into something that checks itself.</p>
+              <p>In 2026 the disciplined end of that dial has a name: spec-driven development. You have earned a genuinely better output.</p>
+            </div>
+            <div class="src">Google "Vibe Coding" whitepaper series, Days 1–5 &nbsp;·&nbsp; Karpathy, "vibe coding" (2025) &nbsp;·&nbsp; spec-driven development: GitHub Spec Kit, AWS Kiro, DeepLearning.AI (2026)</div>
+          </div>
+          <div class="pageno">02</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Grant the build dial its full, honest win. The reader has really climbed this, and it really did earn them a better output. They need to nod here before they will turn on the next slide. State the promise warmly, with no strawman. Name spec-driven development so the deck reads current. Hold the "but" for slide 3.
+        </aside>
+      </section>
+
+      <!-- 03 · QUESTION — the turn (THE HOOK) -->
+      <section class="slide" data-type="Question">
+        <div class="slide-inner f-orange t-question">
+          <div class="tag">The Turn</div>
+          <div class="q display">You passed every test. So who's watching what's running right now?</div>
+          <div class="pageno">03</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          This is the hook. One sharp turn, no hedging. The dial measures one thing: is the output verified before it ships. It never measures what happens while the thing runs. Say the line, then stop. Let the room feel the gap between "tested" and "safe to deploy." The six-word version to carry all deck: passed every test, nobody's watching it.
+        </aside>
+      </section>
+
+      <!-- 04 · FIGURE — the readiness map (frame only, progressive reveal) -->
+      <section class="slide" data-type="Figure">
+        <div class="slide-inner f-paper t-figure">
+          <div class="tag">The Readiness Map</div>
+          <div class="pad">
+            <h2 class="head display">Two axes, not one, and one corner is a silent time-bomb</h2>
+            <div class="fig">
+              <div class="rmap">
+                <div class="rmap-horizon">Governance ladder rises &nbsp;▲&nbsp; · &nbsp; build dial runs &nbsp;▶</div>
+                <div class="rmap-grid">
+                  <div class="rmap-corner">how it's built ▶<br>how it's governed ▲</div>
+                  <div class="rmap-colh">Vibe</div>
+                  <div class="rmap-colh">Structured</div>
+                  <div class="rmap-colh">Agentic</div>
+
+                  <div class="rmap-rowh">L3 Controlled<small>you can stop it</small></div>
+                  <div class="cell empty">—</div>
+                  <div class="cell empty">—</div>
+                  <div class="cell q">production-ready?</div>
+
+                  <div class="rmap-rowh">L2 Observed<small>you can see it</small></div>
+                  <div class="cell empty">—</div>
+                  <div class="cell empty">—</div>
+                  <div class="cell empty">—</div>
+
+                  <div class="rmap-rowh">L1 Unseen<small>you don't know it runs</small></div>
+                  <div class="cell empty">—</div>
+                  <div class="cell empty">—</div>
+                  <div class="cell bomb">SILENT TIME-BOMB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="botnote">Knight Capital: ~$440M lost in ~45 minutes (SEC Press Release 2013-222, 2013). A pre-AI automated-trading failure, and the exact structural analogy for a broad-permission agent with no kill-switch: speed with no runtime control.</div>
+          <div class="pageno">04</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Name both axes out loud: how it is built runs left to right, how it is governed climbs bottom to top. Then mark the one cell the dial can never see — bottom-right, an agentic build that nobody is watching. Make it visceral with Knight Capital: a deployment error turned $440M into smoke in 45 minutes, before AI agents existed. A broad-permission agent does the equivalent in seconds. Hold back the rest of the map on purpose. How you climb out is the payoff in Act 2; do not gift it here or the crisis stops biting.
+        </aside>
+      </section>
+
+      <!-- 05 · CONTENT — set the dial per task; introduce the three lenses -->
+      <section class="slide" data-type="Content">
+        <div class="slide-inner f-paper t-content">
+          <div class="tag">How to Read the Next Five Days</div>
+          <div class="pad">
+            <h2 class="head display">Set the dial per task, not per person — then read every task through three lenses</h2>
+            <div class="cols">
+              <div class="body">
+                <p>More agentic is not more better — and more governed is not more better either. Match both axes to the stakes: a weekend prototype stays vibe-coded and ungoverned; state-changing or money-moving work earns the full climb. Governance has a real cost, so spend it where the blast radius is.</p>
+                <p>One trap to pre-empt: the build days give you the config <em class="em">fields</em> where governance lives — the substrate. Filling that config is not the same as climbing the L1→L3 ladder, the separate axis Act 2 measures.</p>
+                <p>Each of the five days ahead sits on both axes. Read every one at three altitudes.</p>
+              </div>
+              <div class="aside">Individual — what I do differently on my next task.<br><br>Team — what we standardise together.<br><br>Organisation — what the org must see, fund, and govern.</div>
+            </div>
+            <div class="src">Task-dependency guard per research brief, Target 4: the spectrum is a choice about stakes, not a maturity mandate.</div>
+          </div>
+          <div class="pageno">05</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Two setup moves before the climb. First, kill the "always go more agentic" reflex: the right point on the dial depends on the stakes, and a weekend prototype is fine left of centre. Second, introduce the recurring lens matrix. Every one of the next five days gets read three ways: what I do, what we standardise, what the org governs. This is the deck's second motif; it recurs on every day-layer.
+        </aside>
+      </section>
+
+      <!-- 06 · CARDS — Day 1: New SDLC + the Harness (three lenses) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 1 · Harness <span class="dash">—</span> EXPOSE</div>
+          <div class="pad">
+            <h2 class="head display">Most agent failures are config failures, not model failures</h2>
+            <div class="lead">Agent = Model + Harness. The harness is the prompts, tools, hooks, and permissions around the model — and it is where the behaviour actually lives.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Own your harness</div><div class="d">Version the AGENTS.md, hooks, and tools like code. The config is the product.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Standardise the setup</div><div class="d">One shared harness so every teammate's agent behaves the same way.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Fund the platform</div><div class="d">Config is infrastructure. Resource the harness and its guardrails, not just the model.</div></div>
+            </div>
+            <div class="overlay">Governs <b>V · E · R</b> &nbsp;—&nbsp; the climb starts at EXPOSE</div>
+            <div class="synthnote">Our synthesis: the day→pillar overlays are the deck's own reading of where build work seeds governance, not a published taxonomy.</div>
+          </div>
+          <div class="pageno">06</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 1 reframes the whole SDLC: an agent is a model plus a harness, and almost every surprising behaviour traces to the harness, not the weights. Walk the three lenses. The governance overlay is the first cell of the map: guardrails and observability in the harness are the seed of Validation, Evidence, and Runtime control. This is where EXPOSE begins — you cannot govern what you have not yet made visible.
+        </aside>
+      </section>
+
+      <!-- 07 · FIGURE — Day 1 concrete artifact (real AGENTS.md) -->
+      <section class="slide" data-type="Figure">
+        <div class="slide-inner f-paper t-figure">
+          <div class="tag">Day 1 · The Artifact</div>
+          <div class="pad">
+            <h2 class="head display">The harness is a file you can read, and it is already governance</h2>
+            <div class="fig">
+<pre class="codepanel"><span class="c"># AGENTS.md — deploy-bot</span>
+<span class="kk">owner:</span>  adnan@team.dev              <span class="c"># a named human is accountable   (Identity)</span>
+<span class="kk">model:</span>  claude-opus-4
+
+<span class="kk">permissions:</span>                        <span class="c"># least privilege as a hard ceiling  (Validation)</span>
+  allow: [ repo:read, ci:trigger ]
+  deny:  [ prod:write, secrets:read ]
+
+<span class="kk">hooks:</span>
+  pre_tool_use:  ./hooks/validate.sh   <span class="c"># check every call before it runs (Validation)</span>
+  post_tool_use: ./hooks/log.sh        <span class="c"># stream action + reasoning       (Evidence)</span>
+
+<span class="kk">runtime:</span>
+  require_approval: [ deploy, refund, delete ]   <span class="c"># human gate  (Runtime control)</span>
+  observable: true                               <span class="c"># every step to the audit log</span></pre>
+            </div>
+          </div>
+          <div class="botnote">A realistic harness config. Read the right column: an owner, a permission ceiling, a validating hook, a logging hook, and an approval gate are all just fields in a file you already write.</div>
+          <div class="pageno">07</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Teach the frontier concretely. This is a plausible AGENTS.md for a deployment agent, and it makes the deck's whole thesis tangible: governance is not a policy document that lands on your desk, it is fields in a config file you already own. Read down the right column and name each VERDICT pillar it satisfies. This is the pre-empt for "governance equals bureaucracy" — here it is code, and you write it.
+        </aside>
+      </section>
+
+      <!-- 08 · CARDS — Day 2: Tools & MCP (three lenses) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 2 · Tools &amp; MCP <span class="dash">—</span> BIND</div>
+          <div class="pad">
+            <h2 class="head display">Tools are how agents act — MCP turns N×M integrations into one</h2>
+            <div class="lead">Every capability an agent can reach is a tool, and every tool call is a place something can go wrong. Standardise the connection once.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Wrap the capability</div><div class="d">Publish the task as a validated tool, not a raw API call.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Adopt MCP</div><div class="d">One integration serves every agent. Stop rebuilding N×M connectors.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Govern every call</div><div class="d">Each tool call is a surface: validation gate, spend cap, and an owner per server.</div></div>
+            </div>
+            <div class="overlay">Governs <b>V · I · C</b> &nbsp;—&nbsp; BIND · confused-deputy risk is an Identity problem</div>
+          </div>
+          <div class="pageno">08</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 2 is how agents act on the world. The N-by-M connector problem is real: every agent times every service is a maintenance nightmare, and MCP collapses it to one standard. Walk the lenses. The overlay is BIND: tool calls are exactly what validation gates and spend caps constrain, and a confused-deputy attack — an agent tricked into using its permissions for someone else — is why identity matters. Second cell of the map fills here.
+        </aside>
+      </section>
+
+      <!-- 09 · CARDS — Day 3: Sessions & Memory (three lenses) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 3 · Sessions &amp; Memory <span class="dash">—</span> E · D · C</div>
+          <div class="pad">
+            <h2 class="head display">Memory is how agents remember, and every remembered fact is a surface</h2>
+            <div class="lead">Long context is not free, and stale or poisoned memory quietly misleads. Decide what persists and where it lives.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Curate what persists</div><div class="d">Long context has a cost; prune it. Stale memory is a bug with a long fuse.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Memory vs RAG</div><div class="d">Agree when to retrieve and when to remember, then write the boundary down.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Log the session</div><div class="d">Session events are your evidence trail; the memory store is data you must govern.</div></div>
+            </div>
+            <div class="overlay">Governs <b>E · D · C</b> &nbsp;—&nbsp; session events are Evidence and Decision logs; memory is a Cost surface</div>
+          </div>
+          <div class="pageno">09</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 3 is how agents remember across turns. Two engineering calls: how much context to carry (long context degrades and costs money), and memory versus retrieval (RAG) for durable facts. Walk the lenses. The overlay: every session event is Evidence and a record of the agent's Decisions, and the memory store itself is a Cost and data-governance surface. Third cell of the map.
+        </aside>
+      </section>
+
+      <!-- 10 · COMPARE — Day 4: SAIF 2.0 <-> VERDICT crosswalk (our mapping) -->
+      <section class="slide" data-type="Comparison">
+        <div class="slide-inner t-compare has-head has-annot">
+          <div class="tag" style="color:var(--ink)">Day 4 · Security ≈ Governance</div>
+          <h2 class="seam-head display">Three of VERDICT's seven pillars already shipped in Google's SAIF</h2>
+          <div class="half f-orange">
+            <div class="lab">Google SAIF 2.0 · agent principles (6 domains + 3)</div>
+            <ul class="mini-list">
+              <li>Well-defined human controllers</li>
+              <li>Powers carefully limited</li>
+              <li>Actions and planning observable</li>
+            </ul>
+            <div class="note">saif.google/focus-on-agents (2025)</div>
+          </div>
+          <div class="half f-paper">
+            <div class="lab">VERDICT · our synthesis (7 pillars)</div>
+            <ul class="mini-list">
+              <li>maps to → Identity (who owns it)</li>
+              <li>maps to → Validation (least privilege)</li>
+              <li>maps to → Evidence + Transparency (logged)</li>
+            </ul>
+            <div class="note">Runtime · Decisions · Cost are what VERDICT adds</div>
+          </div>
+          <div class="annot-line">VERDICT is a 2026 mnemonic; three of its seven pillars were already public in Google's 2025 SAIF — a different author, a different purpose. Our mapping, not "Google's seven pillars." Convergence, not one wiki's opinion.</div>
+          <div class="pageno" style="color:var(--ink)">10</div>
+        </div>
+        <aside class="notes">
+          This is the "that's funny" convergence, and mind the direction. Google's SAIF 2.0 shipped in 2025, a year before the 2026 VERDICT mnemonic — so three of VERDICT's pillars were already public in Google's earlier guidance, not the other way round. Human controllers is Identity, limited powers is Validation, observable actions is Evidence and Transparency. Say clearly this is our mapping of Google's guidance onto VERDICT, not a claim that Google published seven pillars: SAIF is six domains plus three agent principles. The honesty is the point. Two independent authors landing on the same controls is stronger evidence than either one alone.
+        </aside>
+      </section>
+
+      <!-- 11 · CARDS — Day 4: Security & Eval through three lenses -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 4 · Security &amp; Eval <span class="dash">—</span> ENFORCE</div>
+          <div class="pad">
+            <h2 class="head display">Evals are your validation evidence, and intent-drift is why runtime control exists</h2>
+            <div class="lead">An eval that passes is proof a change is safe today. It says nothing about what the agent does at 3am next Tuesday.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Eval, don't hope</div><div class="d">Your evalset is validation evidence: the proof, not the vibe, that a change is safe.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Shared eval gates</div><div class="d">Nothing ships past the team's eval and red-team bar. The bar is written down.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Watch for drift</div><div class="d">Intent-drift needs runtime control and transparency, not a pre-ship checklist.</div></div>
+            </div>
+            <div class="overlay">Governs <b>V · R</b> &nbsp;—&nbsp; ENFORCE · evals are Validation evidence, drift is a Runtime problem</div>
+          </div>
+          <div class="pageno">11</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 4, the second half: evals are the bridge between the two axes. A passing eval is validation evidence — it belongs on the build axis and the governance axis at once. But evals are a snapshot; intent-drift, where an agent's behaviour slides away from its goal over time, only shows up at runtime. That is the case for runtime control and transparency. Fourth cell fills. This is where ENFORCE arrives.
+        </aside>
+      </section>
+
+      <!-- 12 · CARDS — Day 5: Spec-Driven Production (three lenses) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 5 · Spec-Driven Production <span class="dash">—</span> BIND → ENFORCE</div>
+          <div class="pad">
+            <h2 class="head display">Vibe coding is not vibe in production — the spec declares the policy</h2>
+            <div class="lead">At the top of the build axis, the spec is the source of truth. The agent builds to it; you and the pipeline check against it.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Write the spec</div><div class="d">The spec is the contract. The agent builds to it; you review against it.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Specs + CI gates</div><div class="d">Policy lives in the spec and the pipeline, not in anyone's head.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Zero-trust = I + V</div><div class="d">Identity and validation on every agent; target L3 Controlled for high-stakes work.</div></div>
+            </div>
+            <div class="overlay">Governs <b>I · V · T</b> &nbsp;—&nbsp; BIND → ENFORCE · top of the build axis, target L3</div>
+          </div>
+          <div class="pageno">12</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 5 is the top of the build axis: spec-driven production. The spec is not paperwork, it is the executable declaration of what the agent may do — which means it is also where policy lives. Zero-trust for agents is just identity plus validation on every action. Walk the lenses, and land the target: for high-stakes work, L3 Controlled. Fifth and final build-axis cell. The reader has now climbed the dial completely — and still only has an output.
+        </aside>
+      </section>
+
+      <!-- 13 · STATEMENT — why runtime, not pre-deployment review (re-deepen) -->
+      <section class="slide" data-type="Statement">
+        <div class="slide-inner f-ink t-statement">
+          <div class="tag">Back to the Hole</div>
+          <div class="claim display">Agents act faster than any review. They don't ask permission.</div>
+          <div class="support">They don't follow your org chart. They don't wait for the Tuesday meeting. A pre-deployment review checks the plan once, at the door. The agent is already running the plan — so the controls have to be enforced continuously while it runs, not reviewed once before it ships.</div>
+          <div class="pageno">13</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Do not read this as fresh exposition. It re-opens the hole right before the payoff. You climbed the whole build dial and you still have a shipping problem, because the way you have always governed software — review it before it goes out — cannot touch an agent. Agents move faster than review cycles, ignore the org chart, and never ask first. That is why the second axis has to be runtime, not a gate at the door. Deliver it flat and hard, then turn to the recovery.
+        </aside>
+      </section>
+
+      <!-- 14 · CARDS dense — VERDICT, the 7 pillars -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The Governance Axis</div>
+          <div class="pad">
+            <h2 class="head display">VERDICT: seven questions you must be able to answer while it runs</h2>
+            <div class="grid cols-3 dense">
+              <div class="card"><div class="k">V · Validation</div><div class="d">Is this action allowed? Least-privilege gates on every call.</div></div>
+              <div class="card"><div class="k">E · Evidence</div><div class="d">What happened? Immutable logs of actions and reasoning.</div></div>
+              <div class="card"><div class="k">R · Runtime control</div><div class="d">Can we stop it? Kill-switch and approval for state changes.</div></div>
+              <div class="card"><div class="k">D · Decisions</div><div class="d">Why did it act? Traceable reasoning behind each step.</div></div>
+              <div class="card"><div class="k">I · Identity</div><div class="d">Who owns it? A named human controller per agent.</div></div>
+              <div class="card"><div class="k">C · Cost / Compliance</div><div class="d">What is it spending? Spend caps and policy limits.</div></div>
+              <div class="card hot"><div class="k">T · Transparency</div><div class="d">Can outsiders see? Auditable to users and regulators.</div></div>
+            </div>
+            <div class="src">Convergence, not one source: SAIF 2.0 · NIST AI RMF + CSA Agentic Profile · OWASP Agentic Top 10 (2026) · EU AI Act Art. 12 &amp; 14. Frontier gap VERDICT under-covers: multi-agent / inter-agent risk (OWASP 2026; EU AI Act Recitals 99–100).</div>
+          </div>
+          <div class="pageno">14</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Name the second axis in full. VERDICT is seven questions you must be able to answer about an agent while it is live, each with a concrete control. Read them as questions, not jargon. Then do the honest move twice: first, VERDICT is a single-source name, but its substance is what four independent bodies are converging on, so it reads as rigour, not one consultant's model. Second, name the frontier it does not yet cover well: risk that emerges between agents that delegate to each other. Naming the gap makes the rest more credible.
+        </aside>
+      </section>
+
+      <!-- 15 · LIST — the maturity ladder -->
+      <section class="slide" data-type="List">
+        <div class="slide-inner f-paper t-list labels">
+          <div class="tag">The Maturity Ladder</div>
+          <div class="pad">
+            <h2 class="head display">Governance is a ladder, and most orgs are on the bottom rung without knowing</h2>
+            <ul>
+              <li><span class="n">L1 Unseen</span><span>You don't know the agent is running. This is where most organisations actually live.</span></li>
+              <li><span class="n">L2 Observed</span><span>You can see what it does: inventory and logging are in place.</span></li>
+              <li><span class="n">L3 Controlled</span><span>You can stop it: approval gates and a kill-switch. This is production-ready.</span></li>
+              <li><span class="n">L4 Autonomous</span><span>It governs itself within policy. The horizon, not the default target.</span></li>
+            </ul>
+            <p class="foot">IBM Cost of a Data Breach 2025: 63% of breached organisations had no AI governance policy, and 97% of breached-AI orgs lacked proper access controls. Shadow-AI breaches cost roughly $670K more.</p>
+          </div>
+          <div class="pageno">15</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The ladder gives the governance axis its rungs. Land the jolt: L1 Unseen is not a rare failure, it is the default. Most teams cannot list the agents running in their own stack right now. Back it with IBM's 2025 primary data — 63% of breached organisations had no AI governance policy at all, and 97% of breached-AI orgs lacked proper access controls. L3 is the production-ready rung; L4 is a horizon, not a requirement. The reader is probably at L1 as they sit here, and that is the uncomfortable, useful realisation.
+        </aside>
+      </section>
+
+      <!-- 16 · PROCESS — the climb is sequential -->
+      <section class="slide" data-type="Process">
+        <div class="slide-inner f-paper t-process">
+          <div class="tag">The Climb</div>
+          <h2 class="head display">You can't BIND what you haven't EXPOSED</h2>
+          <div class="steps">
+            <div class="step"><div class="num">1</div><div class="lab">EXPOSE</div><div class="sub">See it. Inventory and logging.</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">2</div><div class="lab">BIND</div><div class="sub">Constrain it. Permissions and gates.</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">3</div><div class="lab">ENFORCE</div><div class="sub">Stop it. Approval and kill-switch.</div></div>
+            <div class="arrow">→</div>
+            <div class="step"><div class="num">4</div><div class="lab">SELF-GOVERN</div><div class="sub">It holds the line. The horizon.</div></div>
+          </div>
+          <div class="botnote">The climb is sequential: each rung needs the one below it. Frontier caveat: inter-agent delegation risk is the live edge these four rungs only partly reach (OWASP 2026; EU AI Act Recitals 99–100).</div>
+          <div class="pageno">16</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The governance axis has an order, and you cannot skip rungs. You cannot constrain (BIND) an agent you cannot see (EXPOSE), and you cannot stop (ENFORCE) one you have not constrained. Self-govern is the horizon, not a fourth box to tick this quarter. This is also the honest edge: the sequence is strong for a single agent, and the frontier — agents delegating to other agents — is where even this ladder is still being built. That caveat is a strength, not a hedge.
+        </aside>
+      </section>
+
+      <!-- 17 · FIGURE — the map, fully named (payoff / callback to slide 4) -->
+      <section class="slide" data-type="Figure">
+        <div class="slide-inner f-paper t-figure">
+          <div class="tag">The Readiness Map, Filled</div>
+          <div class="pad">
+            <h2 class="head display">Production-ready is one cell: agentic build × Controlled governance</h2>
+            <div class="fig">
+              <div class="rmap">
+                <div class="rmap-horizon">L4 Autonomous · self-govern — the horizon, above the target, not the target</div>
+                <div class="rmap-grid">
+                  <div class="rmap-corner">how it's built ▶<br>how it's governed ▲</div>
+                  <div class="rmap-colh">Vibe</div>
+                  <div class="rmap-colh">Structured</div>
+                  <div class="rmap-colh">Agentic</div>
+
+                  <div class="rmap-rowh">L3 Controlled<small>you can stop it</small></div>
+                  <div class="cell">governed toy (overkill)</div>
+                  <div class="cell">ships lower-stakes work</div>
+                  <div class="cell target">PRODUCTION-READY</div>
+
+                  <div class="rmap-rowh">L2 Observed<small>you can see it</small></div>
+                  <div class="cell">logged experiment</div>
+                  <div class="cell">seen and tested</div>
+                  <div class="cell">seen, not yet stoppable</div>
+
+                  <div class="rmap-rowh">L1 Unseen<small>you don't know it runs</small></div>
+                  <div class="cell">weekend prototype</div>
+                  <div class="cell">tested, unwatched</div>
+                  <div class="cell bomb">SILENT TIME-BOMB</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="botnote">≥L3 is the floor only for state-changing, money-moving, or irreversible agents; read-only or low-stakes deployed work can be production-ready at L2. Governance has a cost — match it to the stakes, both ways. The bottom-right cell is the slide-4 time-bomb, now named.</div>
+          <div class="pageno">17</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The payoff, and a deliberate callback to slide 4. The frame you saw at the start is now filled in. The target is the top-right cell: an agentic build that is Controlled. The trap is still bottom-right, the same time-bomb, now with a name and a way out. Guard against over-reading it: L3 is the bar for high-stakes work, and a well-governed structured workflow can be production-ready for lower stakes. The map is a decision tool, not a mandate to make everything agentic.
+        </aside>
+      </section>
+
+      <!-- 18 · CARDS — where to start, by lens (THE CTA) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The First Move <span class="dash">—</span> EXPOSE</div>
+          <div class="pad">
+            <h2 class="head display">Before your next agent ships, EXPOSE it — the one move valid at every altitude</h2>
+            <div class="lead">You cannot BIND or ENFORCE what you cannot see, so the first rung is the same whoever you are. This one is doable Monday.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Add it to AGENTS.md</div><div class="d">Name your next agent, its permissions, and you as owner. Then log its actions somewhere you can watch.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Stand up a registry</div><div class="d">One row per agent: capability, permissions, owner, last-seen. Make "no unregistered agents" the norm.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Fund observability first</div><div class="d">No agent gets broader permissions until it is on the map at L2 with a named owner.</div></div>
+            </div>
+            <div class="overlay">EXPOSE is the first rung — and the one nobody can argue against. You can't govern what you can't see.</div>
+          </div>
+          <div class="pageno">18</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The call to action, and it is a verb the reader can do Monday. EXPOSE, through the same three lenses. For an individual, that is one entry in AGENTS.md with an owner and a log. For a team, a shared registry with a no-unregistered-agents rule. For an org, funding observability before autonomy. It is the first rung of the climb, which is exactly why it works at every altitude and is impossible to argue with: you cannot see it, so you cannot govern it, so start by seeing it.
+        </aside>
+      </section>
+
+      <!-- 19 · EVIDENCE — what "done" looks like (worked example) -->
+      <section class="slide" data-type="Evidence">
+        <div class="slide-inner f-paper t-evidence">
+          <div class="tag">What "Done" Looks Like</div>
+          <div class="col">
+            <h2 class="head display">A refund agent that is agentic-built and L3-governed at the same time</h2>
+            <div class="big display">L3</div>
+            <div class="ctx">Built agentic: spec'd, eval-gated, CI-tested. Governed to L3: least-privilege identity, every action logged, refunds over $500 held for human approval, one named owner, a kill-switch. It passes its evals. Someone can see it run.</div>
+            <div class="src">Agentic build × L3 governance = the top-right cell. The slide-4 time-bomb, defused. Task-dependent: L3 is the bar because this one moves money.</div>
+          </div>
+          <div class="pageno">19</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Make "done" concrete and let the reader see the movie. A refund agent is a good example because it moves money, so it earns the full bar. Both axes at once: the build side is spec-driven, eval-gated, CI-tested; the governance side is a permission ceiling, full logging, an approval gate above a dollar threshold, an owner, and a kill-switch. This is the defused version of the slide-4 time-bomb — it still passes every test, but now someone is watching it run.
+        </aside>
+      </section>
+
+      <!-- 20 · CTA — close -->
+      <section class="slide" data-type="CTA">
+        <div class="slide-inner f-orange t-cta">
+          <div class="tag">Close</div>
+          <div class="imperative display">Climb both axes.</div>
+          <div class="support">Intent is the new interface. Governance is the new deployment. The build dial earns you a great output; being able to see it, stop it, and own it is what earns you a deployment.</div>
+          <a class="btn">This week: EXPOSE your agents &nbsp;→</a>
+          <div class="pageno">20</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Close on a verb, not a summary. Restate the whole deck in two lines: intent is the new interface, governance is the new deployment. Then hand them the one action again — this week, expose your agents. If you want the six-word echo as your last spoken line before the sources, use it: passed every test, nobody's watching it. Then land "climb both axes" and stop.
+        </aside>
+      </section>
+
+      <!-- 21 · SOURCES & confidence -->
+      <section class="slide" data-type="Sources">
+        <div class="slide-inner f-paper t-sources">
+          <div class="tag">Sources &amp; Confidence</div>
+          <div class="pad">
+            <h2 class="head display">Sources and confidence</h2>
+            <ol>
+              <li><span class="n">01</span><span>Google. <i>"Vibe Coding" whitepaper series, Days 1–5.</i> 2025–2026.</span></li>
+              <li><span class="n">02</span><span>Srivastav &amp; Saxena. <i>VERDICT + Maturity Ladder.</i> Maven session, 2026-05-24. Single-source name; substance corroborated below.</span></li>
+              <li><span class="n">03</span><span>Google. <i>SAIF 2.0 — Focus on Agents</i> (human controllers · limited powers · observable actions). 2025.</span></li>
+              <li><span class="n">04</span><span>NIST. <i>AI RMF (AI-600-1)</i> + CSA <i>Agentic Profile v1</i> (draft). 2024–2026.</span></li>
+              <li><span class="n">05</span><span>OWASP. <i>Top 10 for LLM Apps</i> (LLM06 Excessive Agency) + <i>Top 10 for Agentic Applications.</i> 2025–2026.</span></li>
+              <li><span class="n">06</span><span>EU AI Act. Art. 12 (logging), Art. 14 (override/halt), Recitals 99–100 (multi-agent). In force 2026-08-02.</span></li>
+              <li><span class="n">07</span><span>IBM / Ponemon. <i>Cost of a Data Breach 2025.</i> Shadow-AI +$670K; 63% no AI governance policy; 97% of breached-AI orgs lacked access controls.</span></li>
+              <li><span class="n">08</span><span>SEC. <i>Press Release 2013-222</i> — Knight Capital, ~$440M in ~45 min (2013). Pre-AI analogy.</span></li>
+              <li><span class="n">09</span><span>Karpathy. "Vibe coding" (2025) → "the age of agentic engineering."</span></li>
+              <li><span class="n">10</span><span>Spec-driven development: GitHub Spec Kit · AWS Kiro · DeepLearning.AI. 2026.</span></li>
+              <li><span class="n">!</span><span>Confidence — the two-axis claim: HIGH. The build-verify vs runtime-govern split is reflected in every framework reviewed.</span></li>
+              <li><span class="n">!</span><span>VERDICT: a single-source <i>name</i> for a multi-source <i>consensus</i> (SAIF · NIST · OWASP · EU AI Act). The day→pillar overlays and the SAIF crosswalk are our synthesis, not a published taxonomy.</span></li>
+            </ol>
+          </div>
+          <div class="pageno">21</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          The honest close. The build axis is grounded in Google's whitepaper series and Karpathy's own framing. The governance axis rests on VERDICT, which is a single source by name — so say so, and immediately show that its substance is what SAIF, NIST, OWASP, and the EU AI Act are independently converging on. Knight Capital cites the SEC directly, and the shadow-AI stats cite IBM's primary report. Acknowledging the one soft spot makes the whole argument sturdier. Full citations with URLs live in the research brief.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button id="prev">← Prev</button>
+  <div class="counter"><span class="now" id="now">01</span> / <span id="total">21</span> &nbsp;<span id="tname" style="opacity:.6"></span></div>
+  <button id="next">Next →</button>
+  <button id="grid">Grid</button>
+</div>
+
+<script src="../../../../shared/templates/aha-agile/engine.js"></script>
+</body>
+</html>
