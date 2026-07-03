@@ -76,3 +76,6 @@ python3 scripts/push.py
 
 - **2026-06-01**: `decks/{slug}/assets/` was never synced by push.py — images 404'd. Fixed in commit `2248b7b`.
 - **2026-06-01**: `decks/{slug}/theme/` was not on VPS (likely pushed before that step was added) — fonts and colors fell back to browser defaults.
+- **2026-07-03**: a `portable.html` placed in `versions/{version}/` got picked up by `push.py`'s variant discovery and rendered as a broken gallery tile (name/version on one card, thumbnail-less "portable" link on another). **Rule: the portable build lives at the deck root** (`decks/{slug}/{slug}-vX.Y.Z-portable.html`), never in `versions/`. It's a download-only artifact — `push.py` deploys only `versions/{current}/` + `shared/`, so the deck-root portable never touches the gallery.
+- **2026-07-03**: `pov.md` `current_version` was stale (`v0.1.0` while the deck was built at `v1.0.0`) — `push.py` skips a deck whose `current_version` dir doesn't exist. **Sync `pov.md current_version` to the actual `versions/` dir before every push.**
+- **2026-07-03**: `find_thumbnail()` didn't match the default `slide-01.png` name, so the gallery card showed a placeholder. **Name the thumbnail `{version}*canonical*slide1*.png`** under `decks/{slug}/screenshots/` (or the repo-root `screenshots/`), e.g. `v1.0.0-canonical-slide1.png`, so it's found.

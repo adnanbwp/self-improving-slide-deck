@@ -154,6 +154,24 @@ version bump (e.g. v1.5.1 → v2.0.0).
 | Team slide | `t-team-avatars` |
 | Italic-gold `<em>` inside headlines | drop the colour move — emphasis via line-break or `.bar` redaction; the system's voice is the field, not inline colour |
 
+## Layout pitfalls (learned the hard way)
+
+Real clashes shipped in `agentic-engineering` v1.0.0. Don't repeat them:
+
+- **`t-statement .support` is ONE short line, not a paragraph.** The `.claim` is centered
+  (`top:50%`) and the `.support` is bottom-anchored — stuff a multi-line body into `.support`
+  and it collides with a tall (3+ line) claim in the middle of the slide. If a statement needs
+  a real explanatory paragraph, it is **not** a `t-statement`: use `t-content`, or top-anchor a
+  smaller claim and stack the body under it (see the deck-scoped `stmt-stack` override in
+  `decks/agentic-engineering`). Same caution for any centered/absolute element that can wrap.
+- **Deck-added elements inherit NO positioning.** If you add an element a slide-type doesn't
+  natively have (e.g. a `.botnote` note on a `t-process` slide), its coordinates come from
+  wherever you copied them and will be wrong for the new type. Position it explicitly, **scope
+  the override to the type** (`.t-process .botnote{…}`, never the bare class), and confirm it
+  clears the chrome (`.slug` bottom-left, `.pageno` bottom-right).
+- **One home per fact.** Don't repeat the same caption/caveat on two slides (the multi-agent
+  frontier caveat was duplicated on slides 14 and 16). Pick its strongest slide; cut the rest.
+
 ## Verification
 
 Serve the repo root and screenshot any slide by hash (engine supports `#<n>`, 1-based):
@@ -164,10 +182,21 @@ node scripts/screenshot-slide.js "http://<wsl-ip>:8080/decks/<slug>/versions/v<N
 ```
 
 Controls are hidden until the mouse moves, so headless captures are clean. Check every
-workhorse slide for overflow (content must clear the `.pageno` row).
+slide for **overflow AND overlap** — content must clear the `.pageno` / `.slug` chrome row,
+and no element may sit on top of another. **Re-screenshot every slide you change, in every
+pass** (fix passes included — a modified-but-not-re-shot slide is how clashes ship).
+**Borderline proximity is a fail, not a pass.**
 
 ## Portable / emailable builds
 
 Same recipe as previous decks: inline the four CSS files + engine.js into the HTML, embed
 the two Google font families, downscale avatars (see memory: portable single-file deck,
-`decks/hybrid-delivery/hybrid-delivery-v1.5.1-portable.html` as reference).
+`decks/hybrid-delivery/hybrid-delivery-v1.5.1-portable.html` as reference). If the deck has a
+team/credits slide, **inline its avatars as base64 too** — otherwise the standalone file falls
+back to initials.
+
+**The portable lives at the DECK ROOT** — `decks/<slug>/<slug>-vX.Y.Z-portable.html` — **never
+inside `versions/{version}/`.** `push.py` treats any non-`canonical` HTML in a version dir as an
+audience variant and renders it as a gallery card/link, which pollutes the gallery with a
+thumbnail-less "portable" tile. The deck-root portable is a **download-only** artifact; `push.py`
+does not deploy it, and that's intended.
