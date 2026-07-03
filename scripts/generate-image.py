@@ -217,6 +217,12 @@ def main() -> None:
 
     # --- Extract image URL and seed -----------------------------------------
     images = result.get("images") or []
+    if images:
+        try:  # WS7.2 cost telemetry — fail-open, never blocks image generation
+            from cost_span import emit_cost_span
+            emit_cost_span("fal", len(images), "images", model=model)
+        except Exception:
+            pass
     if not images:
         print(f"ERROR: no images returned from fal.ai. Full response: {result}", file=sys.stderr)
         sys.exit(1)
