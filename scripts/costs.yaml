@@ -1,14 +1,18 @@
 # Media/LLM price table (WS7.2/WS7.3). Neither ElevenLabs nor FAL returns cost in its
-# API response, so prices live here. ⚠ UNVERIFIED DEFAULTS — spot-check each figure
-# against the live provider dashboard/plan once (WS7.2 success criterion), then edit.
+# API response, so prices live here. Rows marked VERIFIED were spot-checked against the
+# provider dashboard; others are estimates — verify on first real use of that model.
 elevenlabs:
-  tts_per_1k_chars_usd: 0.22        # VERIFY against the live ElevenLabs plan
-fal:                                 # USD per image; VERIFY against fal.ai pricing
-  fal-ai/flux/schnell: 0.003
-  fal-ai/flux-pro/v1.1: 0.04
-  fal-ai/flux-pro/v1.1-ultra: 0.06
-  fal-ai/nano-banana-2: 0.039
-  fal-ai/nano-banana-2/edit: 0.039
+  # VERIFIED 2026-07-05: 5,983-char eleven_v3 narration -> 2,990 credits (0.5 credits/char)
+  # -> $0.60 on the dashboard ("cost before overage surcharge"). Plan context: USD$5
+  # Starter + $5 top-up; overage surcharge may add on top — recheck this rate if the plan
+  # changes or surcharged usage appears on an invoice.
+  tts_per_1k_chars_usd: 0.10
+fal:                                 # USD per image
+  fal-ai/flux/schnell: 0.003         # estimate
+  fal-ai/flux-pro/v1.1: 0.04         # VERIFIED 2026-07-05 (dashboard: $0.04 for 1 landscape_16_9 image)
+  fal-ai/flux-pro/v1.1-ultra: 0.06   # estimate
+  fal-ai/nano-banana-2: 0.039        # estimate
+  fal-ai/nano-banana-2/edit: 0.039   # estimate
   default_per_image_usd: 0.04
 anthropic_api_equivalent:            # USD per 1M tokens — for pricing subscription usage
   claude-opus-4-8:    {input: 15.0, output: 75.0}   # VERIFY current price list
