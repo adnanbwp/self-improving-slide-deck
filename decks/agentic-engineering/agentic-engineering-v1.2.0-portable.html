@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Both Axes: From Vibe Coding to Deployed Agentic Engineering — aha agile</title>
 
-<!-- PATH NOTE: Self-contained PORTABLE build of decks/agentic-engineering/versions/v1.1.0/canonical.html (v1.1.0, DoD-passed).
+<!-- PATH NOTE: Self-contained PORTABLE build of decks/agentic-engineering/versions/v1.2.0/canonical.html (v1.2.0, DoD-passed).
      Packaging pass only - no copy, layout, or argument changes. Inlined: fonts (Archivo 900,
      Space Mono 400/700 as base64 woff2 latin), tokens.css, engine.css, layouts.css, the deck
      overrides, engine.js, and the aha-agile logo mask (data URI). Zero external or relative
@@ -502,7 +502,7 @@ body.grid .gridtitle{display:block;font-family:var(--font-display);font-weight:9
           <div class="badge"><svg viewBox="0 0 100 100" fill="#F6F3EC"><path transform="translate(3,19) scale(0.74)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/><path transform="translate(61,13) scale(0.30)" d="M50 3C53 34 66 47 97 50C66 53 53 66 50 97C47 66 34 53 3 50C34 47 47 34 50 3Z"/></svg></div>
           <div class="meta">
             <div class="kv"><b>Presenter</b><br>Adnan Ali</div>
-            <div class="kv"><b>Version</b><br>v1.1.0</div>
+            <div class="kv"><b>Version</b><br>v1.2.0</div>
           </div>
           <div class="slug">aha agile</div>
         </div>
@@ -710,10 +710,93 @@ body.grid .gridtitle{display:block;font-family:var(--font-display);font-weight:9
         </aside>
       </section>
 
-      <!-- 10 · COMPARE — Day 4: SAIF 2.0 <-> VERDICT crosswalk (our mapping) -->
+      <!-- 10 · CARDS — Day 4: Security & Eval through three lenses -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 4 · Security &amp; Eval <span class="dash">—</span> ENFORCE</div>
+          <div class="pad">
+            <h2 class="head display">Evals are your validation evidence, and intent-drift is why runtime control exists</h2>
+            <div class="lead">An eval that passes is proof a change is safe today. It says nothing about what the agent does at 3am next Tuesday.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Eval, don't hope</div><div class="d">Your evalset is validation evidence: the proof, not the vibe, that a change is safe.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Shared eval gates</div><div class="d">Nothing ships past the team's eval and red-team bar. The bar is written down.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Watch for drift</div><div class="d">Intent-drift needs runtime control and transparency, not a pre-ship checklist.</div></div>
+            </div>
+            <div class="overlay">Evals are your validation evidence; drift is why you need runtime control, not a pre-ship checklist.</div>
+          </div>
+          <div class="pageno">10</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 4, the second half: evals are the bridge between the two axes. A passing eval is validation evidence — it belongs on the build axis and the governance axis at once. But evals are a snapshot; intent-drift, where an agent's behaviour slides away from its goal over time, only shows up at runtime. That is the case for runtime control and transparency. Fourth cell fills. This is where ENFORCE arrives.
+        </aside>
+      </section>
+
+      <!-- 11 · CARDS — Day 5: Spec-Driven Production (three lenses) -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">Day 5 · Spec-Driven Production <span class="dash">—</span> BIND → ENFORCE</div>
+          <div class="pad">
+            <h2 class="head display">Vibe coding is not vibe in production — the spec declares the policy</h2>
+            <div class="lead">At the top of the build axis, the spec is the source of truth. The agent builds to it; you and the pipeline check against it.</div>
+            <div class="grid cols-3">
+              <div class="card"><div class="k">Individual Contributor</div><div class="t">Write the spec</div><div class="d">The spec is the contract. The agent builds to it; you review against it.</div></div>
+              <div class="card"><div class="k">Team</div><div class="t">Specs + CI gates</div><div class="d">Policy lives in the spec and the pipeline, not in anyone's head.</div></div>
+              <div class="card"><div class="k">Organisation</div><div class="t">Zero-trust = I + V</div><div class="d">Identity and validation on every agent; target L3 Controlled for high-stakes work.</div></div>
+            </div>
+            <div class="overlay">The spec declares the policy: identity and validation on every agent. Target: Controlled (L3).</div>
+          </div>
+          <div class="pageno">11</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Day 5 is the top of the build axis: spec-driven production. The spec is not paperwork, it is the executable declaration of what the agent may do — which means it is also where policy lives. Zero-trust for agents is just identity plus validation on every action. Walk the lenses, and land the target: for high-stakes work, L3 Controlled. Fifth and final build-axis cell. The reader has now climbed the dial completely — and still only has an output.
+        </aside>
+      </section>
+
+      <!-- 12 · STATEMENT — why runtime, not pre-deployment review (re-deepen) -->
+      <section class="slide" data-type="Statement">
+        <div class="slide-inner f-ink t-statement stmt-stack">
+          <div class="tag">Back to the Hole</div>
+          <div class="claim display">Agents act faster than any review. They don't ask permission.</div>
+          <div class="support">They don't follow your org chart. They don't wait for the Tuesday meeting. A pre-deployment review checks the plan once, at the door. The agent is already running the plan — so the controls have to be enforced continuously while it runs, not reviewed once before it ships.</div>
+          <div class="pageno">12</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Do not read this as fresh exposition. It re-opens the hole right before the payoff. You climbed the whole build dial and you still have a shipping problem, because the way you have always governed software — review it before it goes out — cannot touch an agent. Agents move faster than review cycles, ignore the org chart, and never ask first. That is why the second axis has to be runtime, not a gate at the door. Deliver it flat and hard, then turn to the recovery.
+        </aside>
+      </section>
+
+      <!-- 13 · CARDS dense — VERDICT, the 7 pillars -->
+      <section class="slide" data-type="Cards">
+        <div class="slide-inner f-paper t-cards">
+          <div class="tag">The Governance Axis</div>
+          <div class="pad">
+            <h2 class="head display">VERDICT: seven questions you must be able to answer while it runs</h2>
+            <div class="grid cols-3 dense">
+              <div class="card"><div class="k">V · Validation</div><div class="d">Is this action allowed? Least-privilege gates on every call.</div></div>
+              <div class="card"><div class="k">E · Evidence</div><div class="d">What happened? Immutable logs of actions and reasoning.</div></div>
+              <div class="card"><div class="k">R · Runtime control</div><div class="d">Can we stop it? Kill-switch and approval for state changes.</div></div>
+              <div class="card"><div class="k">D · Decisions</div><div class="d">Why did it act? Traceable reasoning behind each step.</div></div>
+              <div class="card"><div class="k">I · Identity</div><div class="d">Who owns it? A named human controller per agent.</div></div>
+              <div class="card"><div class="k">C · Cost / Compliance</div><div class="d">What is it spending? Spend caps and policy limits.</div></div>
+              <div class="card hot"><div class="k">T · Transparency</div><div class="d">Can outsiders see? Auditable to users and regulators.</div></div>
+            </div>
+            <div class="src">Convergence, not one source: SAIF 2.0 · NIST AI RMF + CSA Agentic Profile · OWASP Agentic Top 10 (2026) · EU AI Act Art. 12 &amp; 14. Frontier gap VERDICT under-covers: multi-agent / inter-agent risk (OWASP 2026; EU AI Act Recitals 99–100).</div>
+          </div>
+          <div class="pageno">13</div>
+          <div class="slug">aha agile</div>
+        </div>
+        <aside class="notes">
+          Name the second axis in full. VERDICT is seven questions you must be able to answer about an agent while it is live, each with a concrete control. Read them as questions, not jargon. Then do the honest move twice: first, VERDICT is a single-source name, but its substance is what four independent bodies are converging on, so it reads as rigour, not one consultant's model. Second, name the frontier it does not yet cover well: risk that emerges between agents that delegate to each other. Naming the gap makes the rest more credible.
+        </aside>
+      </section>
+
+      <!-- 14 · COMPARE — Convergence: SAIF <-> VERDICT (Act 2, after the definition) -->
       <section class="slide" data-type="Comparison">
         <div class="slide-inner t-compare has-head has-annot">
-          <div class="tag" style="color:var(--ink)">Day 4 · Security ≈ Governance</div>
+          <div class="tag" style="color:var(--ink)">The Governance Axis · Convergence</div>
           <h2 class="seam-head display">Three of VERDICT's seven pillars already shipped in Google's SAIF</h2>
           <div class="half f-orange">
             <div class="lab">Google SAIF 2.0 · agent principles (6 domains + 3)</div>
@@ -734,93 +817,10 @@ body.grid .gridtitle{display:block;font-family:var(--font-display);font-weight:9
             <div class="note">Runtime · Decisions · Cost are what VERDICT adds</div>
           </div>
           <div class="annot-line">VERDICT is a 2026 mnemonic; three of its seven pillars were already public in Google's 2025 SAIF — a different author, a different purpose. Our mapping, not "Google's seven pillars." Convergence, not one wiki's opinion.</div>
-          <div class="pageno" style="color:var(--ink)">10</div>
+          <div class="pageno" style="color:var(--ink)">14</div>
         </div>
         <aside class="notes">
           This is the "that's funny" convergence, and mind the direction. Google's SAIF 2.0 shipped in 2025, a year before the 2026 VERDICT mnemonic — so three of VERDICT's pillars were already public in Google's earlier guidance, not the other way round. Human controllers is Identity, limited powers is Validation, observable actions is Evidence and Transparency. Say clearly this is our mapping of Google's guidance onto VERDICT, not a claim that Google published seven pillars: SAIF is six domains plus three agent principles. The honesty is the point. Two independent authors landing on the same controls is stronger evidence than either one alone.
-        </aside>
-      </section>
-
-      <!-- 11 · CARDS — Day 4: Security & Eval through three lenses -->
-      <section class="slide" data-type="Cards">
-        <div class="slide-inner f-paper t-cards">
-          <div class="tag">Day 4 · Security &amp; Eval <span class="dash">—</span> ENFORCE</div>
-          <div class="pad">
-            <h2 class="head display">Evals are your validation evidence, and intent-drift is why runtime control exists</h2>
-            <div class="lead">An eval that passes is proof a change is safe today. It says nothing about what the agent does at 3am next Tuesday.</div>
-            <div class="grid cols-3">
-              <div class="card"><div class="k">Individual Contributor</div><div class="t">Eval, don't hope</div><div class="d">Your evalset is validation evidence: the proof, not the vibe, that a change is safe.</div></div>
-              <div class="card"><div class="k">Team</div><div class="t">Shared eval gates</div><div class="d">Nothing ships past the team's eval and red-team bar. The bar is written down.</div></div>
-              <div class="card"><div class="k">Organisation</div><div class="t">Watch for drift</div><div class="d">Intent-drift needs runtime control and transparency, not a pre-ship checklist.</div></div>
-            </div>
-            <div class="overlay">Evals are your validation evidence; drift is why you need runtime control, not a pre-ship checklist.</div>
-          </div>
-          <div class="pageno">11</div>
-          <div class="slug">aha agile</div>
-        </div>
-        <aside class="notes">
-          Day 4, the second half: evals are the bridge between the two axes. A passing eval is validation evidence — it belongs on the build axis and the governance axis at once. But evals are a snapshot; intent-drift, where an agent's behaviour slides away from its goal over time, only shows up at runtime. That is the case for runtime control and transparency. Fourth cell fills. This is where ENFORCE arrives.
-        </aside>
-      </section>
-
-      <!-- 12 · CARDS — Day 5: Spec-Driven Production (three lenses) -->
-      <section class="slide" data-type="Cards">
-        <div class="slide-inner f-paper t-cards">
-          <div class="tag">Day 5 · Spec-Driven Production <span class="dash">—</span> BIND → ENFORCE</div>
-          <div class="pad">
-            <h2 class="head display">Vibe coding is not vibe in production — the spec declares the policy</h2>
-            <div class="lead">At the top of the build axis, the spec is the source of truth. The agent builds to it; you and the pipeline check against it.</div>
-            <div class="grid cols-3">
-              <div class="card"><div class="k">Individual Contributor</div><div class="t">Write the spec</div><div class="d">The spec is the contract. The agent builds to it; you review against it.</div></div>
-              <div class="card"><div class="k">Team</div><div class="t">Specs + CI gates</div><div class="d">Policy lives in the spec and the pipeline, not in anyone's head.</div></div>
-              <div class="card"><div class="k">Organisation</div><div class="t">Zero-trust = I + V</div><div class="d">Identity and validation on every agent; target L3 Controlled for high-stakes work.</div></div>
-            </div>
-            <div class="overlay">The spec declares the policy: identity and validation on every agent. Target: Controlled (L3).</div>
-          </div>
-          <div class="pageno">12</div>
-          <div class="slug">aha agile</div>
-        </div>
-        <aside class="notes">
-          Day 5 is the top of the build axis: spec-driven production. The spec is not paperwork, it is the executable declaration of what the agent may do — which means it is also where policy lives. Zero-trust for agents is just identity plus validation on every action. Walk the lenses, and land the target: for high-stakes work, L3 Controlled. Fifth and final build-axis cell. The reader has now climbed the dial completely — and still only has an output.
-        </aside>
-      </section>
-
-      <!-- 13 · STATEMENT — why runtime, not pre-deployment review (re-deepen) -->
-      <section class="slide" data-type="Statement">
-        <div class="slide-inner f-ink t-statement stmt-stack">
-          <div class="tag">Back to the Hole</div>
-          <div class="claim display">Agents act faster than any review. They don't ask permission.</div>
-          <div class="support">They don't follow your org chart. They don't wait for the Tuesday meeting. A pre-deployment review checks the plan once, at the door. The agent is already running the plan — so the controls have to be enforced continuously while it runs, not reviewed once before it ships.</div>
-          <div class="pageno">13</div>
-          <div class="slug">aha agile</div>
-        </div>
-        <aside class="notes">
-          Do not read this as fresh exposition. It re-opens the hole right before the payoff. You climbed the whole build dial and you still have a shipping problem, because the way you have always governed software — review it before it goes out — cannot touch an agent. Agents move faster than review cycles, ignore the org chart, and never ask first. That is why the second axis has to be runtime, not a gate at the door. Deliver it flat and hard, then turn to the recovery.
-        </aside>
-      </section>
-
-      <!-- 14 · CARDS dense — VERDICT, the 7 pillars -->
-      <section class="slide" data-type="Cards">
-        <div class="slide-inner f-paper t-cards">
-          <div class="tag">The Governance Axis</div>
-          <div class="pad">
-            <h2 class="head display">VERDICT: seven questions you must be able to answer while it runs</h2>
-            <div class="grid cols-3 dense">
-              <div class="card"><div class="k">V · Validation</div><div class="d">Is this action allowed? Least-privilege gates on every call.</div></div>
-              <div class="card"><div class="k">E · Evidence</div><div class="d">What happened? Immutable logs of actions and reasoning.</div></div>
-              <div class="card"><div class="k">R · Runtime control</div><div class="d">Can we stop it? Kill-switch and approval for state changes.</div></div>
-              <div class="card"><div class="k">D · Decisions</div><div class="d">Why did it act? Traceable reasoning behind each step.</div></div>
-              <div class="card"><div class="k">I · Identity</div><div class="d">Who owns it? A named human controller per agent.</div></div>
-              <div class="card"><div class="k">C · Cost / Compliance</div><div class="d">What is it spending? Spend caps and policy limits.</div></div>
-              <div class="card hot"><div class="k">T · Transparency</div><div class="d">Can outsiders see? Auditable to users and regulators.</div></div>
-            </div>
-            <div class="src">Convergence, not one source: SAIF 2.0 · NIST AI RMF + CSA Agentic Profile · OWASP Agentic Top 10 (2026) · EU AI Act Art. 12 &amp; 14. Frontier gap VERDICT under-covers: multi-agent / inter-agent risk (OWASP 2026; EU AI Act Recitals 99–100).</div>
-          </div>
-          <div class="pageno">14</div>
-          <div class="slug">aha agile</div>
-        </div>
-        <aside class="notes">
-          Name the second axis in full. VERDICT is seven questions you must be able to answer about an agent while it is live, each with a concrete control. Read them as questions, not jargon. Then do the honest move twice: first, VERDICT is a single-source name, but its substance is what four independent bodies are converging on, so it reads as rigour, not one consultant's model. Second, name the frontier it does not yet cover well: risk that emerges between agents that delegate to each other. Naming the gap makes the rest more credible.
         </aside>
       </section>
 

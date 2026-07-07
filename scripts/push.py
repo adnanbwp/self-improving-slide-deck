@@ -30,10 +30,16 @@ def rsync(src: str, dst: str, delete=False):
 
 
 def find_thumbnail(deck_dir: Path, version: str) -> Path | None:
-    """Return first matching screenshot for the deck's latest version."""
+    """Return first matching screenshot for the deck's latest version.
+
+    Search the deck's OWN screenshots dir before the shared top-level one:
+    version numbers collide across decks (two decks can both be v1.1.0), and the
+    shared dir accumulates version-named orphans, so shared-dir-first grabs the
+    wrong deck's thumbnail. Deck-dir-first makes a deck's own thumbnail win.
+    """
     search_dirs = [
-        PROJECT_ROOT / 'screenshots',
         deck_dir / 'screenshots',
+        PROJECT_ROOT / 'screenshots',
     ]
     for d in search_dirs:
         if not d.exists():
