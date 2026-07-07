@@ -2,7 +2,7 @@
 topic: From Vibe Coding to Deployed Agentic Engineering (Both Axes)
 pov: "Vibe coding → agentic engineering is only ONE axis. It earns you a great output; it does not earn you a deployment. Production-ready deployed work needs a second, orthogonal axis the build dial can't see — governance (VERDICT + the maturity ladder). The trap: agentic × Unseen = a perfectly-tested agent nobody knows is running."
 engagement_level: collaborative
-current_version: v1.0.0
+current_version: v1.1.0
 design_template: aha-agile
 status: built-gates-passed
 audiences:
