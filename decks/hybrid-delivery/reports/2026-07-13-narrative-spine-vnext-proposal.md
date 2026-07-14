@@ -9,6 +9,8 @@
 `…-aa2brain-survey-agentic-metrics.md`, `…-storm-lens-researcher-economist.md`,
 `…-storm-lens-skeptic-historian.md`. No model-memory claims.
 
+> **Addendum 2026-07-14 (Aria, adjudicating slide-plan v4 open item 1):** Rex S3 splits the two proposed frameworks onto separate slides, making my +4 additions +5. To hold the 21-body ceiling, Coda folds the "agent = acts" Statement (old 04) into the loop slide (old 06). **Confirmed.** The slide math for the build is therefore **+5 / −3 / −2 = net 0**, and old-04/old-06 move from my "stays unchanged" list to the compress list. Beat boundaries are unchanged: Beat 2 (trigger) now runs loop-with-fold → strong-middle — the "name the shift" job is absorbed by the folded slide's lead line and headline ("An agent doesn't stop when you stop typing"), which states the chatbot→acts shift in behavioral rather than declarative form. Guardrail: that shift-naming lead must stay the *first* line of the folded slide; if it slips to notes, Beat 2 loses its trigger and this fold is retracted in favor of a fourth appendix move.
+
 ---
 
 ## 0. Version recommendation — **v3.0.0 (new version, full re-audit), not a v2.2.0 recut**
@@ -55,7 +57,7 @@ This is a hook **re-frame, not a replacement** — it still leads with a number 
 
 ### Beat 2 — Trigger
 - Purpose: Name what knocks them down — agents that act autonomously (coordination), *and* agents that complete the middle of the work faster than humans, decoupling the old unit of work from value (measurement).
-- Deck prompts: What changed? Is it bad luck or not paying attention? Where do humans still dominate and where don't they? (Slides: agent=acts → the loop → **NEW strong-middle shape**.)
+- Deck prompts: What changed? Is it bad luck or not paying attention? Where do humans still dominate and where don't they? (Slides: **loop with agent=acts folded in (per 2026-07-14 addendum)** → **NEW strong-middle shape**.)
 - Style reminder: Teach the strong-middle shape as a clean three — humans **Frame** (what/why), agents **Collapse** (construction), humans **Judge** (what's good). One diagram, no second mechanism slide on the main line.
 
 ### Beat 3 — Crisis, treasure in the dark
@@ -65,7 +67,7 @@ This is a hook **re-frame, not a replacement** — it still leads with a number 
 
 ### Beat 4 — Recovery, the climb
 - Purpose: Hand them the model, the mechanism, *and the new instruments*. Own the boundary (centaur, HITL, capabilities), force the choice (the fork), then rebuild what you measure and how the cadences run.
-- Deck prompts: What changes? What do you measure now? What happens to the ceremonies? (Slides: centaur → HITL patterns → the fork = the crisis choice → three capabilities → **NEW proposed frameworks: attention budget + token budget** → **REFRAMED VERDICT/cadence-rebuild (slide 19)** → failure modes.)
+- Deck prompts: What changes? What do you measure now? What happens to the ceremonies? (Slides: centaur → HITL patterns → the fork = the crisis choice → three capabilities → **NEW proposed frameworks: attention budget + token budget (two slides per Rex S3 — attention budget primary, token budget subordinate)** → **REFRAMED VERDICT/cadence-rebuild (slide 19)** → failure modes.)
 - Style reminder: The fork stays the emotional pivot — evolve or dissolve. Present the two frameworks explicitly **as proposals** (original territory; no published framework exists) — that honesty is the leading-voice move and a trust beat, not a hedge.
 
 ### Beat 5 — Better place
@@ -80,10 +82,10 @@ Data Sceptic (acknowledge velocity was already broken — makes the story more s
 
 ## Slide-level guidance
 
-**Ceiling rule honored: +4 main-line added, −3 moved to appendix, −1 compressed = net 0. Zero hard cuts (nothing deleted; moves and one compression only, so no claim is dropped).**
+**Ceiling rule honored — as amended 2026-07-14: +5 main-line added, −3 moved to appendix, −2 compressed = net 0. Zero hard cuts (nothing deleted; moves and two compressions only, so no claim is dropped).** *(Original SHAPE math was +4/−3/−1 with the frameworks on one slide; Rex S3 split them — see the addendum at the top.)*
 
 ### Stays, unchanged
-01 title · 03 locate-yourself · 04 agent=acts · 06 the loop · 07 first-person trust beat · 08 pivot question · 12 generating-vs-governing · 14 the boundary · 15 centaur (movie moment) · 16 HITL patterns · 17 the fork · 18 three capabilities · 20 failure modes (movie moment) · 22 12-month path · 24 team · appendix 25–33.
+01 title · 03 locate-yourself · 07 first-person trust beat · 08 pivot question · 12 generating-vs-governing · 14 the boundary · 15 centaur (movie moment) · 16 HITL patterns · 17 the fork · 18 three capabilities · 20 failure modes (movie moment) · 22 12-month path · 24 team · appendix 25–33.
 
 ### Changes in place (no count change)
 - **02 (hook):** sharpen the sentence from coordination-pain to the measurement paradox (see §Hook). Keep 441% and its on-slide caveat.
@@ -91,22 +93,24 @@ Data Sceptic (acknowledge velocity was already broken — makes the story more s
 - **21 (squad audit):** add/reframe one question on measurement — "What does your squad count as *done*, and does that number still mean anything now an agent can produce it in seconds?"
 - **23 (CTA):** extend to audit **+** measurement baseline (see §CTA).
 
-### NEW main-line slides (4) — each with its research citation
+### NEW main-line slides (5 after the Rex S3 split) — each with its research citation
 - **(A) Strong-middle shape** — Beat 2. Humans dominate the start (Frame: planning, what/why) and the end (Judge: what's good); agents dominate the middle (construction). Cite: `ai-driven-sdlc-phase-transformation.md` (phase-by-phase "what AI changes / what stays human" table — the single most slide-ready artifact), triangulated by `human-sandwich.md` (Frame→Collapse→Judge) and `the-80-percent-problem.md` (Osmani; METR 19% as the mechanism). Best-triangulated theme in the vault.
 - **(B) Velocity decoupled / the broken metric** — Beat 3 crisis opener. Individual output up (tasks/dev +21–34%, PRs/dev up to +98%) while org delivery is flat and quality degrades (bugs/dev +54%, incidents/PR +242.7%); velocity is now a vanity metric an agent inflates at near-zero cost — **and it was already broken before agents.** Cite: Faros AI telemetry (22k devs) + METR RCT (19% slower) + Scrum.org "Velocity → Agent Efficiency" + Ron Jeffries "I'm sorry now" / #NoEstimates (skeptic-lens, the pre-concession).
 - **(C) The new unit of squad success** — Beat 3 treasure → the A2 entailment. Retire the output-volume number; measure the flow of judged, durable outcomes through the human-judgment constraint. This is a delivery-measurement job the tech lead does not contest — so you own the delivery outcome, therefore you govern the boundary. Cite: DORA 2025 AI Capabilities Model (a *capabilities* model, explicitly not a new velocity number) + GitClear durability (refactoring 21%→3.8%, churn +15% → 30/60/90-day survival as an honest metric) + `botsitting-tax.md` (Glean: 6.4 of 11 saved hrs go back to supervision).
-- **(D) The proposed frameworks (leading voice)** — Beat 4 climb. **Attention budget** = human-review-capacity as the planned, budgeted WIP limit of a hybrid squad (this is also the sustainable-pace answer — the scarce resource is judgment/attention, not hours; and the WIP answer — WIP capped by human review capacity). **Token budget** = agent sprint capacity. Present **as proposals**. Cite (and flag as original territory — "no published framework exists," per the synthesis): Glean botsitting cost (grounds the need) + Reinertsen/Theory-of-Constraints WIP (grounds the mechanism — decades old, only the constraint moved, which is *good news: flow discipline is the IM's home turf*) + Scrum.org token-budget gesture. This single slide carries WIP + sustainable pace + the two named frameworks — do **not** spin sustainable pace into its own slide.
+- **(D1) Attention budget — primary proposed framework** — Beat 4 climb. Human-review-capacity as the planned, budgeted WIP limit of a hybrid squad — also the sustainable-pace answer (the scarce resource is judgment/attention, not hours) and the WIP answer (WIP capped by human review capacity). Present **as a proposal**. Cite (and flag as original territory — "no published framework exists," per the synthesis): Glean botsitting cost (grounds the need) + Reinertsen/Theory-of-Constraints WIP (grounds the mechanism — decades old, only the constraint moved, which is *good news: flow discipline is the IM's home turf*).
+- **(D2) Token budget — subordinate proposed framework** — Beat 4 climb, immediately after D1. Agent sprint capacity planned as spend, read against judged outcomes. Present **as a proposal**, subordinate to the attention budget (attention is the binding constraint; tokens are the purchasable one). Cite: enterprise-spend trajectory + Gartner 40%-cancellations (need) + Reinertsen breach semantics (mechanism). *(Per the verification gate, do not cite Scrum.org as token-budget precedent.)*
 
 ### Move to appendix (preserve in full — no claim dropped)
 - **05 autonomy ladder (5 rungs)** → appendix. The strong-middle slide now carries the "where humans vs agents work" shape; the 5-rung "how much agents act" ladder is an adjacent second framework. Moving it also *helps* Rule-of-three (removes a 5-item list from the main line). Its "doing → steering → governing" thesis is restated on slides 14 and 18.
 - **11 bolt-on (<40%)** → appendix. Its job ("businesses layer AI on legacy workflow; the workflow never changes") is now carried better, in Adnan's own voice, by the cadence-rebuild reframe (the "no AI sticker" point). Keep the McKinsey stat available for questions.
 - **13 governance gap (84% / 49%)** → appendix. A supporting stat; the structural crisis is carried by 12 (generating-vs-governing) and 14 (the boundary), now amplified by the measurement crisis.
 
-### Compress (flag to Rex/Vera before executing)
-- **09 + 10 (upside + counter-evidence) → one slide.** v2.1.0's scorecard named this the most likely place for slide creep and told us to hold it to one upside + one conditional. Combine into a single "the advantage is real *and* conditional on task type" slide. **Constraint:** the full Malone reconciliation must stay intact in Appendix A (30) — it is Vera's A1 defense. This touches evidence Rex/Vera rely on, so it is a *flag*, not a unilateral move.
+### Compress (both flagged and adjudicated)
+- **09 + 10 (upside + counter-evidence) → one slide.** v2.1.0's scorecard named this the most likely place for slide creep and told us to hold it to one upside + one conditional. Combine into a single "the advantage is real *and* conditional on task type" slide. **Constraint:** the full Malone reconciliation must stay intact in Appendix A (30) — it is Vera's A1 defense. This touches evidence Rex/Vera rely on, so it was flagged; Rex S4 has since set the exact on-slide requirements.
+- **04 agent=acts → folded into 06 the loop** *(added 2026-07-14, per the addendum)*. The Statement's job — naming the chatbot→acts shift — moves to the folded slide's lead line and headline. Guardrail: that lead line stays first on the slide; if it slips to notes, retract the fold.
 
 ### Where the measurement act sits — decision
-**Woven through the climb and crisis, not parked between the fork and the CTA.** The measurement *crisis* (B) opens Beat 3 and re-roots the boundary crisis; the measurement *recovery* (C is the hinge, D + reframed-19 are the climb) runs inside Beat 4 before the failure-modes urgency beat. There is no standalone "measurement act." This is the one non-negotiable structural call: a bolt-on act would regress One-arc.
+**Woven through the climb and crisis, not parked between the fork and the CTA.** The measurement *crisis* (B) opens Beat 3 and re-roots the boundary crisis; the measurement *recovery* (C is the hinge, D1+D2 + reframed-19 are the climb) runs inside Beat 4 before the failure-modes urgency beat. There is no standalone "measurement act." This is the one non-negotiable structural call: a bolt-on act would regress One-arc.
 
 ---
 
@@ -122,7 +126,7 @@ Research resolution (synthesis contradiction-map #3; Historian H4): the *coordin
 **Supporting line:**
 > "This is the opposite of an AI sticker. Shrink each ceremony to the human-judgment call it now exists for — then rebuild what it measures: velocity and story points *out*; flow of judged, durable outcomes, attention budget, and agent cost *in*."
 
-VERDICT stays underneath as the pillar→ritual scaffold, but its framing flips from "upgrade the old ceremony" to "which judgment each shrunken ritual now protects, and which number replaces the old one." That preserves VERDICT's Rule-of-three value while removing the contradiction, and it turns slide 19 into the on-ramp for the reframed sprint review / Daily Scrum where the new instruments (from slide D) actually get read.
+VERDICT stays underneath as the pillar→ritual scaffold, but its framing flips from "upgrade the old ceremony" to "which judgment each shrunken ritual now protects, and which number replaces the old one." That preserves VERDICT's Rule-of-three value while removing the contradiction, and it turns slide 19 into the on-ramp for the reframed sprint review / Daily Scrum where the new instruments (from slide D1/D2) actually get read.
 
 ---
 
@@ -143,10 +147,10 @@ Still specific, achievable, calibrated to where the audience sits, and it ends o
 ## Do-not-regress checklist — the 8 checks that currently PASS
 
 1. **Hook — hold PASS.** Sharpened sentence still leads with a checkable number; 441% + on-slide caveat stay. Verify the paradox reads in one breath and doesn't need the src line to land.
-2. **One arc — the live risk. Hold PASS by weaving, not bolting.** Measurement threads Beats 2–4; no standalone measurement act between fork and CTA; no framework plateau. If any slide plan reintroduces a middle plateau, it FAILS this check — reject it.
+2. **One arc — the live risk. Hold PASS by weaving, not bolting.** Measurement threads Beats 2–4; no standalone measurement act between fork and CTA; no framework plateau. If any slide plan reintroduces a middle plateau, it FAILS this check — reject it. *(Watch-item after the Rex S3 split: D1+D2 back-to-back is the closest the climb comes to a plateau — D2 must stay visibly subordinate to D1, not a second co-equal framework beat.)*
 3. **Movie moment — hold PASS.** Kasparov (15) and Replit/Meta (20) untouched. Optional add: Jeffries "I'm sorry now" as a human moment in the crisis — do not let it crowd the two protected moments.
-4. **Rule of three — hold PASS.** Strong-middle = frame/collapse/judge (a three); proposed frameworks = a named pair; moving the 5-rung ladder off the main line *helps*. Keep every new slide to a clean three or binary.
-5. **Leave it out — hold PASS.** +4 added, −3 moved, −1 compressed = net 0 at the ceiling. Do not let the added slides push the main line over the ceiling; if one added slide can't earn its displacement, drop the addition, not the displacement.
+4. **Rule of three — hold PASS.** Strong-middle = frame/collapse/judge (a three); proposed frameworks = a named pair (primary + subordinate); moving the 5-rung ladder off the main line *helps*. Keep every new slide to a clean three or binary.
+5. **Leave it out — hold PASS.** +5 added, −3 moved, −2 compressed = net 0 at the ceiling (as amended). Do not let the added slides push the main line over the ceiling; if one added slide can't earn its displacement, drop the addition, not the displacement.
 6. **Concreteness — hold PASS.** New slides carry checkable numbers (441%, +242.7% incidents, 19% slower, GitClear durability, Glean 6.4 hrs). Keep one vivid image per new slide.
 7. **Payoff — hold PASS.** CTA extends to audit + baseline without diluting the closing line; still ends on the lever. Protect the payoff line from becoming a two-item to-do list that reads flat.
 8. **Trust — hold PASS.** First-person beat (07) preserved; the "these are proposals, not established practice" framing is itself a trust move. Every new claim grounded in the four research files — no model-memory claims.
@@ -156,5 +160,5 @@ Still specific, achievable, calibrated to where the audience sits, and it ends o
 ## Flags to Larry (scope boundaries — hand these off, don't let Aria own them)
 
 - **The A2 entailment is an argument-structure change — Rex owns it.** Re-rooting the governance claim in delivery ownership ("you own delivery → you govern the boundary") reorders the premise. It is grounded in the research (synthesis contradiction-map #5), but making it the deck's spine is Rex's call to establish and Vera's to re-audit against A2. Aria is proposing the *order and framing*, not asserting the claim.
-- **The two proposed frameworks are original IP.** Aria did not invent them (they come from the research's "genuinely open territory" finding). Confirm with Rex that they are positioned **as proposals**, and with Pax that the grounding (Glean cost + Reinertsen WIP + Scrum.org token gesture) is cited on-slide. If either can't be grounded as a proposal, it moves to speaker notes, off the main line.
-- **The 09+10 compression touches Rex/Vera evidence** — flag before executing; Malone reconciliation must remain intact in Appendix A.
+- **The two proposed frameworks are original IP.** Aria did not invent them (they come from the research's "genuinely open territory" finding). Confirm with Rex that they are positioned **as proposals**, and with Pax that the grounding (Glean cost + Reinertsen WIP) is cited on-slide. If either can't be grounded as a proposal, it moves to speaker notes, off the main line.
+- **The 09+10 compression touches Rex/Vera evidence** — flagged; Rex S4 has since set the on-slide requirements; Malone reconciliation must remain intact in the appendix.
